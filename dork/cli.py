@@ -1,13 +1,11 @@
 # -*- coding: utf-8 -*-
-"""Basic CLI Dork.
-"""
+# basic Dork CLI
 
 __all__ = ["main"]
 
 
-def main(*args):
-    """Main CLI runner for Dork
-    """
+def main(*args): # main CLI runner for Dork
+
     script_name = args[0] if args else '???'
     if "-h" in args or '--help' in args:
         print("usage:", script_name, "[-h]")
