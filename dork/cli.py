@@ -63,36 +63,36 @@ def chunk_tokens(line):
     chunks = {}
     for token in line:
         if str(token).lower() in aliases:
-            for s in token.subtree:
-                if s is token or s.pos_ == "PART": # particles usually belong to a phrasal verb
-                    chunks[s] = "verb"
+            for subtoken in token.subtree:
+                if subtoken is token or subtoken.pos_ == "PART": # particles usually belong to a phrasal verb
+                    chunks[subtoken] = "verb"
         elif token.pos_ == "VERB":
-            for s in token.subtree:
-                if s.pos_ in ["VERB", "PART"]: # particles usually belong to a phrasal verb
-                    chunks[s] = "verb"
+            for subtoken in token.subtree:
+                if subtoken.pos_ in ["VERB", "PART"]: # particles usually belong to a phrasal verb
+                    chunks[subtoken] = "verb"
         elif token.pos_ == "ADV":
             if (token.i > 0) and token.nbor(-1).pos_ == "VERB": # verb + adverb = phrasal verb
                 chunks[token] = "verb"
             else:
                 chunks[token] = "adverb"
         elif token.dep_ == "nsubj": # sentence subject - just for testing; not needed for commands
-            for s in token.subtree: # contains entire noun phrase
-                chunks[s] = "subject"
+            for subtoken in token.subtree: # contains entire noun phrase
+                chunks[subtoken] = "subject"
         elif token.dep_ == "dobj": # direct object
             #TODO break down multiple direct objects joined by conjunctions
-            for s in token.subtree:
-                chunks[s] = "direct object"
+            for subtoken in token.subtree:
+                chunks[subtoken] = "direct object"
         elif token.dep_ == "dative":
             #TODO break down multiple indirect objects joined by conjunctions
-            for s in token.subtree: # contains entire noun phrase
-                chunks[s] = "indirect object"
+            for subtoken in token.subtree: # contains entire noun phrase
+                chunks[subtoken] = "indirect object"
         elif token.dep_ == "pobj":
             if token not in chunks or chunks[token] != "indirect object": # if preposition isn't dative 'to'
-                for s in token.subtree: # contains entire noun phrase
-                    chunks[s] = "prepositional object"
-            for s in token.ancestors:
-                if s.pos_ == "ADP" and s.dep_ == "prep": # preposition governing phrase not likely part of a phrasal verb
-                    chunks[s] = "preposition"
+                for subtoken in token.subtree: # contains entire noun phrase
+                    chunks[subtoken] = "prepositional object"
+            for ancestor in token.ancestors:
+                if ancestor.pos_ == "ADP" and ancestor.dep_ == "prep": # preposition governing phrase not likely part of a phrasal verb
+                    chunks[ancestor] = "preposition"
         elif token.pos_ == "ADP":
             if (len(line) > token.i + 1) and token.nbor().pos_ == "ADP": # if followed by another adposition
                 chunks[token] = "verb"; # this preposition is likely part of a phrasal verb
@@ -107,6 +107,7 @@ def chunk_tokens(line):
 
 
 class SyntaxLexer(Lexer):
+    '''NLP Lexer for prompt-toolkit using Spacy'''
     def lex_document(self, document):
         def get_line(lineno):
             line = nlp(document.lines[lineno])
@@ -120,6 +121,7 @@ class SyntaxLexer(Lexer):
 
 
 def read():
+    '''read user CLI input'''
     try:
         return prompt('» ', lexer=SyntaxLexer(), history=FileHistory('history.log'))
     except (EOFError, KeyboardInterrupt): # ctrl+d & ctrl+c respectively
@@ -128,6 +130,7 @@ def read():
 
 
 def evaluate(command):
+    '''evaluate user CLI input'''
     user_input = nlp(command)
     chunks = chunk_tokens(user_input)
     verbs = [token for token in chunks if chunks[token] == "verb"]
@@ -202,12 +205,13 @@ def evaluate(command):
 
 
 def repl():
+    '''read–eval–print loop'''
     while True:
         command = read()
         output = evaluate(command)
 
 def main(*args): # main CLI runner for Dork
-
+    '''main function'''
     script_name = args[0] if args else '???'
     if "-h" in args or '--help' in args:
         print("usage:", script_name, "[-h]")
