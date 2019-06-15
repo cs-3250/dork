@@ -1,7 +1,6 @@
 # example of handling an action
-# okay to rename and rewrite 'go' - just be sure to update dictionary in cli.py to match
+# okay to rename and rewrite 'go'
 # okay to add other functions here too
-    # just make sure to manually add function name & aliases to dict in cli.py for now
 
 def go(*args, **kwargs):
     if 'adverbs' in kwargs:
@@ -10,3 +9,7 @@ def go(*args, **kwargs):
         print("Went to " + ' '.join([str(adv) for adv in kwargs['to']]) + '!')
     else:
         print("Go where?")
+
+
+def pick_up(*args, **kwargs): # example of a phrasal verb
+    print("Picked it up!")

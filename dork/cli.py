@@ -16,10 +16,11 @@ nlp = spacy.load('en_core_web_sm') # language model
 
 from dork import actions
 
-commands = {
+aliases = {
+    #move north > go north
+    #go(direct_objects=[['sword'], ['shield'])
     "move":       "go",
-    "go":         "go",       # a value equal to its key indicates the actual function's name,
-    "north":      "go north", # as opposed to an alias - like 'north' -> 'go' ('north' is a parameter)
+    "north":      "go north",
     "n":          "go north",
     #"northeast":  "go northeast",
     #"ne":         "go northeast",
@@ -36,10 +37,6 @@ commands = {
     #"northwest":  "go northwest",
     #"nw":         "go northwest",
     #"give":       "give",
-    #"pick up":    "pick up",
-    "load":       "load",
-    "save":       "save",
-    "quit":       "quit",
     "q":          "quit"
 }
 
@@ -61,17 +58,18 @@ style = {
     # styles/base.py
     # styles/defaults.py
 
-def chunk_tokens(line): # breaks sentences up into components
+def chunk_tokens(line):
+    '''breaks sentences up into components'''
     chunks = {}
     for token in line:
-        if str(token).lower() in commands:
+        if str(token).lower() in aliases:
             for s in token.subtree:
                 if s is token or s.pos_ == "PART": # particles usually belong to a phrasal verb
-                    chunks[s] = "verb";
+                    chunks[s] = "verb"
         elif token.pos_ == "VERB":
             for s in token.subtree:
                 if s.pos_ in ["VERB", "PART"]: # particles usually belong to a phrasal verb
-                    chunks[s] = "verb";
+                    chunks[s] = "verb"
         elif token.pos_ == "ADV":
             if (token.i > 0) and token.nbor(-1).pos_ == "VERB": # verb + adverb = phrasal verb
                 chunks[token] = "verb"
@@ -135,57 +133,55 @@ def evaluate(command):
     verbs = [token for token in chunks if chunks[token] == "verb"]
     not_verbs = []
     while verbs: # decremented below by popping
-        verb = ' '.join([str(v) for v in verbs]).lower() # join tokens into string
-        if verb.lower() in commands:
-            if commands[verb] == verb:
-                verb = verb.replace(' ', '_')
-                print("command:  ", verb)
-                parameters = {}
-                if verbs[-1].i + 1 < len(user_input): # if there is a predicate
-                    next_neighbor = verbs[-1].nbor()
-                    predicate = user_input[next_neighbor.i:]
-                    print("predicate:", predicate)
-                    adverbs = \
-                        [token for token in predicate
-                            if token.pos_ in ("ADV", "PART") or token.dep_ == 'advmod']
-                    if adverbs:
-                        parameters['adverbs'] = adverbs
-                        print("adverbs:", adverbs)
-                    direct_objects = \
-                        [token for token in chunks
-                            if chunks[token] == "direct object"]
-                    if direct_objects:
-                        parameters['direct_objects'] = direct_objects
-                        print("direct objects:", direct_objects)
-                    indirect_objects = \
-                        {str(token): [t for t in token.subtree if t is not token]
-                            for token in predicate
-                            if token.pos_ == "ADP" and token.dep_ == "dative"}
-                    if indirect_objects:
-                        parameters['indirect_objects'] = indirect_objects
-                        print("direct objects:", direct_objects)
-                        print("indirect objects:", indirect_objects)
-                    prepositional_phrases = \
-                        {str(token): [t for t in token.subtree if t is not token]
-                            for token in predicate
-                            if token.pos_ == "ADP" and token.dep_ == "prep"}
-                    if prepositional_phrases:
-                        parameters.update(prepositional_phrases)
-                        print("prepositional phrases:", prepositional_phrases)
-                else: # if there is no predicate
-                    print("no parameters")
-                try:
-                    getattr(actions, verb)(**parameters)
-                except AttributeError:
-                    raise NotImplementedError
-                break
-            else:
-                user_input = nlp(commands[verb] + ' ' + ' '.join([str(token) for token in user_input if token not in verbs]))
-                chunks = chunk_tokens(user_input)
-                verbs = [token for token in chunks if chunks[token] == "verb"]
-                not_verbs = []
-                continue
-        else: # if not verb.lower() in commands:
+        verb = '_'.join([str(v) for v in verbs]).lower() # join tokens into string
+        if hasattr(actions, verb):
+            print("command:  ", verb)
+            parameters = {}
+            if verbs[-1].i + 1 < len(user_input): # if there is a predicate
+                next_neighbor = verbs[-1].nbor()
+                predicate = user_input[next_neighbor.i:]
+                print("predicate:", predicate)
+                adverbs = \
+                    [token for token in predicate
+                        if token.pos_ in ("ADV", "PART") or token.dep_ == 'advmod']
+                if adverbs:
+                    parameters['adverbs'] = adverbs
+                    print("adverbs:", adverbs)
+                direct_objects = \
+                    [token for token in chunks
+                        if chunks[token] == "direct object"]
+                if direct_objects:
+                    parameters['direct_objects'] = direct_objects
+                    print("direct objects:", direct_objects)
+                indirect_objects = \
+                    {str(token): [t for t in token.subtree if t is not token]
+                        for token in predicate
+                        if token.pos_ == "ADP" and token.dep_ == "dative"}
+                if indirect_objects:
+                    parameters['indirect_objects'] = indirect_objects
+                    print("direct objects:", direct_objects)
+                    print("indirect objects:", indirect_objects)
+                prepositional_phrases = \
+                    {str(token): [t for t in token.subtree if t is not token]
+                        for token in predicate
+                        if token.pos_ == "ADP" and token.dep_ == "prep"}
+                if prepositional_phrases:
+                    parameters.update(prepositional_phrases)
+                    print("prepositional phrases:", prepositional_phrases)
+            else: # if there is no predicate
+                print("no parameters")
+            try:
+                getattr(actions, verb)(**parameters)
+            except AttributeError:
+                raise NotImplementedError
+            break
+        elif verb.lower() in aliases:
+            user_input = nlp(aliases[verb] + ' ' + ' '.join([str(token) for token in user_input if token not in verbs]))
+            chunks = chunk_tokens(user_input)
+            verbs = [token for token in chunks if chunks[token] == "verb"]
+            not_verbs = []
+            continue
+        else: # if not hasattr(actions, verb) and not verb.lower() in aliases:
             print("guessed:", verb.lower())
             verbs.pop()
     if not verbs:
