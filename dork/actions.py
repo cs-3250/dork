@@ -22,3 +22,8 @@ def pick_up(*args, **kwargs): # example of a phrasal verb
             direct_object: thing to pick up
     """
     print("Picked it up!")
+
+def quit(*args, **kwargs):
+    if not args and not kwargs:
+        print("Goodbye.")
+        exit(0)

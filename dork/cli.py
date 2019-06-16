@@ -3,6 +3,8 @@
 
 __all__ = ["main"]
 
+import io
+
 from prompt_toolkit import prompt
 from prompt_toolkit.history import FileHistory
 from prompt_toolkit.lexers import Lexer
@@ -47,8 +49,7 @@ def read():
     try:
         return prompt('» ', lexer=SyntaxLexer(), history=FileHistory('history.log'))
     except (EOFError, KeyboardInterrupt): # ctrl+d & ctrl+c respectively
-        print("Goodbye.")
-        exit(0)
+        actions.quit()
 
 
 def evaluate(user_input):

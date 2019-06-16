@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """Basic tests for the dork cli
 """
+import io
 from types import FunctionType
 import dork.cli
 
@@ -12,6 +13,9 @@ def test_cli_exists(run):
     assert isinstance(dork.cli.main, FunctionType)
     try:
         run(dork.cli.main)
+    except io.UnsupportedOperation: # expected
+        # prompt_toolkit raises when run non-interactively (e.g. in a test)
+        return
     except:  # noqa: E722
         raise AssertionError("cannot run 'dork' command")
 
