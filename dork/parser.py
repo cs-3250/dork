@@ -52,7 +52,6 @@ class Parser:
             elif token.pos_ == "ADP":
                 self.chunk_adposition(token)
 
-    
     def print_token_info(self):
         '''print out Spacy metadata for each token'''
         for token in self.doc:
@@ -202,47 +201,67 @@ class Parser:
     def parameters(self):
         '''dictionary of parameters for action function'''
         parameters = {}
+
         if self.command_tokens[-1].i + 1 < len(self): # if there is a predicate
             next_neighbor = self.command_tokens[-1].nbor()
             predicate = self.doc[next_neighbor.i:]
             print("predicate:", predicate)
+
             adverbs = \
                 [token for token in predicate
                  if token.pos_ in ("ADV", "PART") or token.dep_ == 'advmod']
             if adverbs:
-                parameters['adverbs'] = adverbs
+                parameters['adverbs'] = Arguments(adverbs)
+
             direct_objects = \
                 [token for token in self.doc
                  if token in self.chunks
                  and self.chunks[token] == "direct object"]
             if direct_objects:
-                parameters['direct_objects'] = direct_objects
+                parameters['direct_objects'] = Arguments(direct_objects)
+
             indirect_objects = \
                 {str(token): [t for t in token.subtree if t is not token]
                  for token in predicate
                  if token.pos_ == "ADP" and token.dep_ == "dative"}
             if indirect_objects:
-                parameters['indirect_objects'] = indirect_objects
+                parameters['indirect_objects'] = Arguments(indirect_objects)
+
             prepositional_phrases = \
-                {str(token): [t for t in token.subtree if t is not token]
+                {str(token):
+                 Arguments([t for t in token.subtree if t is not token])
                  for token in predicate
                  if token.pos_ == "ADP" and token.dep_ == "prep"}
             if prepositional_phrases:
                 parameters.update(prepositional_phrases)
+
             if self.debugging:
-                self.print_parameters(parameters)
+                for parameter in parameters:
+                    print(parameter + ':', parameters[parameter])
+
         else: # if there is no predicate
             print("no parameters")
+
         return parameters
 
 
-    def print_parameters(self, parameters):
-        '''print out recognized parameters for debugging'''
-        if 'adverbs' in parameters:
-            print("adverbs:", parameters['adverbs'])
-        if 'direct_objects' in parameters:
-            print("direct objects:", parameters['direct_objects'])
-        if 'indirect_objects' in parameters:
-            print("indirect objects:", parameters['indirect_objects'])
-        if 'prepositional_phrases' in parameters:
-            print("prepositional phrases:", parameters['prepositional_phrases'])
+class Arguments:
+    """ a list of arguments, each of which consists of a lists of tokens
+        can be treated as a single string
+        TODO: create Argument object...
+            to also facilitate string representation of individual list elements
+    """
+
+    def __init__(self, *args):
+        self.arguments = [argument for argument in args]
+
+    def __str__(self):
+        return ' '.join([
+            ' '.join([token.text for token in argument])
+            for argument in self.arguments])
+
+    def __add__(self, other):
+        return str(self) + other
+
+    def __radd__(self, other):
+        return other + str(self)

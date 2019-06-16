@@ -9,9 +9,9 @@ def move(*args, **kwargs): # example - okay to rewrite or modify
             to:     place to go to
     """
     if 'adverbs' in kwargs:
-        print("Went " + ' '.join([str(adv) for adv in kwargs['adverbs']]) + '!')
+        print("Went " + kwargs['adverbs'] + '!')
     elif 'to' in kwargs:
-        print("Went to " + ' '.join([str(adv) for adv in kwargs['to']]) + '!')
+        print("Went to " + kwargs['to'] + '!')
     else:
         print("Go where?")
 
