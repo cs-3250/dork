@@ -75,6 +75,6 @@ def main(*args):  # main CLI runner for Dork
     script_name = args[0] if args else '???'
     if "-h" in args or '--help' in args:
         print("usage:", script_name, "[-h]")
-    # TODO handle bad arguments
+    # to do: handle bad arguments
     else:
         repl()

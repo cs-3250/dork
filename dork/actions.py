@@ -2,7 +2,7 @@
 '''Dork CLI commands'''
 
 
-def move(*args, **kwargs):  # example - okay to rewrite or modify
+def move(**kwargs):  # example - okay to rewrite or modify
     """move between rooms
         kwargs:
             adverb: list of ways to move (north, up, swiftly, etc.)
@@ -17,12 +17,13 @@ def move(*args, **kwargs):  # example - okay to rewrite or modify
         print("Go where?")
 
 
-def pick_up(*args, **kwargs):  # example of a phrasal verb
+def pick_up(**kwargs):  # example of a phrasal verb
     """pick up an object
         kwargs:
             direct_object: thing to pick up
     """
-    print("Picked it up!")
+    if 'direct_objects' in kwargs:
+        print("Picked up", kwargs['direct_objects'] + "!")
 
 
 def exit_game(*args, **kwargs):

@@ -12,11 +12,11 @@ NLP = spacy.load('en_core_web_sm')  # language model
 class Parser:
     '''dictionary of lexical chunks'''
 
-    # TODO detect multiple verbs
+    # to do: detect multiple verbs
     #   split multiple objects coordinated by conjunctions:
     #     e.g. attack the mummy and the ghoul
 
-    # TODO detect multiple verbs
+    # to do: detect multiple verbs
     #   decide whether it's they are coordinated by a conjunction:
     #     e.g. help go; try to dance
     #   or one is subordinate:
@@ -117,13 +117,13 @@ class Parser:
 
     def chunk_direct_object(self, token):
         '''chunk a direct object token'''
-        # TODO break down multiple direct objects joined by conjunctions
+        # to do: break down multiple direct objects joined by conjunctions
         for subtoken in token.subtree:
             self.chunks[subtoken] = "direct object"
 
     def chunk_indirect_object(self, token):
         '''chunk an indirect object token'''
-        # TODO break down multiple indirect objects joined by conjunctions
+        # to do:: break down multiple indirect objects joined by conjunctions
         for subtoken in token.subtree:  # contains entire noun phrase
             self.chunks[subtoken] = "indirect object"
 
@@ -252,7 +252,7 @@ class Arguments:
         can be treated as a single string
     """
 
-    # TODO: create Argument object...
+    # to do: create Argument object...
     #   to also facilitate string representation of individual list elements
 
     def __init__(self, *args):
