@@ -13,7 +13,7 @@ def test_cli_exists(run):
     assert isinstance(dork.cli.main, FunctionType)
     try:
         run(dork.cli.main)
-    except io.UnsupportedOperation: # expected
+    except io.UnsupportedOperation:  # expected
         # prompt_toolkit raises when run non-interactively (e.g. in a test)
         return
     except:  # noqa: E722

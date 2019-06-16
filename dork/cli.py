@@ -3,8 +3,6 @@
 
 __all__ = ["main"]
 
-import io
-
 from prompt_toolkit import prompt
 from prompt_toolkit.history import FileHistory
 from prompt_toolkit.lexers import Lexer
@@ -15,13 +13,13 @@ from dork import actions
 
 # color scheme: https://github.com/chriskempson/tomorrow-theme
 STYLES = {
-    'subject':              '#f0c674', # yellow
-    'verb':                 '#cc6666', # red
-    'adverb':               '#b294bb', # purple
-    'direct object':        '#81a2be', # blue
-    'indirect object':      '#b5bd68', # green
-    'preposition':          '#969896', # gray
-    'prepositional object': '#de935f'  # orange
+    'subject':              '#f0c674',  # yellow
+    'verb':                 '#cc6666',  # red
+    'adverb':               '#b294bb',  # purple
+    'direct object':        '#81a2be',  # blue
+    'indirect object':      '#b5bd68',  # green
+    'preposition':          '#969896',  # gray
+    'prepositional object': '#de935f'   # orange
 }
 
 
@@ -47,9 +45,11 @@ class SyntaxLexer(Lexer):
 def read():
     '''read user CLI input'''
     try:
-        return prompt('» ', lexer=SyntaxLexer(), history=FileHistory('history.log'))
-    except (EOFError, KeyboardInterrupt): # ctrl+d & ctrl+c respectively
-        actions.quit()
+        return prompt('» ',
+                      lexer=SyntaxLexer(),
+                      history=FileHistory('history.log'))
+    except (EOFError, KeyboardInterrupt):  # ctrl+d & ctrl+c respectively
+        actions.exit_game()
 
 
 def evaluate(user_input):
@@ -70,11 +70,11 @@ def repl():
             print(output)
 
 
-def main(*args): # main CLI runner for Dork
+def main(*args):  # main CLI runner for Dork
     '''main function'''
     script_name = args[0] if args else '???'
     if "-h" in args or '--help' in args:
         print("usage:", script_name, "[-h]")
+    # TODO handle bad arguments
     else:
-        #print(*args)
         repl()

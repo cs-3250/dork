@@ -1,26 +1,26 @@
 # -*- coding: utf-8 -*-
 '''lexical chunking'''
 
-import spacy # natural language processing
+import spacy  # natural language processing
 
 from dork import actions
 from dork.aliases import ALIASES
 
-NLP = spacy.load('en_core_web_sm') # language model
+NLP = spacy.load('en_core_web_sm')  # language model
 
 
 class Parser:
     '''dictionary of lexical chunks'''
 
     # TODO detect multiple verbs
-        # split multiple objects coordinated by conjunctions:
-            # e.g. attack the mummy and the ghoul
+    #   split multiple objects coordinated by conjunctions:
+    #     e.g. attack the mummy and the ghoul
 
     # TODO detect multiple verbs
-        # decide whether it's they are coordinated by a conjunction:
-            # e.g. help go; try to dance
-        # or one is subordinate:
-            # e.g. wine and dine
+    #   decide whether it's they are coordinated by a conjunction:
+    #     e.g. help go; try to dance
+    #   or one is subordinate:
+    #     e.g. wine and dine
 
     def __init__(self, text):
         self.debugging = True
@@ -29,10 +29,11 @@ class Parser:
         self.iteration_index = 0
 
     def initialize(self, text):
-        '''called by __init__, but also used by resolve_alias() to reinitialize'''
+        ''' called by __init__,
+            but also used by resolve_alias() to reinitialize'''
         self.doc = NLP(text)
-        #if self.debugging:
-            #self.print_token_info()
+        # if self.debugging:
+        #     self.print_token_info()
         self.chunks = {}
         for token in self.doc:
             if str(token).lower() in ALIASES:
@@ -43,7 +44,7 @@ class Parser:
                 self.chunk_adverb(token)
             elif token.dep_ == "nsubj":
                 self.chunk_subject(token)
-            elif token.dep_ == "dobj": # direct object
+            elif token.dep_ == "dobj":  # direct object
                 self.chunk_direct_object(token)
             elif token.dep_ == "dative":
                 self.chunk_indirect_object(token)
@@ -63,7 +64,6 @@ class Parser:
             print('ancestors: ', [t for t in token.ancestors])
             print('subtree: ', [t for t in token.subtree])
             print()
-
 
     def __len__(self):
         return len(self.doc)
@@ -112,47 +112,48 @@ class Parser:
         '''chunk a subject token'''
         # just for testing; should not be needed for commands,
         # since English imperatives contain no explicit subject
-        for subtoken in token.subtree: # contains entire noun phrase
+        for subtoken in token.subtree:  # contains entire noun phrase
             self.chunks[subtoken] = "subject"
 
     def chunk_direct_object(self, token):
         '''chunk a direct object token'''
-        #TODO break down multiple direct objects joined by conjunctions
+        # TODO break down multiple direct objects joined by conjunctions
         for subtoken in token.subtree:
             self.chunks[subtoken] = "direct object"
 
     def chunk_indirect_object(self, token):
         '''chunk an indirect object token'''
-        #TODO break down multiple indirect objects joined by conjunctions
-        for subtoken in token.subtree: # contains entire noun phrase
+        # TODO break down multiple indirect objects joined by conjunctions
+        for subtoken in token.subtree:  # contains entire noun phrase
             self.chunks[subtoken] = "indirect object"
 
     def chunk_prepositional_object(self, token):
         '''chunk a prepositional object token'''
         if token not in self.chunks or self.chunks[token] != "indirect object":
             # if the preposition governing this phrase isn't the dative 'to'
-            for subtoken in token.subtree: # contains entire noun phrase
+            for subtoken in token.subtree:  # contains entire noun phrase
                 self.chunks[subtoken] = "prepositional object"
         for ancestor in token.ancestors:
             if ancestor.pos_ == "ADP" and ancestor.dep_ == "prep":
-                # preposition governing phrase not likely part of a phrasal verb
+                # governing preposition not likely part of a phrasal verb
                 self.chunks[ancestor] = "preposition"
 
     def chunk_adposition(self, token):
         '''chunk an adposition token'''
         if (len(self.doc) > token.i + 1) and token.nbor().pos_ == "ADP":
-            # if followed by another adposition
-            self.chunks[token] = "verb" # this preposition is likely part of a phrasal verb
+            # if followed by another adposition...
+            # this preposition is likely part of a phrasal verb
+            self.chunks[token] = "verb"
         elif token.i > 0:
             if token.nbor(-1).pos_ == "VERB":
                 # if this preposition's leftmost neighbor is a verb...
-                    # this preposition is likely part of a phrasal verb
+                #   this preposition is likely part of a phrasal verb
                 self.chunks[token] = "verb"
             elif token.nbor(-1).pos_ == "ADP":
                 # if this preposition's left neighbor is another adposition...
-                    # the left neighbor should've been marked part of a phrasal verb
+                #   the left neighbor was marked part of a phrasal verb
                 self.chunks[token] = "preposition"
-            elif not token in self.chunks:
+            elif token not in self.chunks:
                 self.chunks[token] = "preposition"
 
     @property
@@ -168,11 +169,10 @@ class Parser:
         """ substitute alias in user input with actual command name, reparse
             returns: new verb tokens after reparsing
         """
-        self.initialize(
-            ALIASES[alias.lower()] + ' ' + \
-             ' '.join([str(token) \
-             for token in self.doc \
-             if token not in alias_tokens]))
+        self.initialize(ALIASES[alias.lower()] + ' ' +
+                        ' '.join([str(token)
+                                  for token in self.doc
+                                  if token not in alias_tokens]))
         return self.verbs
 
     def resolve_action(self):
@@ -180,16 +180,17 @@ class Parser:
             returns: the name of the action function or None
         """
         self.command_tokens = self.verbs
-        while self.command_tokens: # decremented below by popping
-            command = '_'.join(
-                [str(v) for v in self.command_tokens]).lower() # join tokens into string
+        while self.command_tokens:  # decremented below by popping
+            command = '_'.join(  # join tokens into a string
+                [str(v) for v in self.command_tokens]).lower()
             if hasattr(actions, command):
                 print("command:  ", command)
                 return command
             if command.lower() in ALIASES:
-                self.command_tokens = self.resolve_alias(command, self.command_tokens)
+                self.command_tokens = \
+                    self.resolve_alias(command, self.command_tokens)
                 continue
-            else: # if not hasattr(actions, verb) and not verb.lower() in ALIASES:
+            else:  # if command in neither actions nor ALIASES:
                 if self.debugging:
                     print("guessed:  ", command.lower())
                 self.command_tokens.pop()
@@ -202,7 +203,8 @@ class Parser:
         '''dictionary of parameters for action function'''
         parameters = {}
 
-        if self.command_tokens[-1].i + 1 < len(self): # if there is a predicate
+        # if there is a predicate:
+        if self.command_tokens[-1].i + 1 < len(self):
             next_neighbor = self.command_tokens[-1].nbor()
             predicate = self.doc[next_neighbor.i:]
             print("predicate:", predicate)
@@ -239,7 +241,7 @@ class Parser:
                 for parameter in parameters:
                     print(parameter + ':', parameters[parameter])
 
-        else: # if there is no predicate
+        else:  # if there is no predicate
             print("no parameters")
 
         return parameters
@@ -248,9 +250,10 @@ class Parser:
 class Arguments:
     """ a list of arguments, each of which consists of a lists of tokens
         can be treated as a single string
-        TODO: create Argument object...
-            to also facilitate string representation of individual list elements
     """
+
+    # TODO: create Argument object...
+    #   to also facilitate string representation of individual list elements
 
     def __init__(self, *args):
         self.arguments = [argument for argument in args]
