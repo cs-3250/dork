@@ -4,9 +4,9 @@
 def move(*args, **kwargs): # example - okay to rewrite or modify
     """move between rooms
         kwargs:
-            adverb: which way to move (north, east, south, west, up, down, etc.)
-            in:     place to go in
-            to:     place to go to
+            adverb: list of ways to move (north, up, swiftly, etc.)
+            in:     list of places to enter
+            to:     list of places to go
     """
     if 'adverbs' in kwargs:
         print("Went " + kwargs['adverbs'] + '!')
