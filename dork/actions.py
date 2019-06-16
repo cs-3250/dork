@@ -1,8 +1,13 @@
-# example of handling an action
-# okay to rename and rewrite 'go'
-# okay to add other functions here too
+# -*- coding: utf-8 -*-
+'''Dork CLI commands'''
 
-def go(*args, **kwargs):
+def move(*args, **kwargs): # example - okay to rewrite or modify
+    """move between rooms
+        kwargs:
+            adverb: which way to move (north, east, south, west, up, down, etc.)
+            in:     place to go in
+            to:     place to go to
+    """
     if 'adverbs' in kwargs:
         print("Went " + ' '.join([str(adv) for adv in kwargs['adverbs']]) + '!')
     elif 'to' in kwargs:
@@ -12,4 +17,8 @@ def go(*args, **kwargs):
 
 
 def pick_up(*args, **kwargs): # example of a phrasal verb
+    """pick up an object
+        kwargs:
+            direct_object: thing to pick up
+    """
     print("Picked it up!")

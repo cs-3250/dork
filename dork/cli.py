@@ -17,7 +17,7 @@ NLP = spacy.load('en_core_web_sm') # language model
 ALIASES = {
     #move north > go north
     #go(direct_objects=[['sword'], ['shield'])
-    "move":       "go",
+    "go":         "move",
     "north":      "go north",
     "n":          "go north",
     #"northeast":  "go northeast",

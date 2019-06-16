@@ -1,7 +1,8 @@
+# -*- coding: utf-8 -*-
 """
 Python Yaml parser using dictionaries and iterators.
-https://www.w3schools.com/python/python_dictionaries.asp -- dictionaries info
-https://www.w3schools.com/python/ref_keyword_in.asp -- info on keyword `in'
+    https://www.w3schools.com/python/python_dictionaries.asp -- dictionaries info
+    https://www.w3schools.com/python/ref_keyword_in.asp -- info on keyword `in'
 
 This code will be heavily commented for descriptive learning purposes.
 DO NOT DO THIS in production code. You will be shamed.
