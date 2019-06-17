@@ -1,12 +1,17 @@
 # -*- coding: utf-8 -*-
 '''lexical chunking'''
 
+import builtins
+
 import spacy  # natural language processing
 
 from dork import actions
 from dork.aliases import ALIASES
 
 NLP = spacy.load('en_core_web_sm')  # language model
+
+ACTION_LIST = [action.rstrip('_') for action in actions.__dict__
+               if callable(getattr(actions, action))]
 
 
 class Parser:
@@ -22,41 +27,49 @@ class Parser:
     #   or one is subordinate:
     #     e.g. wine and dine
 
+    # to do: also pass the original user input which mapped to a command
+    #   e.g. so if the user types "exit house", but 'exit' maps to quit()...
+    #     a function will be able to respond appropriately, like:
+    #       "I don't know what you want to exit."
+    #     instead of:
+    #       "I don't know what you want to quit."
+
     def __init__(self, text):
-        self.debugging = True
-        self.initialize(text)
+        self.debugging = False
+        self.doc = NLP(text)
+        self.chunks = Parser.chunk(self.doc)
         self.command_tokens = []
         self.iteration_index = 0
 
-    def initialize(self, text):
-        ''' called by __init__,
-            but also used by resolve_alias() to reinitialize'''
-        self.doc = NLP(text)
-        # if self.debugging:
-        #     self.print_token_info()
-        self.chunks = {}
-        for token in self.doc:
-            if str(token).lower() in ALIASES:
-                self.chunk_alias(token)
+    @staticmethod
+    def chunk(doc):
+        """ called by __init__ and resolve_alias()
+            returns: (parsed Spacy Doc, dict of chunk assignments)"""
+        chunks = {}
+        for token in doc:
+            if token.lower_ in ACTION_LIST or token.lower_ in ALIASES:
+                chunks.update(Parser.chunk_action(token))
             elif token.pos_ == "VERB":
-                self.chunk_verb(token)
+                chunks.update(Parser.chunk_verb(token))
             elif token.pos_ == "ADV":
-                self.chunk_adverb(token)
+                chunks.update(Parser.chunk_adverb(token))
             elif token.dep_ == "nsubj":
-                self.chunk_subject(token)
+                chunks.update(Parser.chunk_subject(token))
             elif token.dep_ == "dobj":  # direct object
-                self.chunk_direct_object(token)
+                chunks.update(Parser.chunk_direct_object(token))
             elif token.dep_ == "dative":
-                self.chunk_indirect_object(token)
+                chunks.update(Parser.chunk_indirect_object(token))
             elif token.dep_ == "pobj":
-                self.chunk_prepositional_object(token)
+                chunks.update(Parser.chunk_prepositional_object(token, chunks))
             elif token.pos_ == "ADP":
-                self.chunk_adposition(token)
+                chunks.update(Parser.chunk_adposition(token, chunks))
+        return chunks
 
-    def print_token_info(self):
+    @staticmethod
+    def print_token_info(doc):
         '''print out Spacy metadata for each token'''
-        for token in self.doc:
-            print(token)
+        for token in doc:
+            print("token:", token)
             print("pos:", token.pos_)
             print(spacy.explain(token.pos_))
             print("dep:", token.dep_)
@@ -86,75 +99,98 @@ class Parser:
     def __str__(self):
         return str(self.doc)
 
-    def chunk_alias(self, token):
+    @staticmethod
+    def chunk_action(token):
         '''chunk a token with a matching entry in ALIASES'''
+        chunks = {}
         for subtoken in token.subtree:
             if subtoken is token or subtoken.pos_ == "PART":
                 # particles usually belong to a phrasal verb
-                self.chunks[subtoken] = "verb"
+                chunks[subtoken] = "verb"
+        return chunks
 
-    def chunk_verb(self, token):
+    @staticmethod
+    def chunk_verb(token):
         '''chunk a verb token'''
+        chunks = {}
         for subtoken in token.subtree:
             if subtoken.pos_ in ["VERB", "PART"]:
                 # particles usually belong to a phrasal verb
-                self.chunks[subtoken] = "verb"
+                chunks[subtoken] = "verb"
+        return chunks
 
-    def chunk_adverb(self, token):
+    @staticmethod
+    def chunk_adverb(token):
         '''chunk an adverb token'''
+        chunks = {}
         if (token.i > 0) and token.nbor(-1).pos_ == "VERB":
             # a verb followed by an adverb is often a phrasal verb
-            self.chunks[token] = "verb"
+            chunks[token] = "verb"
         else:
-            self.chunks[token] = "adverb"
+            chunks[token] = "adverb"
+        return chunks
 
-    def chunk_subject(self, token):
+    @staticmethod
+    def chunk_subject(token):
         '''chunk a subject token'''
         # just for testing; should not be needed for commands,
         # since English imperatives contain no explicit subject
+        chunks = {}
         for subtoken in token.subtree:  # contains entire noun phrase
-            self.chunks[subtoken] = "subject"
+            chunks[subtoken] = "subject"
+        return chunks
 
-    def chunk_direct_object(self, token):
+    @staticmethod
+    def chunk_direct_object(token):
         '''chunk a direct object token'''
         # to do: break down multiple direct objects joined by conjunctions
+        chunks = {}
         for subtoken in token.subtree:
-            self.chunks[subtoken] = "direct object"
+            chunks[subtoken] = "direct object"
+        return chunks
 
-    def chunk_indirect_object(self, token):
+    @staticmethod
+    def chunk_indirect_object(token):
         '''chunk an indirect object token'''
         # to do:: break down multiple indirect objects joined by conjunctions
+        chunks = {}
         for subtoken in token.subtree:  # contains entire noun phrase
-            self.chunks[subtoken] = "indirect object"
+            chunks[subtoken] = "indirect object"
+        return chunks
 
-    def chunk_prepositional_object(self, token):
+    @staticmethod
+    def chunk_prepositional_object(token, chunks):
         '''chunk a prepositional object token'''
-        if token not in self.chunks or self.chunks[token] != "indirect object":
+        if token not in chunks or chunks[token] != "indirect object":
             # if the preposition governing this phrase isn't the dative 'to'
             for subtoken in token.subtree:  # contains entire noun phrase
-                self.chunks[subtoken] = "prepositional object"
+                chunks[subtoken] = "prepositional object"
         for ancestor in token.ancestors:
             if ancestor.pos_ == "ADP" and ancestor.dep_ == "prep":
                 # governing preposition not likely part of a phrasal verb
-                self.chunks[ancestor] = "preposition"
+                chunks[ancestor] = "preposition"
+        return chunks
 
-    def chunk_adposition(self, token):
+    @staticmethod
+    def chunk_adposition(token, chunks):
         '''chunk an adposition token'''
-        if (len(self.doc) > token.i + 1) and token.nbor().pos_ == "ADP":
+        chunks = {}
+        if (len(token.doc) > token.i + 1) and token.nbor().pos_ == "ADP":
             # if followed by another adposition...
             # this preposition is likely part of a phrasal verb
-            self.chunks[token] = "verb"
+            chunks[token] = "verb"
         elif token.i > 0:
             if token.nbor(-1).pos_ == "VERB":
                 # if this preposition's leftmost neighbor is a verb...
                 #   this preposition is likely part of a phrasal verb
-                self.chunks[token] = "verb"
+                chunks[token] = "verb"
             elif token.nbor(-1).pos_ == "ADP":
                 # if this preposition's left neighbor is another adposition...
                 #   the left neighbor was marked part of a phrasal verb
-                self.chunks[token] = "preposition"
-            elif token not in self.chunks:
-                self.chunks[token] = "preposition"
+                chunks[token] = "preposition"
+            elif token not in chunks:
+                chunks[token] = "preposition"
+        return chunks
 
     @property
     def verbs(self):
@@ -163,16 +199,20 @@ class Parser:
         """
         return [token for token in self.doc
                 if token in self.chunks
-                and self.chunks[token] == "verb"]
+                and (self.chunks[token] == "verb"
+                     or token.lower_ in ACTION_LIST)]
 
     def resolve_alias(self, alias, alias_tokens):
         """ substitute alias in user input with actual command name, reparse
             returns: new verb tokens after reparsing
         """
-        self.initialize(ALIASES[alias.lower()] + ' ' +
-                        ' '.join([str(token)
-                                  for token in self.doc
-                                  if token not in alias_tokens]))
+        # to do: save resolved doc & chunk distinct from original
+        resolved_text = ALIASES[alias.lower()] + ' ' + \
+            ' '.join([str(token)
+                      for token in self.doc
+                      if token not in alias_tokens])
+        self.doc = NLP(resolved_text)
+        self.chunks = Parser.chunk(self.doc)
         return self.verbs
 
     def resolve_action(self):
@@ -182,9 +222,12 @@ class Parser:
         self.command_tokens = self.verbs
         while self.command_tokens:  # decremented below by popping
             command = '_'.join(  # join tokens into a string
-                [str(v) for v in self.command_tokens]).lower()
+                [v.lower_ for v in self.command_tokens])
+            if command in dir(builtins):
+                command = command + '_'
             if hasattr(actions, command):
-                print("command:  ", command)
+                if self.debugging:
+                    print("matched:  ", command.lower())
                 return command
             if command.lower() in ALIASES:
                 self.command_tokens = \
@@ -207,7 +250,13 @@ class Parser:
         if self.command_tokens[-1].i + 1 < len(self):
             next_neighbor = self.command_tokens[-1].nbor()
             predicate = self.doc[next_neighbor.i:]
-            print("predicate:", predicate)
+            parameters['predicate'] = Arguments(predicate)
+
+            verbs = \
+                [token for token in predicate
+                 if token.pos_ == "VERB"]
+            if verbs:
+                parameters['verbs'] = Arguments(verbs)
 
             adverbs = \
                 [token for token in predicate
@@ -239,7 +288,8 @@ class Parser:
 
             if self.debugging:
                 for parameter in parameters:
-                    print(parameter + ':', parameters[parameter])
+                    print('{:15} {}'.format(parameter + ':',
+                                            str(parameters[parameter])))
 
         else:  # if there is no predicate
             print("no parameters")
@@ -263,8 +313,19 @@ class Arguments:
             ' '.join([token.text for token in argument])
             for argument in self.arguments])
 
+    def __eq__(self, other):
+        if self is other:
+            return True
+        if str(self) == other:
+            return True
+        return False
+
     def __add__(self, other):
         return str(self) + other
 
     def __radd__(self, other):
         return other + str(self)
+
+    def strip(self, characters):
+        '''wrapper around str(self).strip()'''
+        return str(self).strip(characters)

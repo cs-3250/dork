@@ -21,5 +21,5 @@ ALIASES = {
     # "nw":        "go northwest",
     # "give":      "give",
     "?":           "help",
-    "q":           "exit game"
+    "q":           "quit game"
 }

@@ -3,6 +3,8 @@
 
 __all__ = ["main"]
 
+import builtins
+
 from prompt_toolkit import prompt
 from prompt_toolkit.history import FileHistory
 from prompt_toolkit.lexers import Lexer
@@ -49,7 +51,7 @@ def read():
                       lexer=SyntaxLexer(),
                       history=FileHistory('history.log'))
     except (EOFError, KeyboardInterrupt):  # ctrl+d & ctrl+c respectively
-        actions.exit_game()
+        return "quit game"
 
 
 def evaluate(user_input):
@@ -57,17 +59,24 @@ def evaluate(user_input):
     doc = Parser(user_input)
     command = doc.resolve_action()
     if command:
-        return getattr(actions, command)(**doc.parameters)
-    return None
+        if command in dir(builtins):
+            command = command + '_'
+        response = getattr(actions, command)(**doc.parameters)
+        if isinstance(response, tuple):  # (stop flag, output)
+            return response
+        return False, response
+    return False, None
 
 
 def repl():
     '''read–eval–print loop'''
     while True:
         user_input = read()
-        output = evaluate(user_input)
+        stop, output = evaluate(user_input)
         if output:
             print(output)
+        if stop:
+            exit(0)
 
 
 def main(*args):  # main CLI runner for Dork
