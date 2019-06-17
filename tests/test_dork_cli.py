@@ -1,9 +1,18 @@
 # -*- coding: utf-8 -*-
-"""Basic tests for the dork cli
-"""
+'''basic tests for the dork cli'''
 import io
 from types import FunctionType
 import dork.cli
+
+
+# to do: test evaluate()
+#     test some known commands
+# to do: test repl()
+#     hmm, how to get to lines below read()...?
+#     execution is terminated in read without stdin...
+# to do: test lexer (how?)
+# to do: test exiting game with ctrl+c / ctrl+d
+#     (how? can this even be simulated non-interactively?)
 
 
 def test_cli_exists(run):

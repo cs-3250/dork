@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Basic tests for state and entity relationships in dork
-"""
+'''basic tests for state and entity relationships in dork'''
 import dork.objects
 from tests.utils import has_many, is_a
 
