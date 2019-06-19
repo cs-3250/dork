@@ -252,7 +252,7 @@ class Parser:
         if self.command_tokens[-1].i + 1 < len(self):
             next_neighbor = self.command_tokens[-1].nbor()
             predicate = self.doc[next_neighbor.i:]
-            parameters['predicate'] = Arguments(*predicate)
+            parameters['predicate'] = Arguments(predicate)
 
             # to do: work on making this a list of spans
             verbs = \

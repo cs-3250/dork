@@ -63,7 +63,7 @@ def help_(**kwargs):
 def exit_(**kwargs):
     '''exit game'''
     if not kwargs:
-        return quit_(**kwargs)
+        return True, "Goodbye."
     # Spacy sees "exit game" as a compound noun
     # entire predicate tested here as a workaround
     if 'predicate' in kwargs and kwargs['predicate'].strip('., ') == "game":
@@ -74,7 +74,7 @@ def exit_(**kwargs):
 def leave(**kwargs):
     '''exit game'''
     if 'direct_objects' in kwargs and kwargs['direct_objects'] == "game":
-        return quit_(**kwargs)
+        return True, "Goodbye."
     return "I don't understand what you want to leave."
 
 

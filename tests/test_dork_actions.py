@@ -14,28 +14,44 @@ ACTION_FUNCTIONS = [getattr(actions, action)
                     if callable(getattr(actions, action))]
 
 NLP = spacy.load('en_core_web_sm')  # language model
-DOC = NLP("The brown fox quickly picked the angry dog a flower for Festivus.")
-PREDICATE = DOC[3:]
-QUICKLY = DOC[3]
-PICK = DOC[4]
-DOG = DOC[5:8]
-FLOWER = DOC[8:10]
-FESTIVUS = DOC[11]
 
-PARAMETERS = [{},
-              {'predicate':        Arguments(PREDICATE)},
-              {'verbs':            Arguments(PICK)},
-              {'adverbs':          Arguments(QUICKLY)},
-              {'direct objects':   Arguments(FLOWER)},
-              {'indirect objects': Arguments(DOG)},
-              {'for':              Arguments(FESTIVUS)}
-              ]
+
+def test_action_function_names():
+    """ Action functions should not conflict with builtin method names.
+        e.g. help, exit, quit, etc."""
+    for action in ACTION_FUNCTIONS:
+        try:
+            assert action.__name__ not in dir(builtins)
+        except AssertionError:
+            raise NameError(action.__name__ +
+                            " conflicts with builtin method of the same name.")
 
 
 def test_action_return_types():
     '''Each action function should return either a str or a (bool, str).'''
+
+    doc = NLP("The brown fox quickly picked "
+              + "the angry dog a flower for Festivus.")
+    predicate = doc[3:]
+    quickly = doc[3]
+    pick = doc[4]
+    dog = doc[5:8]
+    flower = doc[8:10]
+    festivus = doc[11]
+
+    parameters = [{},
+                  {'predicate':        Arguments(predicate)},
+                  {'verbs':            Arguments(pick)},
+                  {'adverbs':          Arguments(quickly)},
+                  {'direct_objects':   Arguments(flower)},
+                  {'direct_objects':   Arguments(flower)},
+                  {'indirect_objects': Arguments(dog)},
+                  {'for':              Arguments(festivus)},
+                  {'to':               Arguments(flower)}
+                  ]
+
     for action in ACTION_FUNCTIONS:
-        for params in PARAMETERS:
+        for params in parameters:
             return_value = action(**params)
             try:
                 assert isinstance(return_value, str) or \
@@ -48,12 +64,32 @@ def test_action_return_types():
                                 "; expected str or (bool, str).")
 
 
-def test_action_function_names():
-    """ Action functions should not conflict with builtin method names.
-        e.g. help, exit, quit, etc."""
-    for action in ACTION_FUNCTIONS:
-        try:
-            assert action.__name__ not in dir(builtins)
-        except AssertionError:
-            raise NameError(action.__name__ +
-                            " conflicts with builtin method of the same name.")
+def test_exit_game():
+    """ The following user input should terminate execution of the game:
+        quit
+        exit
+        Exit game.
+        Leave game.
+        Quit game.
+        """
+
+    response = actions.quit_()
+    assert isinstance(response, tuple) and response[0]
+
+    response = actions.exit_()
+    assert isinstance(response, tuple) and response[0]
+
+    doc = NLP("Exit game.")
+    game = doc[1:2]
+    response = actions.exit_(predicate=Arguments(game))
+    assert isinstance(response, tuple) and response[0]
+
+    doc = NLP("Leave game.")
+    game = doc[1:2]
+    response = actions.leave(direct_objects=Arguments(game))
+    assert isinstance(response, tuple) and response[0]
+
+    doc = NLP("Quit game.")
+    game = doc[1:2]
+    response = actions.quit_(direct_objects=Arguments(game))
+    assert isinstance(response, tuple) and response[0]
