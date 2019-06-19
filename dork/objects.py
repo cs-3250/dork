@@ -1,29 +1,25 @@
 # -*- coding: utf-8 -*-
-"""Basic entity classes and methods for Dork.
-"""
+'''basic entity classes and methods for Dork'''
 
 __all__ = ["Item", "Holder", "Player", "Room", "Path", "Map"]
 
 
 class Item:
-    """A obtainable/holdable item
-    """
+    '''a holdable/obtainable item'''
 
     def __init__(self):
         self.holder = Holder()
 
 
 class Holder:
-    """A holder/container of items
-    """
+    '''a holder/container of items'''
 
     def __init__(self):
         self.items = list()
 
 
 class Player(Holder):
-    """A player or NPC in the game
-    """
+    '''a player or NPC in the game'''
 
     def __init__(self):
         super(Player, self).__init__()
@@ -31,11 +27,9 @@ class Player(Holder):
 
 
 class Room(Holder):
-    """A room on the map
+    '''a room on the map'''
 
-    Note: can only be entered through entraces
-        or exited through exits.
-    """
+    # note: can only be entered through entrances or exited through exits
 
     def __init__(self):
         super(Room, self).__init__()
@@ -46,8 +40,7 @@ class Room(Holder):
 
 
 class Path:
-    """A path between two rooms (i.e. a door or hallway)
-    """
+    '''a path between two rooms (i.e. a door or hallway)'''
 
     def __init__(self):
         self.entrance = Room()
@@ -55,9 +48,7 @@ class Path:
 
 
 class Map:
-    """A map relating the rooms connectivity
-        as well as the players/items within
-    """
+    '''a map relating a room's connectivity and the players/items within it'''
 
     def __init__(self):
         self.rooms = list()
