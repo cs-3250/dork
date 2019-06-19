@@ -2,6 +2,7 @@
 coverage
 doc8
 flake8
+mock
 pylint
 pytest
 pytest-runner

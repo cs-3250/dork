@@ -3,8 +3,6 @@
 
 __all__ = ["main"]
 
-import builtins
-
 from prompt_toolkit import prompt
 from prompt_toolkit.history import FileHistory
 from prompt_toolkit.lexers import Lexer
@@ -60,11 +58,10 @@ def evaluate(user_input):
     # to do: why not just make command a Parser attribute?
     command = doc.resolve_action()
     if command:
-        if command in dir(builtins):
-            command = command + '_'
         response = getattr(actions, command)(**doc.parameters)
-        if isinstance(response, tuple):  # (stop flag, output)
-            return response
+        if isinstance(response, tuple):
+            stop_flag, output = response
+            return stop_flag, output
         return False, response
     return False, None
 

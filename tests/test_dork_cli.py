@@ -2,8 +2,11 @@
 '''basic tests for the dork cli'''
 import io
 from types import FunctionType
+from pytest import raises
+from mock import Mock, patch
 from prompt_toolkit.document import Document
 import dork.cli as cli
+from dork import actions
 
 
 # to do: test evaluate()
@@ -43,9 +46,60 @@ def test_lexer():
     lexer = cli.SyntaxLexer()
     assert hasattr(lexer, 'lex_document')
     callback = lexer.lex_document(Document("The quick brown fox "
-                                           + "jumps over the lazy dog."))
+                                           + "jumped over the lazy dog."))
     result = callback(0)
     assert isinstance(result, list)
     assert all([isinstance(item, tuple)
                 and all([isinstance(subitem, str) for subitem in item])
                 for item in result])
+
+
+def test_eof():
+    '''The game should exit if the input stream is closed.'''
+    with patch('dork.cli.prompt', side_effect=EOFError):
+        assert cli.read() == "quit game"
+
+
+def test_keyboard_interrupt():
+    '''The game should exit if the user types CTRL+C.'''
+    with patch('dork.cli.prompt', side_effect=KeyboardInterrupt):
+        assert cli.read() == "quit game"
+
+
+def test_evaluate():
+    """ evaluate() takes a user_input string and should return a tuple
+        (bool, str) or (bool, NoneType) indicating whether to exit the REPL
+        and any output generated in response to user input. User input
+        corresponding to game actions should call those actions and forward
+        their output. User input not matching any game action should return
+        None as output."""
+
+    action_list = [action.rstrip('_') for action in actions.__dict__
+                   if callable(getattr(actions, action))]
+
+    cli.evaluate('quit')
+    for action in action_list:
+        response = cli.evaluate(action)
+        assert isinstance(response, tuple) \
+            and isinstance(response[0], bool) \
+            and isinstance(response[1], str)
+
+    test_input = ['', "The quick brown fox jumped over the lazy dog."]
+    for i in test_input:
+        response = cli.evaluate(i)
+        assert isinstance(response, tuple) \
+            and isinstance(response[0], bool) \
+            and isinstance(response[1], type(None))
+
+
+def test_repl():
+    """ REPL should loop until cli.evaluate returns a tuple
+        whose first element is True."""
+    with patch('dork.cli.prompt'):
+        with raises(SystemExit):
+            mock_eval = Mock()
+            mock_eval.side_effect = [(False, "Went north!"),
+                                     (False, None),  # no command entered
+                                     (True, "Goodbye.")]
+            cli.evaluate = mock_eval
+            cli.repl()

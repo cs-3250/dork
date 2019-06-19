@@ -294,7 +294,8 @@ class Parser:
                                             str(parameters[parameter])))
 
         else:  # if there is no predicate
-            print("no parameters")
+            if self.debugging:
+                print("no parameters")
 
         return parameters
 
