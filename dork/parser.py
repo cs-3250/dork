@@ -4,6 +4,8 @@
 import builtins
 
 import spacy  # natural language processing
+from spacy.symbols import ADP, ADV, PART, VERB, \
+    advmod, dobj, nsubj, pobj, prep
 
 from dork import actions
 from dork.aliases import ALIASES
@@ -35,7 +37,7 @@ class Parser:
     #       "I don't know what you want to quit."
 
     def __init__(self, text):
-        self.debugging = False
+        self.debugging = False  # to do: add a command to enable debugging
         self.doc = NLP(text)
         self.chunks = Parser.chunk(self.doc)
         self.command_tokens = []
@@ -49,19 +51,19 @@ class Parser:
         for token in doc:
             if token.lower_ in ACTION_LIST or token.lower_ in ALIASES:
                 chunks.update(Parser.chunk_action(token))
-            elif token.pos_ == "VERB":
+            elif token.pos == VERB:
                 chunks.update(Parser.chunk_verb(token))
-            elif token.pos_ == "ADV":
+            elif token.pos == ADV:
                 chunks.update(Parser.chunk_adverb(token))
-            elif token.dep_ == "nsubj":
+            elif token.dep == nsubj:
                 chunks.update(Parser.chunk_subject(token))
-            elif token.dep_ == "dobj":  # direct object
+            elif token.dep == dobj:  # direct object
                 chunks.update(Parser.chunk_direct_object(token))
-            elif token.dep_ == "dative":
+            elif token.dep_ == 'dative':
                 chunks.update(Parser.chunk_indirect_object(token))
-            elif token.dep_ == "pobj":
+            elif token.dep == pobj:
                 chunks.update(Parser.chunk_prepositional_object(token, chunks))
-            elif token.pos_ == "ADP":
+            elif token.pos == ADP:
                 chunks.update(Parser.chunk_adposition(token, chunks))
         return chunks
 
@@ -104,7 +106,7 @@ class Parser:
         '''chunk a token with a matching entry in ALIASES'''
         chunks = {}
         for subtoken in token.subtree:
-            if subtoken is token or subtoken.pos_ == "PART":
+            if subtoken is token or subtoken.pos == PART:
                 # particles usually belong to a phrasal verb
                 chunks[subtoken] = "verb"
         return chunks
@@ -114,7 +116,7 @@ class Parser:
         '''chunk a verb token'''
         chunks = {}
         for subtoken in token.subtree:
-            if subtoken.pos_ in ["VERB", "PART"]:
+            if subtoken.pos in [VERB, PART]:
                 # particles usually belong to a phrasal verb
                 chunks[subtoken] = "verb"
         return chunks
@@ -123,7 +125,7 @@ class Parser:
     def chunk_adverb(token):
         '''chunk an adverb token'''
         chunks = {}
-        if (token.i > 0) and token.nbor(-1).pos_ == "VERB":
+        if (token.i > 0) and token.nbor(-1).pos == VERB:
             # a verb followed by an adverb is often a phrasal verb
             chunks[token] = "verb"
         else:
@@ -166,7 +168,7 @@ class Parser:
             for subtoken in token.subtree:  # contains entire noun phrase
                 chunks[subtoken] = "prepositional object"
         for ancestor in token.ancestors:
-            if ancestor.pos_ == "ADP" and ancestor.dep_ == "prep":
+            if ancestor.pos == ADP and ancestor.dep == prep:
                 # governing preposition not likely part of a phrasal verb
                 chunks[ancestor] = "preposition"
         return chunks
@@ -175,16 +177,16 @@ class Parser:
     def chunk_adposition(token, chunks):
         '''chunk an adposition token'''
         chunks = {}
-        if (len(token.doc) > token.i + 1) and token.nbor().pos_ == "ADP":
+        if (len(token.doc) > token.i + 1) and token.nbor().pos == ADP:
             # if followed by another adposition...
             # this preposition is likely part of a phrasal verb
             chunks[token] = "verb"
         elif token.i > 0:
-            if token.nbor(-1).pos_ == "VERB":
+            if token.nbor(-1).pos == VERB:
                 # if this preposition's leftmost neighbor is a verb...
                 #   this preposition is likely part of a phrasal verb
                 chunks[token] = "verb"
-            elif token.nbor(-1).pos_ == "ADP":
+            elif token.nbor(-1).pos == ADP:
                 # if this preposition's left neighbor is another adposition...
                 #   the left neighbor was marked part of a phrasal verb
                 chunks[token] = "preposition"
@@ -250,39 +252,39 @@ class Parser:
         if self.command_tokens[-1].i + 1 < len(self):
             next_neighbor = self.command_tokens[-1].nbor()
             predicate = self.doc[next_neighbor.i:]
-            parameters['predicate'] = Arguments(predicate)
+            parameters['predicate'] = Arguments(*predicate)
 
+            # to do: work on making this a list of spans
             verbs = \
                 [token for token in predicate
-                 if token.pos_ == "VERB"]
+                 if token.pos == VERB]
             if verbs:
-                parameters['verbs'] = Arguments(verbs)
+                parameters['verbs'] = Arguments(*verbs)
 
             adverbs = \
                 [token for token in predicate
-                 if token.pos_ in ("ADV", "PART") or token.dep_ == 'advmod']
+                 if token.pos in (ADV, PART) or token.dep == advmod]
             if adverbs:
-                parameters['adverbs'] = Arguments(adverbs)
+                parameters['adverbs'] = Arguments(*adverbs)
 
             direct_objects = \
-                [token for token in self.doc
-                 if token in self.chunks
-                 and self.chunks[token] == "direct object"]
+                [chunk for chunk in self.doc.noun_chunks
+                 if chunk.root.dep == dobj]
             if direct_objects:
-                parameters['direct_objects'] = Arguments(direct_objects)
+                parameters['direct_objects'] = Arguments(*direct_objects)
 
             indirect_objects = \
-                {str(token): [t for t in token.subtree if t is not token]
-                 for token in predicate
-                 if token.pos_ == "ADP" and token.dep_ == "dative"}
+                [chunk for chunk in self.doc.noun_chunks
+                 if chunk.root.dep_ == 'dative']
             if indirect_objects:
-                parameters['indirect_objects'] = Arguments(indirect_objects)
+                parameters['indirect_objects'] = Arguments(*indirect_objects)
 
             prepositional_phrases = \
                 {str(token):
                  Arguments([t for t in token.subtree if t is not token])
                  for token in predicate
-                 if token.pos_ == "ADP" and token.dep_ == "prep"}
+                 if token.pos == ADP and (token.dep == prep
+                                          or token.dep_ == 'dative')}
             if prepositional_phrases:
                 parameters.update(prepositional_phrases)
 
@@ -298,20 +300,65 @@ class Parser:
 
 
 class Arguments:
-    """ a list of arguments, each of which consists of a lists of tokens
-        can be treated as a single string
+    """ internally, a list of Argument objects; may be treated as a single string
+        constructor takes an arbitrary number of spacy spans or tokens
+        Argument objects are accessible by index, i.e. Arguments[index].
+        len(Arguments) returns the number of Argument objects contained.
     """
 
     # to do: create Argument object...
     #   to also facilitate string representation of individual list elements
 
     def __init__(self, *args):
-        self.arguments = [argument for argument in args]
+        self.arguments = [Argument(arg) for arg in args]
+
+    def __len__(self):
+        return len(self.arguments)
+
+    def __getitem__(self, index):
+        return self.arguments[index]
 
     def __str__(self):
-        return ' '.join([
-            ' '.join([token.text for token in argument])
-            for argument in self.arguments])
+        return ' '.join([str(argument) for argument in self.arguments])
+
+    def __eq__(self, other):
+        if self is other:
+            return True
+        if str(self) == other:
+            return True
+        return False
+
+    def __add__(self, other):
+        return str(self) + other
+
+    def __radd__(self, other):
+        return other + str(self)
+
+    def strip(self, characters):
+        '''wrapper around str(self).strip()'''
+        return str(self).strip(characters)
+
+
+# to do: the right way to do this
+class Argument:
+    """ wrapper around a spacy Token or Span object
+        inner spacy object is accessible via Argument.contents
+        may be treated as a string"""
+
+    def __init__(self, argument):
+        if isinstance(argument, (spacy.tokens.Token, spacy.tokens.Span)):
+            self.contents = argument
+        else:
+            raise TypeError("Expected spacy Span or list of Tokens; "
+                            + "got argument of type "
+                            + type(argument).__name__ + ": "
+                            + str(argument) + '.')
+
+    def __len__(self):
+        return len(str(self))
+
+    def __str__(self):
+        return self.contents.text
 
     def __eq__(self, other):
         if self is other:

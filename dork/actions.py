@@ -19,10 +19,13 @@
     Parser.Arguments objects are passed in by keyword.
 
     keywords:
+        'predicate': the entire non-command part of the user input
+        'verbs'
+        'adverbs'
         'direct_objects'
         'indirect_objects'
-        'adverb'
-        {prepositions}, e.g. 'in', 'from', 'to'"""
+        {prepositions}, (e.g. 'in', 'from', 'to'
+"""
 
 
 def move(**kwargs):  # example - okay to rewrite or modify
@@ -64,7 +67,7 @@ def exit_(**kwargs):
     # Spacy sees "exit game" as a compound noun
     # entire predicate tested here as a workaround
     if 'predicate' in kwargs and kwargs['predicate'].strip('., ') == "game":
-        return quit_(**kwargs)
+        return True, "Goodbye."
     return "I don't understand what you want to exit."
 
 

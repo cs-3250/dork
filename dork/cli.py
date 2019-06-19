@@ -57,6 +57,7 @@ def read():
 def evaluate(user_input):
     '''evaluate user CLI input'''
     doc = Parser(user_input)
+    # to do: why not just make command a Parser attribute?
     command = doc.resolve_action()
     if command:
         if command in dir(builtins):
