@@ -13,7 +13,7 @@ ACTION_FUNCTIONS = [getattr(actions, action)
                     for action in actions.__dict__
                     if callable(getattr(actions, action))]
 
-NLP = spacy.load('en_core_web_sm')  # language model
+NLP = spacy.load('en_core_web_sm')
 
 
 def test_action_function_names():
