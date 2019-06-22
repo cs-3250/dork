@@ -26,6 +26,10 @@ import os
 print(os.getcwd())
 
 print('\n\n\n\n\n\n\n\n\n\n\n')
-with open('test.txt', 'r+') as f:
-    message = f.read()
-print(message)
+
+import os
+
+with open('test.txt') as f:
+    for line in f:
+        print line.strip()
+
