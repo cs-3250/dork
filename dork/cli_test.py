@@ -4,8 +4,7 @@
 -MH 06/22/2019 - 12:27pm #########################################
 
 *** For now *** if you change something, leave a comment of the thought you
-are trying to convey so others can understand the same logic. 
-
+are trying to convey so others can understand the same logic
 -Needs to:
     -be able to have a dictionary for parsing.
     -Have a quit function
@@ -21,10 +20,12 @@ are trying to convey so others can understand the same logic.
 Definition of done:
     -Create test cases for actions in REPL
     -Added actions into CLI dictionaries
-    
+
 """
-#print('\n\n\n\n\n\n\n\n\n\n\n')
+import os
+print(os.getcwd())
 
-
-user_input= print(input('Hello what would you like to do?: >>> '))
-    if user_input == keyword():
+print('\n\n\n\n\n\n\n\n\n\n\n')
+with open('test.txt', 'r+') as f:
+    message = f.read()
+print(message)
