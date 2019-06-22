@@ -1,24 +1,49 @@
 # -*- coding: utf-8 -*-
-'''basic Dork CLI'''
-""" -MH 06/22/2019 - 12:27pm
+""" basic Dork CLI
+
+-MH 06/22/2019 - 12:27pm
+
 -Needs to:
     -be able to have a dictionary for parsing.
     -Have a quit function
     -Be able to perform actions and have cardinal directions.
     -Have a REPL.
 -Currently needs:
-    -Object interaction
-
+-Object interaction
+    -A way for player movement
+        -N, S, E, W
+    -Game commands
+        -Quit
+        -Start-Save-Load
+Definition of done:
+    -Create test cases for actions in REPL
+    -Added actions into CLI dictionaries
+    
 """
+from prompt_toolkit import prompt
+from prompt_toolkit.history import FileHistory
+from prompt_toolkit.lexers import Lexer
+
+
 def repl():
-    '''read–eval–print loop'''
+    ''' REPL: Read–Eval–Print Loop '''
     while True:
-        user_input = read()
+        user_input = read() #
         stop, output = evaluate(user_input)
         if output:
             print(output)
         if stop:
             exit(0)
+            
+            
+def read():
+    '''read user CLI input'''
+    try:
+        return prompt('» ',
+                      #lexer=SyntaxLexer(),
+                      #history=FileHistory('history.log'))
+    #except (EOFError, KeyboardInterrupt):  # ctrl+d & ctrl+c respectively
+        return "quit game"
 
 
 def main(*args):  # main CLI runner for Dork
@@ -28,9 +53,7 @@ def main(*args):  # main CLI runner for Dork
 """  CANNOT USE!!
 __all__ = ["main"]
 
-from prompt_toolkit import prompt
-from prompt_toolkit.history import FileHistory
-from prompt_toolkit.lexers import Lexer
+
 
 from dork.parser import Parser
 from dork import actions
@@ -68,14 +91,7 @@ class SyntaxLexer(Lexer):
         return get_line
 
 
-def read():
-    '''read user CLI input'''
-    try:
-        return prompt('» ',
-                      lexer=SyntaxLexer(),
-                      history=FileHistory('history.log'))
-    except (EOFError, KeyboardInterrupt):  # ctrl+d & ctrl+c respectively
-        return "quit game"
+
 
 
 def evaluate(user_input):
