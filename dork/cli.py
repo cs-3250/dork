@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 """ basic Dork CLI
 
--MH 06/22/2019 - 12:27pm
+-MH 06/22/2019 - 12:27pm #########################################
+
+*** For now *** if you change something, leave a comment of the thought you
+are trying to convey so others can understand the same logic. 
 
 -Needs to:
     -be able to have a dictionary for parsing.
@@ -38,12 +41,12 @@ def repl():
             
 def read():
     '''read user CLI input'''
-    try:
-        return prompt('» ',
+    #try:
+        #return prompt('» ')#,
                       #lexer=SyntaxLexer(),
                       #history=FileHistory('history.log'))
     #except (EOFError, KeyboardInterrupt):  # ctrl+d & ctrl+c respectively
-        return "quit game"
+        #return "quit game"
 
 
 def main(*args):  # main CLI runner for Dork
