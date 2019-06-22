@@ -1,6 +1,31 @@
 # -*- coding: utf-8 -*-
 '''basic Dork CLI'''
+""" -MH 06/22/2019 - 12:27pm
+-Needs to:
+    -be able to have a dictionary for parsing.
+    -Have a quit function
+    -Be able to perform actions and have cardinal directions.
+    -Have a REPL.
+-Currently needs:
+    -Object interaction
 
+"""
+def repl():
+    '''read–eval–print loop'''
+    while True:
+        user_input = read()
+        stop, output = evaluate(user_input)
+        if output:
+            print(output)
+        if stop:
+            exit(0)
+
+
+def main(*args):  # main CLI runner for Dork
+    '''main function'''
+    
+############################################################################
+"""  CANNOT USE!!
 __all__ = ["main"]
 
 from prompt_toolkit import prompt
@@ -22,13 +47,14 @@ STYLES = {
     'prepositional object': '#de935f'   # orange
 }
 
-
+"""
 class SyntaxLexer(Lexer):
     """NLP Lexer for prompt-toolkit using Spacy
         https://python-prompt-toolkit.readthedocs.io/en/latest/pages/reference.html
         https://github.com/prompt-toolkit/python-prompt-toolkit/
             styles/base.py
             styles/defaults.py
+    """
     """
     def lex_document(self, document):
         def get_line(lineno):
@@ -65,18 +91,6 @@ def evaluate(user_input):
         return False, response
     return False, None
 
-
-def repl():
-    '''read–eval–print loop'''
-    while True:
-        user_input = read()
-        stop, output = evaluate(user_input)
-        if output:
-            print(output)
-        if stop:
-            exit(0)
-
-
 def main(*args):  # main CLI runner for Dork
     '''main function'''
     script_name = args[0] if args else '???'
@@ -85,3 +99,4 @@ def main(*args):  # main CLI runner for Dork
     # to do: handle bad arguments
     else:
         repl()
+    """
