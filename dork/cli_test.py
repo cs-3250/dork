@@ -24,6 +24,6 @@ Definition of done:
 """
 
 #def __init__(self):
-f = open('title_screen.txt', 'r') #Contact casy to resolve
+f = open('title_screen.txt', 'r') #Contact Casey to resolve
 print(f)
 
