@@ -9,7 +9,7 @@ def _load_data(file_name_and_path="./dork/maze.yml"):
         data = yaml.safe_load(file.read())
 
     return data
-
+    
 
 def _check_path(rooms, name, direction):
     room = rooms[name]
@@ -25,9 +25,6 @@ def _check_path(rooms, name, direction):
 
 
 def main():
-    """Main point of entry.
-    Loads data. Checks if it is valid. And Parses it.
-    """
     data = _load_data()
     print("loaded this data: ")
     pprint(data)
