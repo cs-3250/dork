@@ -2,7 +2,7 @@
 
 House:
   Empty Room:
-    north: null
+    north: "Boss"
     east: "Kitchen"
     south: null
     west: "Office"
@@ -19,7 +19,7 @@ House:
   Boss:
     north: "Exit"
     east: "Kitchen"
-    south: null
+    south: "Empty Room"
     west: "Office" 
   Exit:
     north: null
