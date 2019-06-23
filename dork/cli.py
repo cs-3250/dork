@@ -23,6 +23,17 @@ Definition of done:
     -Added actions into CLI dictionaries
     
 """
+import textwrap
+
+def __init__(self):
+
+# The quit command
+def do_quit(self, arg):
+    """Quit the game"""
+    return True # this exits the CMD app loop
+
+############################################################################
+"""  CANNOT USE!!
 from prompt_toolkit import prompt
 from prompt_toolkit.history import FileHistory
 from prompt_toolkit.lexers import Lexer
@@ -51,9 +62,6 @@ def read():
 
 def main(*args):  # main CLI runner for Dork
     '''main function'''
-    
-############################################################################
-"""  CANNOT USE!!
 __all__ = ["main"]
 
 

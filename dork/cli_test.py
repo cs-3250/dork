@@ -22,14 +22,16 @@ Definition of done:
     -Added actions into CLI dictionaries
 
 """
-import os
-print(os.getcwd())
 
-print('\n\n\n\n\n\n\n\n\n\n\n')
+import textwrap
 
-import os
+def __init__(self):
 
-with open('test.txt') as f:
-    for line in f:
-        print line.strip()
+def start(self):
+    msg = textwrap.dedent(''' Welcome to the game''')
+    print(msg)
 
+# The quit command
+def do_quit(self, arg):
+    """Quit the game"""
+    return True # this exits the CMD app loop
