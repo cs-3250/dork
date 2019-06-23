@@ -23,15 +23,7 @@ Definition of done:
 
 """
 
-import textwrap
+#def __init__(self):
+f = open('title_screen.txt', 'r') #Contact casy to resolve
+print(f)
 
-def __init__(self):
-
-def start(self):
-    msg = textwrap.dedent(''' Welcome to the game''')
-    print(msg)
-
-# The quit command
-def do_quit(self, arg):
-    """Quit the game"""
-    return True # this exits the CMD app loop
