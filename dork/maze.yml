@@ -1,5 +1,3 @@
-# yml maze Model
-
 House:
   Empty Room:
     north: "Boss"
@@ -19,7 +17,7 @@ House:
   Boss:
     north: "Exit"
     east: "Kitchen"
-    south: "Empty Room"
+    south: "Empty"
     west: "Office" 
   Exit:
     north: null
