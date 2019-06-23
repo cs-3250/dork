@@ -22,8 +22,11 @@ Definition of done:
     -Added actions into CLI dictionaries
 
 """
+import textwrap
 
 #def __init__(self):
+
 f = open('title_screen.txt', 'r') #Contact Casey to resolve
-print(f)
+message = f.read()
+print(message)
 
