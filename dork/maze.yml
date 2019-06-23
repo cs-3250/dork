@@ -1,4 +1,4 @@
-House:
+Rooms:
   Empty Room:
     north: "Boss"
     east: "Kitchen"
