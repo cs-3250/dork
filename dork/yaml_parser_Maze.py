@@ -3,12 +3,10 @@ import yaml
 
 CARDINALS = ["north", "east", "south", "west"]
 
-def _load_data(file_name_and_path="./dork/maze.yml"):  # lookup default args
-    with open(file_name_and_path) as file:  # with keyword is a context manager
-        data = yaml.safe_load(file.read())  # ./yaml/dork.yml is a valid file
 
-    # data is now available in the current scope.
-    # file is removed after the with (closed) for record keeping
+def _load_data(file_name_and_path="./dork/maze.yml"):
+    with open(file_name_and_path) as file:
+        data = yaml.safe_load(file.read())
 
     return data
 
@@ -44,7 +42,7 @@ def main():
         return
 
     rooms = data["Rooms"]
-    for name in rooms:  # this is a dictionary key iterator
+    for name in rooms:
         for direction in CARDINALS:
             _check_path(rooms, name, direction)
 
