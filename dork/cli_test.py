@@ -28,5 +28,10 @@ import textwrap
 
 f = open('title_screen.txt', 'r') #Contact Casey to resolve
 message = f.read()
+textwrap.TextWrapper(message)
 print(message)
 
+screenwidth = 200
+
+class textwrap.TextWrapper(**kwargs)
+wrapper = TextWrapper(initial_indent="* ")
