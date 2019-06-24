@@ -10,7 +10,7 @@ def _load_data(file_name_and_path="./dork/maze.yml"):
 
     return data
     
-
+    
 def _check_path(rooms, name, direction):
     room = rooms[name]
     if direction not in room:
