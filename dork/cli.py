@@ -31,9 +31,11 @@ def gameStart():
 def evaluate(user_input):
     '''evaluate user CLI input'''
     action = user_input
-    dictionary = [jump]
-        if action() == dictionary():
-        print('success!!')
+    dictionary = {'jump' : 'You have jumped! >>> '}
+    if user_input not in dictionary :
+        return 'Success ' + dictionary[user_input]
+    
+    
     #doc = Parser(user_input)
     # to do: why not just make command a Parser attribute?
     #command = doc.resolve_action()
@@ -47,13 +49,15 @@ def evaluate(user_input):
 
 def repl():
     ''' REPL: Read–Eval–Print Loop '''
+    title = 'hello\n'
+    output = title
     while True:
-        user_input = read() #
-        stop, output = evaluate(user_input)
-        if output:
-            print(output)
-        if stop:
-            exit(0)
+        user_input = input(output) 
+        if 'quit' in user_input :
+            print('You have quit.  Goodbye!')
+            break
+        else :
+            output = evaluate(user_input)
             
-gameStart()
+repl()
 
