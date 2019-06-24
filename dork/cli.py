@@ -30,16 +30,16 @@ def gameStart():
     
 def evaluate(user_input):
     '''evaluate user CLI input'''
-    doc = Parser(user_input)
+    #doc = Parser(user_input)
     # to do: why not just make command a Parser attribute?
-    command = doc.resolve_action()
-    if command:
-        response = getattr(actions, command)(**doc.parameters)
-        if isinstance(response, tuple):
-            stop_flag, output = response
-            return stop_flag, output
-        return False, response
-    return False, None
+    #command = doc.resolve_action()
+    #if command:
+    #    response = getattr(actions, command)(**doc.parameters)
+    #    if isinstance(response, tuple):
+    #        stop_flag, output = response
+    #        return stop_flag, output
+    #    return False, response
+    #return False, None
 
 def repl():
     ''' REPL: Read–Eval–Print Loop '''
