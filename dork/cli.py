@@ -7,7 +7,7 @@ are trying to convey so others can understand the same logic.
 
 -Needs to:
     -be able to have a dictionary for parsing.
-    -Have a quit function
+    -Have a quit functionno
     -Be able to perform actions and have cardinal directions.
     -Have a REPL.
 -Currently needs:
@@ -22,42 +22,50 @@ Definition of done:
     -Added actions into CLI dictionaries
     
 """
+import gamedictionary
+
+
 def gameStart():
     print('#################################################################')
-    userInput = input('Hello welcome to the game!\n\nWhat would you like to do? >>>  ')
-    evaluate(userInput)
+    userInput = input(
+        'Hello welcome to the game!\n\nWhat would you like to do? >>>  ')
+   # evaluate(userInput)
     #print('\nYou ' + userInput)
-    
+
+
 def evaluate(user_input):
     '''evaluate user CLI input'''
     action = user_input
-    dictionary = {'jump' : 'You have jumped! >>> '}
-    if user_input not in dictionary :
-        return 'Success ' + dictionary[user_input]
-    
-    
+    if action is "north":
+        print(gamedictionary.movement['north'])
+    # if user_input not in dictionary :
+     #   return 'Success ' + dictionary[user_input]
+
     #doc = Parser(user_input)
     # to do: why not just make command a Parser attribute?
     #command = doc.resolve_action()
-    #if command:
+    # if command:
     #    response = getattr(actions, command)(**doc.parameters)
     #    if isinstance(response, tuple):
     #        stop_flag, output = response
     #        return stop_flag, output
     #    return False, response
-    #return False, None
+    # return False, None
+
 
 def repl():
     ''' REPL: Read–Eval–Print Loop '''
     title = 'hello\n'
     output = title
     while True:
-        user_input = input(output) 
-        if 'quit' in user_input :
+        user_input = input(output)
+        if 'quit' in user_input:
             print('You have quit.  Goodbye!')
             break
-        else :
+        else:
             output = evaluate(user_input)
-            
-repl()
 
+# repl()
+
+
+gameStart()
