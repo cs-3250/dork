@@ -3,7 +3,7 @@
 -MH 06/22/2019 - 12:27pm #########################################
 
 *** For now *** if you change something, leave a comment of the thought you
-are trying to convey so others can understand the same logic. 
+are trying to convey so others can understand the same logic.
 
 -Needs to:
     -be able to have a dictionary for parsing.
@@ -20,29 +20,29 @@ are trying to convey so others can understand the same logic.
 Definition of done:
     -Create test cases for actions in REPL
     -Added actions into CLI dictionaries
-    
+
 """
-import gamedictionary
+from dork import gamedictionary
+print(gamedictionary)
 
-
-def gameStart():
+def game_start():
+    ''' bla bla bla'''
     print('#################################################################')
-    userInput = input(
+    user_input = input(
         'Hello welcome to the game!\n\nWhat would you like to do? >>>  ')
-   # evaluate(userInput)
-    #print('\nYou ' + userInput)
+    print("user input was", user_input + '.')
+   # evaluate(user_input)
+    #print('\nYou ' + user_input)
 
 
 def evaluate(user_input):
     '''evaluate user CLI input'''
-    action = user_input
-<<<<<<< HEAD
-    if action is "north":
-        print(gamedictionary.movement['north'])
-    # if user_input not in dictionary :
-     #   return 'Success ' + dictionary[user_input]
+    # action = user_input
+    # if action == "north":
+        # print(dictionary.movement['north'])
+    # if user_input not in gamedictionary :
+     #   return 'Success ' + gamedictionary[user_input]
 
-=======
     dictionary = {
         'jump' : 'You have jumped!\n >>',
         'north' : 'You went norh!\n >>',
@@ -52,12 +52,10 @@ def evaluate(user_input):
         'climb' : 'You cant climb yet...\n >>',
         'take' : 'You cant take anything yet...\n >>',
         }
-    if user_input in dictionary :
+    if user_input in dictionary:
         return 'Success ' + dictionary[user_input]
-    else :
-        return 'Sorry, I dont know that one...\n >>'
-    
->>>>>>> 0c4e8417b761f717e8f6f071107f446ed87d05ed
+    return 'Sorry, I dont know that one...\n >>'
+
     #doc = Parser(user_input)
     # to do: why not just make command a Parser attribute?
     #command = doc.resolve_action()
@@ -85,4 +83,4 @@ def repl():
 # repl()
 
 
-gameStart()
+game_start()
