@@ -22,6 +22,11 @@ Definition of done:
     -Added actions into CLI dictionaries
     
 """
+def gameStart():
+    print('#################################################################')
+    userInput = input('Hello welcome to the game!\n\nWhat would you like to do? >>>  ')
+    print('You ' + userInput)
+    
 def evaluate(user_input):
     '''evaluate user CLI input'''
     doc = Parser(user_input)
@@ -44,4 +49,6 @@ def repl():
             print(output)
         if stop:
             exit(0)
+            
+gameStart()
 
