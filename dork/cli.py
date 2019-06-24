@@ -30,6 +30,10 @@ def gameStart():
     
 def evaluate(user_input):
     '''evaluate user CLI input'''
+    action = user_input
+    dictionary = [jump]
+        if action() == dictionary():
+        print('success!!')
     #doc = Parser(user_input)
     # to do: why not just make command a Parser attribute?
     #command = doc.resolve_action()
