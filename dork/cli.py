@@ -31,10 +31,19 @@ def gameStart():
 def evaluate(user_input):
     '''evaluate user CLI input'''
     action = user_input
-    dictionary = {'jump' : 'You have jumped! >>> '}
+    dictionary = {
+        'jump' : 'You have jumped!\n >>',
+        'north' : 'You went norh!\n >>',
+        'south' : 'You went south!\n >>',
+        'east' : 'You went east!\n >>',
+        'west' : 'You went west!\n >>',
+        'climb' : 'You cant climb yet...\n >>',
+        'take' : 'You cant take anything yet...\n >>',
+        }
     if user_input not in dictionary :
         return 'Success ' + dictionary[user_input]
-    
+    else :
+        return 'Sorry, I dont know that one...\n >>'
     
     #doc = Parser(user_input)
     # to do: why not just make command a Parser attribute?
