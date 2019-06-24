@@ -32,6 +32,16 @@ def test_cli_exists(run):
         raise AssertionError("cannot run 'dork' command")
 
 
+def test_repl():
+    """ REPL should loop until user inputs quit"""
+    with patch(builtin.input):
+        mock_input = Mock()
+        mock_input.side_effect =    [("jump"),
+                                    ("quit")]
+        cli.evaluate = mock_eval
+        cli.repl()
+
+
 def test_cli_help(run):
     '''The CLI's help command should return helpful information.'''
     out, err = run(cli.main, "-h")
@@ -54,25 +64,8 @@ def test_lexer():
                 for item in result])
 
 
-def test_eof():
-    '''The game should exit if the input stream is closed.'''
-    with patch('dork.cli.prompt', side_effect=EOFError):
-        assert cli.read() == "quit game"
-
-
-def test_keyboard_interrupt():
-    '''The game should exit if the user types CTRL+C.'''
-    with patch('dork.cli.prompt', side_effect=KeyboardInterrupt):
-        assert cli.read() == "quit game"
-
-
 def test_evaluate():
-    """ evaluate() takes a user_input string and should return a tuple
-        (bool, str) or (bool, NoneType) indicating whether to exit the REPL
-        and any output generated in response to user input. User input
-        corresponding to game actions should call those actions and forward
-        their output. User input not matching any game action should return
-        None as output."""
+    """ evaluate() is out of date"""
 
     action_list = [action.rstrip('_') for action in actions.__dict__
                    if callable(getattr(actions, action))]
@@ -90,16 +83,3 @@ def test_evaluate():
         assert isinstance(response, tuple) \
             and isinstance(response[0], bool) \
             and isinstance(response[1], type(None))
-
-
-def test_repl():
-    """ REPL should loop until cli.evaluate returns a tuple
-        whose first element is True."""
-    with patch('dork.cli.prompt'):
-        with raises(SystemExit):
-            mock_eval = Mock()
-            mock_eval.side_effect = [(False, "Went north!"),
-                                     (False, None),  # no command entered
-                                     (True, "Goodbye.")]
-            cli.evaluate = mock_eval
-            cli.repl()

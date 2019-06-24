@@ -36,11 +36,28 @@ def gameStart():
 def evaluate(user_input):
     '''evaluate user CLI input'''
     action = user_input
+<<<<<<< HEAD
     if action is "north":
         print(gamedictionary.movement['north'])
     # if user_input not in dictionary :
      #   return 'Success ' + dictionary[user_input]
 
+=======
+    dictionary = {
+        'jump' : 'You have jumped!\n >>',
+        'north' : 'You went norh!\n >>',
+        'south' : 'You went south!\n >>',
+        'east' : 'You went east!\n >>',
+        'west' : 'You went west!\n >>',
+        'climb' : 'You cant climb yet...\n >>',
+        'take' : 'You cant take anything yet...\n >>',
+        }
+    if user_input in dictionary :
+        return 'Success ' + dictionary[user_input]
+    else :
+        return 'Sorry, I dont know that one...\n >>'
+    
+>>>>>>> 0c4e8417b761f717e8f6f071107f446ed87d05ed
     #doc = Parser(user_input)
     # to do: why not just make command a Parser attribute?
     #command = doc.resolve_action()
