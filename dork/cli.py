@@ -40,7 +40,7 @@ def evaluate(user_input):
         'climb' : 'You cant climb yet...\n >>',
         'take' : 'You cant take anything yet...\n >>',
         }
-    if user_input not in dictionary :
+    if user_input in dictionary :
         return 'Success ' + dictionary[user_input]
     else :
         return 'Sorry, I dont know that one...\n >>'
