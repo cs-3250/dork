@@ -25,7 +25,8 @@ Definition of done:
 def gameStart():
     print('#################################################################')
     userInput = input('Hello welcome to the game!\n\nWhat would you like to do? >>>  ')
-    print('\nYou ' + userInput)
+    evaluate(userInput)
+    #print('\nYou ' + userInput)
     
 def evaluate(user_input):
     '''evaluate user CLI input'''
