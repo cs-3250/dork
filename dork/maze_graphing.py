@@ -1,16 +1,17 @@
 import networkx as nx
 import matplotlib.pyplot as plt
+from networkx.utils import open_file
 import yaml
 
 G = nx.Graph()
-nx.write_yaml(G, 'maze.yml')
-G = nx.read_yaml('maze.yml')
+nx.write_yaml(G, 'maze.yaml')
+G = nx.read_yaml('maze.yaml')
 
-G.add_edge("Empty Room", "Kitchen")
-G.add_edge("Office", "Boss")
-G.add_edge("Boss", "Empty Room")
-G.add_edge("Kitchen", "Office")
-G.add_edge("Boss", "Exit")
+G.add_edge('Empty Room', 'Kitchen')
+G.add_edge('Office', 'Boss')
+G.add_edge('Boss', 'Kitchen')
+G.add_edge('Empty Room', 'Office')
+G.add_edge('Boss', 'Exit')
 
 elarge = [(u, v) for (u, v, d) in G.edges(data=True)]
 

@@ -1,6 +1,6 @@
 Rooms:
   Empty Room:
-    north: "Boss"
+    north: null
     east: "Kitchen"
     south: null
     west: "Office"
@@ -17,11 +17,10 @@ Rooms:
   Boss:
     north: "Exit"
     east: "Kitchen"
-    south: "Empty"
+    south: null
     west: "Office" 
   Exit:
     north: null
     east: null
     south: "Boss"
     west: null
-
