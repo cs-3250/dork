@@ -2,7 +2,7 @@
 '''basic tests for the dork cli'''
 import io
 from types import FunctionType
-import dork.cli as cli
+from dork import cli
 
 # to do: test evaluate()
 #     test some known commands
@@ -24,9 +24,10 @@ def test_cli_exists(run):
 def test_repl(mocker):
     """ REPL should loop until user inputs quit"""
     with mocker.patch('builtins.input'):
-        mock_input = mocker()
+        mock_input = mocker
         mock_input.side_effect = [("jump"),
-                                  ("quit")]
+                                  ("quit"),
+                                  ("nope")]
         cli.repl()
         assert mock_input.call_counter == 2 #pylint is a bitch
 
