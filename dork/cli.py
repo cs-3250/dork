@@ -28,16 +28,15 @@ print(gamedictionary)
 def evaluate(user_input):
     '''evaluate user CLI input'''
     parsed_input = parser(user_input)
-    
-    if parsed_input[0] is in gamedictionary.ACTION
-        output = ACTION.get(parsed_input[0])
-    else:
-        default = 'Im Sorry. I didnt understand ' + parsed_input[0]
+    output = gamedictionary.ACTION.get(parsed_input[0])
+    if output is None:
+        output = 'Im Sorry. I didnt understand ' + parsed_input[0]
     return output
 
 
-def parser(user_input)
-
+def parser(user_input):
+    '''parse text, move action to first, find object and make second'''
+    return user_input.split()
 
 def repl():
     ''' REPL: Read–Eval–Print Loop '''
