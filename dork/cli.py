@@ -7,7 +7,7 @@ are trying to convey so others can understand the same logic.
 
 -Needs to:
     -be able to have a dictionary for parsing.
-    -Have a quit functionno
+    -Have a quit function
     -Be able to perform actions and have cardinal directions.
     -Have a REPL.
 -Currently needs:
@@ -25,47 +25,18 @@ Definition of done:
 from dork import gamedictionary
 print(gamedictionary)
 
-def game_start():
-    ''' bla bla bla'''
-    print('#################################################################')
-    user_input = input(
-        'Hello welcome to the game!\n\nWhat would you like to do? >>>  ')
-    print("user input was", user_input + '.')
-   # evaluate(user_input)
-    #print('\nYou ' + user_input)
-
-
 def evaluate(user_input):
     '''evaluate user CLI input'''
-    # action = user_input
-    # if action == "north":
-        # print(dictionary.movement['north'])
-    # if user_input not in gamedictionary :
-     #   return 'Success ' + gamedictionary[user_input]
+    parsed_input = parser(user_input)
+    
+    if parsed_input[0] is in gamedictionary.ACTION
+        output = ACTION.get(parsed_input[0])
+    else:
+        default = 'Im Sorry. I didnt understand ' + parsed_input[0]
+    return output
 
-    dictionary = {
-        'jump' : 'You have jumped!\n >>',
-        'north' : 'You went norh!\n >>',
-        'south' : 'You went south!\n >>',
-        'east' : 'You went east!\n >>',
-        'west' : 'You went west!\n >>',
-        'climb' : 'You cant climb yet...\n >>',
-        'take' : 'You cant take anything yet...\n >>',
-        }
-    if user_input in dictionary:
-        return 'Success ' + dictionary[user_input]
-    return 'Sorry, I dont know that one...\n >>'
 
-    #doc = Parser(user_input)
-    # to do: why not just make command a Parser attribute?
-    #command = doc.resolve_action()
-    # if command:
-    #    response = getattr(actions, command)(**doc.parameters)
-    #    if isinstance(response, tuple):
-    #        stop_flag, output = response
-    #        return stop_flag, output
-    #    return False, response
-    # return False, None
+def parser(user_input)
 
 
 def repl():
@@ -80,7 +51,4 @@ def repl():
         else:
             output = evaluate(user_input)
 
-# repl()
-
-
-game_start()
+repl()
