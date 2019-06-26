@@ -22,7 +22,7 @@ Definition of done:
     -Added actions into CLI dictionaries
 
 """
-from gamedictionary import get_Action as gd
+from dork import gamedictionary as gd
 
 __all__ = ["main"]
 
