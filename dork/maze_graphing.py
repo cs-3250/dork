@@ -4,14 +4,13 @@ from networkx.utils import open_file
 import yaml
 
 G = nx.Graph()
-nx.write_yaml(G, 'maze.yaml')
-G = nx.read_yaml('maze.yaml')
+G = nx.read_yaml('maze.yml')
 
-G.add_edge('Empty Room', 'Kitchen')
-G.add_edge('Office', 'Boss')
-G.add_edge('Boss', 'Kitchen')
-G.add_edge('Empty Room', 'Office')
-G.add_edge('Boss', 'Exit')
+#nx.write_yaml(G, 'maze.yml')
+
+for line in nx.generate_adjlist(G):
+    print(line)
+exit(0)
 
 elarge = [(u, v) for (u, v, d) in G.edges(data=True)]
 
