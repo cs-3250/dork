@@ -22,25 +22,26 @@ Definition of done:
     -Added actions into CLI dictionaries
 
 """
-from dork import gamedictionary as gd
-print(gd.ACTION)
+import gamedictionary as gd
+
+__all__ = ["main"]
 
 def evaluate(user_input):
     '''evaluate user CLI input'''
     parsed_input = parser(user_input)
-    output = gd.ACTION.get(parsed_input[0])
-    if output is None:
-        output = 'Im Sorry. I didnt understand ' + parsed_input[0]
-    return output
+    game_response = gd.ACTION.get(parsed_input[0])
+    if game_response is None:
+        game_response = 'Im Sorry. I didnt understand ' + parsed_input[0]
+    return game_response
 
 
 def parser(user_input):
-    '''parse text, move action to first, find object and make second'''
+    '''to do parse text, move action to first, find object and make second'''
     return user_input.split()
 
 def repl():
     ''' REPL: Read–Eval–Print Loop '''
-    output = 'hello\n'
+    output = '*This is a title screen*\n'
     while True:
         user_input = input(output)
         if 'quit' in user_input:
@@ -48,6 +49,10 @@ def repl():
             break
         else:
             output = evaluate(user_input)
+
+def main():
+    ''' main to dork '''
+    repl()
 
 
 if __name__ == "__main__":
