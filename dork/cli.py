@@ -26,6 +26,7 @@ from dork import gamedictionary as gd
 
 __all__ = ["main"]
 
+
 def evaluate(user_input):
     '''evaluate user CLI input'''
     parsed_input = parser(user_input)
@@ -39,6 +40,7 @@ def parser(user_input):
     '''to do parse text, move action to first, find object and make second'''
     return user_input.split()
 
+
 def repl():
     ''' REPL: Read–Eval–Print Loop '''
     output = '*This is a title screen*\n'
@@ -49,6 +51,7 @@ def repl():
             break
         else:
             output = evaluate(user_input)
+
 
 def main():
     ''' main to dork '''

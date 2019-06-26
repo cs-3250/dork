@@ -8,6 +8,16 @@ from dork import cli
 #     test some known commands
 
 
+def test_repl(mocker):
+    """ REPL should loop until user inputs quit"""
+    mock_input = mocker.patch('builtins.input')
+    mock_input.side_effect = [("jump"),
+                              ("quit"),
+                              ("nope")]
+    cli.repl()
+    assert mock_input.call_counter == 2  # pylint is a bitch
+    
+    
 def test_cli_exists(run):
     '''dork.cli.main should always exist and run.'''
     assert "main" in vars(cli), "Dork.cli should define a main method"
@@ -19,17 +29,6 @@ def test_cli_exists(run):
         return
     except:  # noqa: E722
         raise AssertionError("cannot run 'dork' command")
-
-
-def test_repl(mocker):
-    """ REPL should loop until user inputs quit"""
-    with mocker.patch('builtins.input'):
-        mock_input = mocker
-        mock_input.side_effect = [("jump"),
-                                  ("quit"),
-                                  ("nope")]
-        cli.repl()
-        assert mock_input.call_counter == 2 #pylint is a bitch
 
 
 def test_cli_help(run):
