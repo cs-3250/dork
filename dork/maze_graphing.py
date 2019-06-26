@@ -19,7 +19,7 @@ pos = nx.spring_layout(G)
 
 nx.draw_networkx_nodes(G, pos, node_size=700)
 
-nx.draw_networkx_edges(G, pos, edgelist=elarge,width=6)
+nx.draw_networkx_edges(G, pos, edgelist=elarge, width=6)
 
 nx.draw_networkx_labels(G, pos, font_size=10, font_family='sans-serif')
 
