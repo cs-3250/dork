@@ -32,7 +32,7 @@ def evaluate(user_input):
     parsed_input = parser(user_input)
     game_response = gd.ACTION.get(parsed_input[0])
     if game_response is None:
-        game_response = 'Im Sorry. I didnt understand ' + parsed_input[0]
+        game_response = 'Im Sorry. I didnt understand what you said.'
     elif len(parsed_input) > 1:
         game_response = gd.ACTION.get(parsed_input[0]).get(parsed_input[1])
     return game_response
@@ -40,7 +40,11 @@ def evaluate(user_input):
 
 def parser(user_input):
     '''to do parse text, move action to first, find object and make second'''
-    return user_input.split()
+    if len(user_input) < 1:
+        parsed_string = " "
+    else:
+        parsed_string = user_input.split()
+    return parsed_string
 
 
 def repl():

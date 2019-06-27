@@ -10,12 +10,11 @@ from dork import cli
 
 def test_evaluate():
     """ evaluate() is out of date"""
-
     assert cli.evaluate('jump') == 'you have jumped'
     assert cli.evaluate('go north') == 'You have moved north'
     assert 'ran' in cli.evaluate('run')
     assert 'crying' in cli.evaluate('cry')
-    assert 'you' in cli.evaluate()
+    assert "Sorry" in cli.evaluate('')
 
 
 def test_repl(mocker):
