@@ -36,6 +36,24 @@ def test_cli_exists(run, mocker):
     run(cli.main)
 
 
+def test_repl_exists():
+    '''The dork module should define an Player.'''
+    assert "repl" in vars(dork.objects)
+    is_a(dork.objects.repl, type)
+
+
+def test_evaluate_exists():
+    '''The dork module should define an Player.'''
+    assert "evaluate" in vars(dork.objects)
+    is_a(dork.objects.evaluate, type)
+
+
+def test_parser_exist():
+    '''The dork module should define an Player.'''
+    assert "parser" in vars(dork.objects)
+    is_a(dork.objects.parser, type)
+
+
 def test_cli_help(run):
     '''The CLI's help command should return helpful information.'''
     assert "usage: " in cli.evaluate('help'), \

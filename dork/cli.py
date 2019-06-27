@@ -24,7 +24,7 @@ Definition of done:
 """
 from dork import gamedictionary as gd
 
-__all__ = ["main"]
+__all__ = ["main", "evaluate", "parser", "repl"]
 
 
 def evaluate(user_input):
