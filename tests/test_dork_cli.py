@@ -13,8 +13,9 @@ def test_evaluate():
 
     assert cli.evaluate('jump') == 'you have jumped'
     assert cli.evaluate('go north') == 'You have moved north'
-    assert cli.evaluate('jump') == 'you have jumped'
-    assert cli.evaluate('jump') == 'you have jumped'
+    assert 'ran' in cli.evaluate('run')
+    assert 'crying' in cli.evaluate('cry')
+    assert 'you' in cli.evaluate()
 
 
 def test_repl(mocker):
