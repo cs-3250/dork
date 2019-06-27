@@ -3,6 +3,8 @@
 import io
 from types import FunctionType
 from dork import cli
+from tests.utils import has_many, is_a
+
 
 # to do: test evaluate()
 #     test some known commands
@@ -38,20 +40,20 @@ def test_cli_exists(run, mocker):
 
 def test_repl_exists():
     '''The dork module should define an Player.'''
-    assert "repl" in vars(dork.objects)
-    is_a(dork.objects.repl, type)
+    assert "repl" in vars(cli)
+    is_a(cli.repl, object)
 
 
 def test_evaluate_exists():
     '''The dork module should define an Player.'''
-    assert "evaluate" in vars(dork.objects)
-    is_a(dork.objects.evaluate, type)
+    assert "evaluate" in vars(cli)
+    is_a(cli.evaluate, object)
 
 
 def test_parser_exist():
     '''The dork module should define an Player.'''
-    assert "parser" in vars(dork.objects)
-    is_a(dork.objects.parser, type)
+    assert "parser" in vars(cli)
+    is_a(cli.parser, object)
 
 
 def test_cli_help(run):
