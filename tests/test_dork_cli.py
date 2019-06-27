@@ -12,7 +12,7 @@ def test_evaluate():
     """ evaluate() is out of date"""
 
     assert cli.evaluate('jump') == 'you have jumped'
-    assert cli.evaluate('go').get('north') == 'You have moved north'
+    assert cli.evaluate('go north') == 'You have moved north'
     assert cli.evaluate('jump') == 'you have jumped'
     assert cli.evaluate('jump') == 'you have jumped'
 
@@ -27,21 +27,16 @@ def test_repl(mocker):
     assert mock_input.call_count == 2  # pylint is a bitch
 
 
-def test_cli_exists(run):
+def test_cli_exists(run, mocker):
     '''dork.cli.main should always exist and run.'''
+    mock_input = mocker.patch('builtins.input')
+    mock_input.side_effect = [("quit")]
     assert "main" in vars(cli), "Dork.cli should define a main method"
     assert isinstance(cli.main, FunctionType)
-    try:
-        run(cli.main)
-    except io.UnsupportedOperation:  # expected
-        # prompt_toolkit raises when run non-interactively (e.g. in a test)
-        pass
-    except:  # noqa: E722
-        raise AssertionError("cannot run 'dork' command")
+    run(cli.main)
 
 
 def test_cli_help(run):
     '''The CLI's help command should return helpful information.'''
-    out, err = run(cli.main, "-h")
-    assert "usage: " in out, \
-        "Failed to run the cli.main method: {err}".format(err=err)
+    assert "usage: " in cli.evaluate('help'), \
+        "Failed to respond with 'usage: '"

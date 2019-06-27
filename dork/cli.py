@@ -33,6 +33,8 @@ def evaluate(user_input):
     game_response = gd.ACTION.get(parsed_input[0])
     if game_response is None:
         game_response = 'Im Sorry. I didnt understand ' + parsed_input[0]
+    elif len(parsed_input) > 1:
+        game_response = gd.ACTION.get(parsed_input[0]).get(parsed_input[1])
     return game_response
 
 
