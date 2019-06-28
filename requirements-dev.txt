@@ -9,3 +9,4 @@ pytest-runner
 pytest-mock
 Sphinx
 sphinxcontrib-napoleon
+mazelib 
