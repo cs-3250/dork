@@ -8,7 +8,8 @@ class GameEngine:
         print(('Game progress has been saved.').format(args))
 
     def load(self):
-        pass
+        print('Loading Game...\n')
+        shutil.openfile(self.dbfile, args)
     
     def reset_game(self):
         # Objects in game set to start
@@ -25,6 +26,3 @@ class GameEngine:
 
     def maze_generation(self):
         pass
-
-
-if __name__ == "__main__":
