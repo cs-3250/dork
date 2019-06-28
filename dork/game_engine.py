@@ -8,11 +8,7 @@ class GameEngine:
         print(('Game progress has been saved.').format(args))
 
     def load(self):
-        s = shelve.open('dork_save.db')
-        if s:
-            d = s['save']
-        else:
-            print('No saved game found!')
+        pass
     
     def reset_game(self):
         # Objects in game set to start
