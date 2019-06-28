@@ -1,15 +1,22 @@
-import shutil
+import shelve
+import maze.yml
 
 
 class GameEngine:
 
     def save(self):
-        shutil.copyfile(self.dbfile, args)
-        print(('Game progress has been saved.').format(args))
+        s = shelve.open('dork_save.db')
+        s = ['save'] = {}
+        s.close()
+        print('Game progress has been saved.')
 
     def load(self):
         print('Loading Game...\n')
-        shutil.openfile(self.dbfile, args)
+        s = shelve.open('dork_save.db')
+        if s:
+            d = s['save']
+        else: 
+            print('There is no game saved!')
     
     def reset_game(self):
         # Objects in game set to start
@@ -25,4 +32,4 @@ class GameEngine:
 
 
     def maze_generation(self):
-        pass
+        
