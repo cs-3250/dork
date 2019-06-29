@@ -10,3 +10,5 @@ pytest-mock
 Sphinx
 sphinxcontrib-napoleon
 mazelib 
+NetworkX
+numpy

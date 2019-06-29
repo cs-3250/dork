@@ -1,2 +1,5 @@
-pyyaml==5.1.1
 prompt-toolkit==2.0.9
+git+https://github.com/theJollySin/mazelib.git#egg=mazelib
+NetworkX
+numpy
+

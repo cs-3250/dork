@@ -2,7 +2,6 @@ import mazelib
 import networkx as nx
 import numpy as np
 import matplotlib.pyplot as plt
-from networkx.utils import open_file
 import yaml
 
 MAZE_BIGNESS = (3, 3)
