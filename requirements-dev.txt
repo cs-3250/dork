@@ -13,3 +13,4 @@ mazelib
 NetworkX
 numpy
 mazelib
+git+https://github.com/theJollySin/mazelib.git#egg=mazelib
