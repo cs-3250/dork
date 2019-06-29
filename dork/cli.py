@@ -32,15 +32,19 @@ def evaluate(user_input):
     words = parser(user_input)
     response = 'Im Sorry. I didnt understand what you said.'
     if len(words) == 1:
-        response = gd.ACTION.get(words[0])
+        response = gd.ACTION.get(words[0], response)
     elif len(words) == 2:
+        if words[0] not in gd.ACTION:
+            return response
+        if words[1] not in gd.ACTION.get(words[0]):
+            return response
         response = gd.ACTION.get(words[0]).get(words[1])
     return response
 
 
 def parser(user_input):
     '''break input into separate words'''
-    if not user_input:
+    if user_input is None or len(user_input) <1:
         parsed_string = " "
     else:
         parsed_string = user_input.split()
@@ -61,4 +65,8 @@ def repl():
 
 def main():
     ''' main to dork '''
+    repl()
+
+
+if __name__ == "__main__":
     repl()

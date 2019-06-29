@@ -1,6 +1,6 @@
 """THE GAME DICTIONARY
 """
-__all__ = ['MOVEMENT', 'ACTION']
+__all__ = ['MOVEMENT', 'ACTION', 'PICK']
 
 MOVEMENT = {'north': 'You have moved north',
             'n': 'You have moved north',
@@ -12,6 +12,9 @@ MOVEMENT = {'north': 'You have moved north',
             'w': 'You have moved west'
             }
 
+PICK = {'up': "nothing picked up you have nowhere to put it"
+        }
+
 ACTION = {'jump': 'you have jumped',
           'run': 'You have ran',
           'cry': 'You started crying',
@@ -21,9 +24,6 @@ ACTION = {'jump': 'you have jumped',
           'save': "can't save at the moment",
           'pick': PICK
           }
-
-PICK = {'up': "nothing picked up you have nowhere to put it"
-        }
 
 if __name__ == "__main__":
     pass

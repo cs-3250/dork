@@ -27,7 +27,7 @@ def test_evaluate():
     assert "load" in cli.evaluate('load')
     assert "save" in cli.evaluate('save')
     assert "picked up" in cli.evaluate('pick up')
-    assert "I'm Sorry" in cli.evaluate('kick butt')
+    assert "Sorry" in cli.evaluate('kick butt')
 
 
 def test_repl(mocker):
@@ -67,7 +67,7 @@ def test_parser_exist():
     is_a(cli.parser, object)
 
 
-def test_cli_help(run):
+def test_cli_help():
     '''The CLI's help command should return helpful information.'''
     assert "usage: " in cli.evaluate('help'), \
         "Failed to respond with 'usage: '"
