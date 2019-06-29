@@ -12,3 +12,4 @@ sphinxcontrib-napoleon
 mazelib 
 NetworkX
 numpy
+mazelib
