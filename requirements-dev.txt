@@ -9,8 +9,8 @@ pytest-runner
 pytest-mock
 Sphinx
 sphinxcontrib-napoleon
-mazelib 
+mazelib
+Cython 
 NetworkX
 numpy
-mazelib
 git+https://github.com/theJollySin/mazelib.git#egg=mazelib
