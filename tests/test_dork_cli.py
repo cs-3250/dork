@@ -11,6 +11,7 @@ from tests.utils import is_a
 
 def test_evaluate():
     """ evaluate() is out of date"""
+    # appropriate responses
     assert cli.evaluate('jump') == 'you have jumped'
     assert cli.evaluate('go north') == 'You have moved north'
     assert cli.evaluate('go n') == 'You have moved north'
@@ -20,14 +21,18 @@ def test_evaluate():
     assert cli.evaluate('go e') == 'You have moved east'
     assert cli.evaluate('go west') == 'You have moved west'
     assert cli.evaluate('go w') == 'You have moved west'
-
     assert 'ran' in cli.evaluate('run')
     assert 'crying' in cli.evaluate('cry')
-    assert "Sorry" in cli.evaluate('')
     assert "load" in cli.evaluate('load')
     assert "save" in cli.evaluate('save')
     assert "picked up" in cli.evaluate('pick up')
+
+    # bad inputs
+    assert "Sorry" in cli.evaluate('')
     assert "Sorry" in cli.evaluate('kick butt')
+    assert "Sorry" in cli.evaluate('wrong')
+    assert "Sorry" in cli.evaluate('too many words')
+    assert "Sorry" in cli.evaluate('go die')
 
 
 def test_repl(mocker):

@@ -44,7 +44,7 @@ def evaluate(user_input):
 
 def parser(user_input):
     '''break input into separate words'''
-    if user_input is None or len(user_input) <1:
+    if user_input is None or len(user_input) < 1:
         parsed_string = " "
     else:
         parsed_string = user_input.split()
