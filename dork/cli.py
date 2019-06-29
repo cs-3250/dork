@@ -28,19 +28,19 @@ __all__ = ["main", "evaluate", "parser", "repl"]
 
 
 def evaluate(user_input):
-    '''evaluate user CLI input'''
-    parsed_input = parser(user_input)
-    game_response = gd.ACTION.get(parsed_input[0])
-    if game_response is None:
-        game_response = 'Im Sorry. I didnt understand what you said.'
-    elif len(parsed_input) > 1:
-        game_response = gd.ACTION.get(parsed_input[0]).get(parsed_input[1])
-    return game_response
+    '''using gamedictionary, provide appropriate command'''
+    words = parser(user_input)
+    response = 'Im Sorry. I didnt understand what you said.'
+    if len(words) == 1:
+        response = gd.ACTION.get(words[0])
+    elif len(words) == 2:
+        response = gd.ACTION.get(words[0]).get(words[1])
+    return response
 
 
 def parser(user_input):
-    '''to do parse text, move action to first, find object and make second'''
-    if len(user_input) < 1:
+    '''break input into separate words'''
+    if not user_input:
         parsed_string = " "
     else:
         parsed_string = user_input.split()
@@ -61,8 +61,4 @@ def repl():
 
 def main():
     ''' main to dork '''
-    repl()
-
-
-if __name__ == "__main__":
     repl()

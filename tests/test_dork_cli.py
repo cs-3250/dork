@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 '''basic tests for the dork cli'''
-import io
 from types import FunctionType
 from dork import cli
-from tests.utils import has_many, is_a
+from tests.utils import is_a
 
 
 # to do: test evaluate()
@@ -14,9 +13,21 @@ def test_evaluate():
     """ evaluate() is out of date"""
     assert cli.evaluate('jump') == 'you have jumped'
     assert cli.evaluate('go north') == 'You have moved north'
+    assert cli.evaluate('go n') == 'You have moved north'
+    assert cli.evaluate('go south') == 'You have moved south'
+    assert cli.evaluate('go s') == 'You have moved south'
+    assert cli.evaluate('go east') == 'You have moved east'
+    assert cli.evaluate('go e') == 'You have moved east'
+    assert cli.evaluate('go west') == 'You have moved west'
+    assert cli.evaluate('go w') == 'You have moved west'
+
     assert 'ran' in cli.evaluate('run')
     assert 'crying' in cli.evaluate('cry')
     assert "Sorry" in cli.evaluate('')
+    assert "load" in cli.evaluate('load')
+    assert "save" in cli.evaluate('save')
+    assert "picked up" in cli.evaluate('pick up')
+    assert "I'm Sorry" in cli.evaluate('kick butt')
 
 
 def test_repl(mocker):
