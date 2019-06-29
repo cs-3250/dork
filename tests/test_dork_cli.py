@@ -42,7 +42,7 @@ def test_repl(mocker):
                               ("quit"),
                               ("nope")]
     cli.repl()
-    assert mock_input.call_count == 2  # pylint is a bitch
+    assert mock_input.call_count == 2
 
 
 def test_cli_exists(run, mocker):
