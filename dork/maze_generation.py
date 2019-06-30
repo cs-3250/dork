@@ -35,4 +35,3 @@ nx.draw(G)
 plt.show()
 
 G = nx.read_yaml('maze.yaml')
-# G = nx.write_yaml(G, 'maze.yml')

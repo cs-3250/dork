@@ -31,5 +31,4 @@ class GameEngine:
         self.room = world[new_room_name]
 
 
-    def maze_generation(self):
-        
+   def maze_generation(self):
