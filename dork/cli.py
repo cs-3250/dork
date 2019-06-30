@@ -47,7 +47,18 @@ def parser(user_input):
     if not user_input:
         parsed_string = " "
     else:
-        parsed_string = user_input.split()
+        parsed_string = user_input.split() #add a second word and make it say something like that is not in our list.  And then that delgates to what word is wrong.  Once parser is done it should be able to say that were good or ....
+        """if first item in word is go, movement or pick then 
+                and not second item:
+                if met say 'I dont understand'
+                catch what happens in the parser if it needs 
+                more words and they you have more words to provide 
+            
+                cant pass back and cant quit out 
+            
+                can add elements before sending it output.  
+                Won't need print statements"""
+            
     return parsed_string
 
 

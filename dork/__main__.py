@@ -5,4 +5,4 @@
 import sys
 from dork.cli import main
 
-main(*sys.argv)
+main()
