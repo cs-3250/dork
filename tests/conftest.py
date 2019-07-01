@@ -2,7 +2,6 @@
 """Pytest Fixtures for Dork unit-tests
 """
 import pytest
-import dork
 
 pytest_plugins = ["pytester"]  # pylint: disable=invalid-name
 
