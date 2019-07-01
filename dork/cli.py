@@ -30,7 +30,7 @@ __all__ = ["main", "evaluate", "parser", "repl"]
 def evaluate(user_input):
     '''using gamedictionary, provide appropriate command'''
     words = parser(user_input)
-    response = 'Im Sorry. I didnt understand what you said.'
+    response = 'Im Sorry. I didnt understand that command.'
     if len(words) == 1:
         response = gd.ACTION.get(words[0], response)
     elif len(words) == 2:
@@ -43,26 +43,13 @@ def evaluate(user_input):
 
 
 def parser(user_input):
-    '''break input into separate words'''
+    '''returns list of words'''
+    parsed_string = user_input.split()
     if not user_input:
-        parsed_string = " "
-
-#add a second word and make it say something like that is not in our list.  
-#And then that delgates to what word is wrong.  
-#Once parser is done it should be able to say that were good or ....else:
-        parsed_string = user_input.split() 
-        """ sudo code:
-        if first item in word is go, movement or pick then 
-                and not second item:
-                if met say 'I dont understand'
-                catch what happens in the parser if it needs app
-                more words and they you have more words to provide 
-            
-                cant pass back and cant quit out 
-            
-                can add elements before sending it output.  
-                Won't need print statements"""
-            
+        user_input = " "
+    if len(parsed_string) == 1:
+        if parsed_string[0] in {'go', 'pick'}:
+            parsed_string.extend(['default'])
     return parsed_string
 
 
@@ -72,10 +59,10 @@ def repl():
     while True:
         user_input = input(output)
         if 'quit' in user_input:
-            print('You have quit.  Goodbye!')
+            print('You have quit.\n Goodbye!')
             break
         else:
-            output = evaluate(user_input)
+            output = evaluate(user_input) + "\n >>"
 
 
 def main():

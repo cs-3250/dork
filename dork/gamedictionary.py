@@ -19,7 +19,8 @@ ACTION = {'jump': 'you have jumped',
           'run': 'You have ran',
           'cry': 'You started crying',
           'go': MOVEMENT,
-          'help': 'usage: your damn mom',
+          'help': 'usage: [verb] [direction/object]\n' +
+                  'current actions: go, run, jump, pick up, cry, load, save',
           'load': "can't load at the moment",
           'save': "can't save at the moment",
           'pick': PICK

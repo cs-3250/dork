@@ -10,17 +10,17 @@ from tests.utils import is_a
 
 
 def test_evaluate():
-    """ evaluate() is out of date"""
+    """ command testing """
     # appropriate responses
-    assert cli.evaluate('jump') == 'you have jumped'
-    assert cli.evaluate('go north') == 'You have moved north'
-    assert cli.evaluate('go n') == 'You have moved north'
-    assert cli.evaluate('go south') == 'You have moved south'
-    assert cli.evaluate('go s') == 'You have moved south'
-    assert cli.evaluate('go east') == 'You have moved east'
-    assert cli.evaluate('go e') == 'You have moved east'
-    assert cli.evaluate('go west') == 'You have moved west'
-    assert cli.evaluate('go w') == 'You have moved west'
+    assert 'jumped' in cli.evaluate('jump')
+    assert 'moved north' in cli.evaluate('go north')
+    assert 'moved north' in cli.evaluate('go n')
+    assert 'moved south' in cli.evaluate('go south')
+    assert 'moved south' in cli.evaluate('go s')
+    assert 'moved east' in cli.evaluate('go east')
+    assert 'moved east' in cli.evaluate('go e')
+    assert 'moved west' in cli.evaluate('go west')
+    assert 'moved west' in cli.evaluate('go w')
     assert 'ran' in cli.evaluate('run')
     assert 'crying' in cli.evaluate('cry')
     assert "load" in cli.evaluate('load')
@@ -33,9 +33,10 @@ def test_evaluate():
     assert "Sorry" in cli.evaluate('wrong')
     assert "Sorry" in cli.evaluate('too many words')
     assert "Sorry" in cli.evaluate('go die')
+    assert "Sorry" in cli.evaluate('go ')
 
 
-def test_repl(mocker):
+def test_repl(run, mocker):
     """ REPL should loop until user inputs quit"""
     mock_input = mocker.patch('builtins.input')
     mock_input.side_effect = [("jump"),
