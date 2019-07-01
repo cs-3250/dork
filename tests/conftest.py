@@ -8,13 +8,6 @@ pytest_plugins = ["pytester"]  # pylint: disable=invalid-name
 
 
 @pytest.fixture
-def player():
-    """A basic dork player fixture
-    """
-    return dork.objects.Player()
-
-
-@pytest.fixture
 def run(capsys):
     """CLI run method fixture
     """
