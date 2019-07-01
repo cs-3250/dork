@@ -13,4 +13,3 @@ mazelib
 Cython 
 NetworkX
 numpy
-git+https://github.com/theJollySin/mazelib.git#egg=mazelib

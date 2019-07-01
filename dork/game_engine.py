@@ -1,20 +1,21 @@
-import shelve
+import mazelib
+import networkx as nx
+import numpy as np
+import matplotlib.pyplot as plt
 import maze.yml
 
 
 class GameEngine:
 
     def save(self):
-        s = shelve.open('dork_save.db')
-        s = ['save'] = {}
-        s.close()
+        
         print('Game progress has been saved.')
 
     def load(self):
         print('Loading Game...\n')
-        s = shelve.open('dork_save.db')
-        if s:
-            d = s['save']
+        
+        if:
+            
         else: 
             print('There is no game saved!')
     
@@ -23,12 +24,41 @@ class GameEngine:
         pass
 
     def movement(self, direction):
-        if direction not in self.room.exist:
+        if direction not in self.world:
           print('Cannot move in that direction!')  
           return
-        new_room_name = self.room.exist['room']
+        new_room_name = self.world['room']
         print('Moving to ', new_room_name)
         self.room = world[new_room_name]
 
 
-   def maze_generation(self):
+    def maze_generation(self):
+       MAZE_BIGNESS = (3, 3)
+
+    class Room():
+    pass
+
+    maze = mazelib.Prims(*MAZE_BIGNESS).generate()
+    G = nx.DiGraph()
+
+    rooms = np.ndarray(shape=[d - 2 for d in maze.shape], dtype=Room)
+
+    for index, room in np.ndenumerate(rooms):
+        x = index[0]
+        y = index[1]
+        x_maze = x + 1
+        y_maze = y + 1
+        if maze[x_maze, y_maze] == 0:
+            rooms[index] = Room()
+            x_north = x - 1
+            if x_north >= 0 and rooms[(x_north, y)] is not None:
+                G.add_edge(rooms[index], rooms[(x_north, y)], direction='n')
+                G.add_edge(rooms[(x_north, y)], rooms[index], direction='s')
+            y_west = y - 1
+            if y_west >= 0 and rooms[(x, y_west)] is not None:
+                G.add_edge(rooms[index], rooms[(x, y_west)], direction='w')
+                G.add_edge(rooms[(x, y_west)], rooms[index], direction='e')
+
+    print(maze)
+    nx.draw(G)
+    plt.show()
