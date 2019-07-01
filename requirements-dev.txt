@@ -9,7 +9,3 @@ pytest-runner
 pytest-mock
 Sphinx
 sphinxcontrib-napoleon
-mazelib
-Cython 
-NetworkX
-numpy

@@ -1,1 +1,4 @@
+NetworkX
 mazelib==0.8.1
+Cython
+numpy
