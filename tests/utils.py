@@ -3,6 +3,9 @@
 """
 import pytest
 
+def has_a(obj, attr):
+    """ Determiens if there is an attribute """
+    assert attr in vars(obj), f"{obj} has no {attr}"
 
 def is_a(obj, clazz):
     """Determines if an object is an instance of clazz.

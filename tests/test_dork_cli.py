@@ -1,14 +1,11 @@
 # -*- coding: utf-8 -*-
 '''basic tests for the dork cli'''
-import io
 from types import FunctionType
 from dork import cli
-from tests.utils import has_many, is_a
-
+from tests.utils import is_a
 
 # to do: test evaluate()
 #     test some known commands
-
 
 def test_evaluate():
     """ evaluate() is out of date"""
