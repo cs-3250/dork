@@ -37,6 +37,7 @@ def test_evaluate():
 
 
 def test_parser():
+    """parser should handle empty and missmatched inputs"""
     assert [("one")] == cli.parser("one")
     assert [("go"), ("default")] == cli.parser("go")
     assert [("pick"), ("default")] == cli.parser("pick")
@@ -45,7 +46,7 @@ def test_parser():
     assert [] == cli.parser(None)
 
 
-def test_repl(run, mocker):
+def test_repl(mocker):
     """ REPL should loop until user inputs quit"""
     mock_input = mocker.patch('builtins.input')
     mock_input.side_effect = [("jump"),

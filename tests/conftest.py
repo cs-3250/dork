@@ -15,13 +15,6 @@ def player():
 
 
 @pytest.fixture
-def room():
-    """A basic dork room fixture
-    """
-    return dork.objects.Room()
-
-
-@pytest.fixture
 def run(capsys):
     """CLI run method fixture
     """

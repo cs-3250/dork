@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 '''basic tests for the dork cli'''
-from types import FunctionType
 from dork import gamedictionary
 from tests.utils import is_a
 
