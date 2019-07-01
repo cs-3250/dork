@@ -44,9 +44,9 @@ def evaluate(user_input):
 
 def parser(user_input):
     '''returns list of words'''
-    parsed_string = user_input.split()
-    if not user_input:
+    if user_input is None:
         user_input = " "
+    parsed_string = user_input.split()
     if len(parsed_string) == 1:
         if parsed_string[0] in {'go', 'pick'}:
             parsed_string.extend(['default'])
@@ -67,8 +67,4 @@ def repl():
 
 def main():
     ''' main to dork '''
-    repl()
-
-
-if __name__ == "__main__":
     repl()

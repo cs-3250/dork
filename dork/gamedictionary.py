@@ -25,6 +25,3 @@ ACTION = {'jump': 'you have jumped',
           'save': "can't save at the moment",
           'pick': PICK
           }
-
-if __name__ == "__main__":
-    pass

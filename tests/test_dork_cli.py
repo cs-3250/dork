@@ -36,6 +36,15 @@ def test_evaluate():
     assert "Sorry" in cli.evaluate('go ')
 
 
+def test_parser():
+    assert [("one")] == cli.parser("one")
+    assert [("go"), ("default")] == cli.parser("go")
+    assert [("pick"), ("default")] == cli.parser("pick")
+    assert [("jump")] == cli.parser("jump")
+    assert [] == cli.parser("")
+    assert [] == cli.parser(None)
+
+
 def test_repl(run, mocker):
     """ REPL should loop until user inputs quit"""
     mock_input = mocker.patch('builtins.input')
