@@ -8,6 +8,7 @@
 # -*- coding: utf-8 -*-
 '''basic entity classes and methods for Dork'''
 
+
 __all__ = ["Item", "Holder", "Player", "Room", "Path", "Map"]
 
 
@@ -31,41 +32,42 @@ class Player(Holder):
     def __init__(self):
         super(Player, self).__init__()
         self.room = Room()
-        return
 
 
 class Room(Holder):
     '''a room on the map'''
     roomid = 0
 
-    def __init__(self, name="A Room", description="An empty room", neighbors={roomid}):
+    def __init__(self, name="A Room",
+                 description="An empty room", neighbors={roomid}):
         self.roomid = id  # room will have an id number.
         self.name = name  # name of the room.
         self.description = description  # description of the room.
         self.neighbors = neighbors  # dictionary of neighbors.
-        return
 
     def _neighbor(self, direction):
         if direction in self.neighbors:
             return self.neighbors[direction]
-        else:
-            return None
 
     def north(self):
+        """ Go north """
         return self._neighbor('n')
 
     def south(self):
+        """ Go south """
         return self._neighbor('s')
 
     def east(self):
+        """ Go east """
         return self._neighbor('e')
 
     def west(self):
+        """ Go west"""
         return self._neighbor('w')
 
     def get_room(self):
+        """ Retrieve the room """
         # note: can only be entered through entrances or exited through exits
-        return
 
 
 class Path:

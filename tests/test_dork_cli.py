@@ -7,6 +7,7 @@ from tests.utils import is_a
 # to do: test evaluate()
 #     test some known commands
 
+
 def test_evaluate():
     """ evaluate() is out of date"""
     assert cli.evaluate('jump') == 'you have jumped'
@@ -53,7 +54,7 @@ def test_parser_exist():
     is_a(cli.parser, object)
 
 
-def test_cli_help(run):
+def test_cli_help():
     '''The CLI's help command should return helpful information.'''
     assert "usage: " in cli.evaluate('help'), \
         "Failed to respond with 'usage: '"

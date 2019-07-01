@@ -1,3 +1,5 @@
+""" Made Generation """
+
 import mazelib
 import networkx as nx
 import numpy as np
