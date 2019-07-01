@@ -1,10 +1,10 @@
-#Rooms will have an id number for the room.
-    #There will be a name for the room.
-    #There will be a description of that room.
-    #List of connected rooms.
-    #list of items in the room.
-    #list of NPCs in the room.
-    #Need a dictionary of neighbors.
+# Rooms will have an id number for the room.
+# There will be a name for the room.
+# There will be a description of that room.
+# List of connected rooms.
+# list of items in the room.
+# list of NPCs in the room.
+# Need a dictionary of neighbors.
 # -*- coding: utf-8 -*-
 '''basic entity classes and methods for Dork'''
 
@@ -26,21 +26,23 @@ class Holder:
 
 
 class Player(Holder):
-    '''a player or NPC in the game'''  
+    """a player or NPC in the game"""
+
     def __init__(self):
         super(Player, self).__init__()
         self.room = Room()
-        return 
+        return
 
 
 class Room(Holder):
     '''a room on the map'''
     roomid = 0
-    def __init__(self, roomid=0, name="A Room", description="An empty room", neighbors={roomid}):
-        self.roomid = id # room will have an id number.
-        self.name = name # name of the room.
-        self.description = description # description of the room.
-        self.neighbors = neighbors # dictionary of neighbors.
+
+    def __init__(self, name="A Room", description="An empty room", neighbors={roomid}):
+        self.roomid = id  # room will have an id number.
+        self.name = name  # name of the room.
+        self.description = description  # description of the room.
+        self.neighbors = neighbors  # dictionary of neighbors.
         return
 
     def _neighbor(self, direction):
@@ -62,11 +64,13 @@ class Room(Holder):
         return self._neighbor('w')
 
     def get_room(self):
-    # note: can only be entered through entrances or exited through exits
+        # note: can only be entered through entrances or exited through exits
         return
+
 
 class Path:
     '''a path between two rooms (i.e. a door or hallway)'''
+
     def __init__(self):
         self.entrance = Room()
         self.exit = Room()
