@@ -1,2 +1,4 @@
-prompt-toolkit==2.0.9
+NetworkX
+pyyaml
 mazelib==0.8.1
+numpy
