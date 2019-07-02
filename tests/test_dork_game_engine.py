@@ -14,17 +14,35 @@ def random_string(length):
     return ''.join(random.choice(string.ascii_letters) for i in range(length))
 
 
+def random_nonexistent_filename(length):
+    '''generate a random filename which doesn't yet exist'''
+    while True:
+        filename = random_string(length)
+        if not path.exists(filename):
+            return filename
+
+
 def test_load_nonexistent_file():
     '''FileNotFoundError should be handled when for loading nonexistent file'''
-    while True:
-        filename = random_string(64)
-        if not path.exists(filename):
-            break
+    filename = random_nonexistent_filename(64)
     game_engine = GameEngine()
     try:
         game_engine.load(filename)
     except FileNotFoundError:
         assert False
+
+
+def test_load_invalid_file():
+    """attempting to load a file without a valid graph
+       should not overwrite the current world"""
+    filename = random_nonexistent_filename(64)
+    with open(filename, 'w') as output:
+        output.write(random_string(64))
+    game_engine = GameEngine()
+    world_before = game_engine.world
+    game_engine.load(filename)
+    world_after = game_engine.world
+    assert world_before == world_after
 
 
 def test_save_and_reload():

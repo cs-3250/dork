@@ -24,10 +24,11 @@ class GameEngine:
         """ Load game from file """
         print("Loading Game...\n")
         try:
-            self.world = read_yaml(file_name)
+            world = read_yaml(file_name)
         except FileNotFoundError:
             return "No such file!"
-        if isinstance(self.world, DiGraph):
+        if isinstance(world, DiGraph):
+            self.world = world
             return "World has been loaded."
         return "Error loading world!"
 
