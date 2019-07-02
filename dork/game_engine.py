@@ -2,7 +2,7 @@
 
 from random import choice
 import networkx as nx
-from numpy import ndarray, ndenumerate as np
+from numpy import ndarray, ndenumerate as Np
 from dork.objects import Room
 
 __all__ = ["save", "load", "movement", "maze_generation"]
@@ -46,7 +46,7 @@ def movement(self, direction):
     return "You are not able to move in that direction. Try again!"
 
 
-def maze_generation(self):
+def maze_generation(self, mazelib, Np):
     """ Random maze generation """
 
     maze_bigness = (3, 3)
@@ -54,29 +54,29 @@ def maze_generation(self):
     maze = mazelib.Prims(*maze_bigness).generate()
     self.world = nx.DiGraph()
 
-    rooms = np.ndarray(shape=[d - 2 for d in maze.shape])
+    rooms = Np.ndarray(shape=[d - 2 for d in maze.shape])
 
-    for index, rooms in np.ndenumerate(rooms):
-        x = index[0]
-        y = index[1]
-        x_maze = x + 1
-        y_maze = y + 1
+    for index, rooms in Np.ndenumerate(rooms):
+        x_point = index[0]
+        y_point = index[1]
+        x_maze = x_point + 1
+        y_maze = y_point + 1
         if maze[x_maze, y_maze] == 0:
             rooms[index] = rooms()
-            x_north = x - 1
-            if x_north >= 0 and self.world[(x_north, y)] is not None:
+            x_north = x_point - 1
+            if x_north >= 0 and self.world[(x_north, y_point)] is not None:
                 self.world.add_edge(self.world[index],
-                                    self.world[(x_north, y)],
+                                    self.world[(x_north, y_point)],
                                     direction='n')
-                self.world.add_edge(self.world[(x_north, y)],
+                self.world.add_edge(self.world[(x_north, y_point)],
                                     self.world[index],
                                     direction='s')
-            y_west = y - 1
-            if y_west >= 0 and self.world[(x, y_west)] is not None:
+            y_west = y_point - 1
+            if y_west >= 0 and self.world[(x_point, y_west)] is not None:
                 self.world.add_edge(self.world[index],
-                                    self.world[(x, y_west)],
+                                    self.world[(x_point, y_west)],
                                     direction='w')
-                self.world.add_edge(self.world[(x, y_west)],
+                self.world.add_edge(self.world[(x_point, y_west)],
                                     self.world[index],
                                     direction='e')
 
