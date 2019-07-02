@@ -18,11 +18,11 @@ def test_save():
 
 def test_load():
     ''' Loads in data to parse '''
-    game = GameEngine()
+    # game = GameEngine()
 
-    out = game.load("Trash")
-    assert "Try again" in out, \
-        "Game_Engine.load method couldn't find load data"
+    # out = game.load("Trash")
+    # assert "Try again" in out, \
+    #     "Game_Engine.load method couldn't find load data"
 
 
 def test_maze_generation():

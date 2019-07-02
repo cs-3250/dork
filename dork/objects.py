@@ -1,10 +1,3 @@
-# Rooms will have an id number for the room.
-# There will be a name for the room.
-# There will be a description of that room.
-# List of connected rooms.
-# list of items in the room.
-# list of NPCs in the room.
-# Need a dictionary of neighbors.
 # -*- coding: utf-8 -*-
 '''basic entity classes and methods for Dork'''
 
@@ -36,7 +29,6 @@ class Player(Holder):
 
 class Room(Holder):
     '''a room on the map'''
-    roomid = 0
 
     def __init__(self, name="a room",
                  description="an empty room"):
