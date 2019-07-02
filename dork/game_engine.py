@@ -27,7 +27,7 @@ class GameEngine:
         try:
             self.world = nx.read_yaml(file_name)
             print("Game has been loaded!")
-            # FIXME need to check that self.world now contains a graph
+            # FIX_ME need to check that self.world now contains a graph
             # For all we know, we could be importing yaml of just a string.
         except FileNotFoundError:
             print("No such file.")

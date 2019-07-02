@@ -1,21 +1,23 @@
 """ Tests for the game engine """
 
 # from tests.utils import is_a
-import dork.game_engine as ge
+from dork.game_engine import GameEngine
 
 
 def test_save():
     ''' Saves data no matter the test data is '''
+    game = GameEngine()
     test_data = "dogs rule"
 
-    out = ge.save(test_data)
+    out = game.save(test_data)
     assert "0" in out, \
         "Game_Engine.save method couldn't save game data"
 
-
-def test_load(self):
+def test_load():
     ''' Loads in data to parse '''
-    out = ge.load("Trash")
+    game = GameEngine()
+
+    out = game.load("Trash")
     assert "Try again" in out, \
         "Game_Engine.load method couldn't find load data"
 
