@@ -3,8 +3,9 @@
 from random import choice
 import networkx as nx
 from numpy import ndarray, ndenumerate
-from mazelib import Prims
-from dork.objects import Room
+#from mazelib import Prims
+#from dork.objects import Room
+import pickle, os
 
 
 class GameEngine:
@@ -14,9 +15,19 @@ class GameEngine:
         self.world = None
         self.player_location = None
 
-    def save(self, file_name='dork_save.dp'):
+    def save():# self, file_name='dork_save.dp'
         """ Save game to file """
-        print('Saving Game...')
+        if not os.path.isfile('pickle.dat'):
+            data = [0, 1]
+            data[0] = input('Enter topic')
+            data[1] = input('Enter Series')
+            file = open('pickle.dat', 'wb')
+            pickle.dump(data, file)
+            file.close()
+            file = open('pickle.dat', 'rb')
+            data = pickle.load(file)
+            file.close()
+            print('\nWelcome Back To:', data[0], data[1])
         try:
             self.world = nx.write_yaml(self.world, file_name)
             print('Game progress has been saved.')
