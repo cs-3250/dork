@@ -17,9 +17,12 @@ class GameEngine:
     def save(self, file_name='dork_save.dp'):
         """ Save game to file """
         print('Saving Game...')
-        self.world = nx.write_yaml(self.world, file_name)
-        print('Game progress has been saved.')
-        return "0"
+        try:
+            self.world = nx.write_yaml(self.world, file_name)
+            print('Game progress has been saved.')
+            return "0"
+        except FileNotFoundError:
+            print("Error occured file not found")
 
     def load(self, file_name='dork_save.dp'):
         """ Load game from file """
