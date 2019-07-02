@@ -9,7 +9,7 @@
 '''basic entity classes and methods for Dork'''
 
 
-__all__ = ["Item", "Holder", "Player", "Room", "Path", "Map"]
+__all__ = ["Item", "Holder", "Player", "Room"]
 
 
 class Item:
@@ -30,7 +30,7 @@ class Player(Holder):
     """a player or NPC in the game"""
 
     def __init__(self):
-        super(Player, self).__init__()
+        super().__init__()
         self.room = Room()
 
 
@@ -38,52 +38,8 @@ class Room(Holder):
     '''a room on the map'''
     roomid = 0
 
-    def __init__(self, name="A Room",
-                 description="An empty room", neighbors={roomid}):
-        self.roomid = id  # room will have an id number.
-        self.name = name  # name of the room.
-        self.description = description  # description of the room.
-        self.neighbors = neighbors  # dictionary of neighbors.
-
-    def _neighbor(self, direction):
-        if direction in self.neighbors:
-            return self.neighbors[direction]
-
-    def north(self):
-        """ Go north """
-        return self._neighbor('n')
-
-    def south(self):
-        """ Go south """
-        return self._neighbor('s')
-
-    def east(self):
-        """ Go east """
-        return self._neighbor('e')
-
-    def west(self):
-        """ Go west"""
-        return self._neighbor('w')
-
-    def get_room(self):
-        """ Retrieve the room """
-        # note: can only be entered through entrances or exited through exits
-
-
-class Path:
-    '''a path between two rooms (i.e. a door or hallway)'''
-
-    def __init__(self):
-        self.entrance = Room()
-        self.exit = Room()
-        self.map = Map()
-        self.entrances = list()
-        self.exits = list()
-        self.players = list()
-
-
-class Map:
-    '''a map relating a room's connectivity and the players/items within it'''
-
-    def __init__(self):
-        self.rooms = list()
+    def __init__(self, name="a room",
+                 description="an empty room"):
+        super().__init__()
+        self.name = name  # name of the room
+        self.description = description  # description of the room
