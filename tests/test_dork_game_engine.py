@@ -92,7 +92,6 @@ def test_movement_in_one_room():
     assert game_engine.player_location == room
     game_engine.movement("Bob's your uncle.")
     assert game_engine.player_location == room
-    assert game_engine
 
 
 def test_movement_in_two_rooms():
