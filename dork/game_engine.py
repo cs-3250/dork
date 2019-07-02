@@ -15,7 +15,7 @@ class GameEngine:
         self.world = None
         self.player_location = None
 
-    def save():# self, file_name='dork_save.dp'
+    def save(self):# self, file_name='dork_save.dp'
         """ Save game to file """
         if not os.path.isfile('pickle.dat'):
             data = [0, 1]
@@ -28,12 +28,6 @@ class GameEngine:
             data = pickle.load(file)
             file.close()
             print('\nWelcome Back To:', data[0], data[1])
-        try:
-            self.world = nx.write_yaml(self.world, file_name)
-            print('Game progress has been saved.')
-            return "0"
-        except FileNotFoundError:
-            print("Error occured file not found")
 
     def load(self, file_name='dork_save.dp'):
         """ Load game from file """
