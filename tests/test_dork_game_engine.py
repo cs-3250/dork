@@ -34,7 +34,7 @@ def test_maze_generation():
     game_engine.player_location = None
     game_engine.maze_generation()
     assert isinstance(game_engine.world, DiGraph)
-    assert isinstance(game_engine.world, Room)
+    assert isinstance(game_engine.player_location, Room)
     assert game_engine.world  # sequence nonempty
     for room in game_engine.world:
         assert isinstance(room, Room)
