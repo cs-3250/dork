@@ -1,6 +1,6 @@
 """ Tests for the game engine """
 
-from tests.utils import is_a
+# from tests.utils import is_a
 import dork.game_engine as ge
 
 

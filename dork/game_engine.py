@@ -3,7 +3,7 @@
 from random import choice
 import networkx as nx
 from numpy import ndarray, ndenumerate as Np
-from dork.objects import Room
+# from dork.objects import Room
 
 __all__ = ["save", "load", "movement", "maze_generation"]
 
