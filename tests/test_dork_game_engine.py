@@ -1,28 +1,44 @@
 """ Tests for the game engine """
 
 # from tests.utils import is_a
-from networkx import DiGraph
+import random
+import string
+from os import path, remove
+from networkx import DiGraph, is_isomorphic
 from dork.game_engine import GameEngine
 from dork.objects import Room
 
 
-def test_save():
-    ''' Saves data no matter the test data is '''
-    game = GameEngine()
-    test_data = "dogs rule"
-
-    out = game.save(test_data)
-    assert "0" in out, \
-        "Game_Engine.save method couldn't save game data"
+def random_string(length):
+    '''generate a random string of {length} characters'''
+    return ''.join(random.choice(string.ascii_letters) for i in range(length))
 
 
-def test_load():
-    ''' Loads in data to parse '''
-    # game = GameEngine()
+def test_load_nonexistent_file():
+    '''FileNotFoundError should be handled when for loading nonexistent file'''
+    while True:
+        filename = random_string(64)
+        if not path.exists(filename):
+            break
+    game_engine = GameEngine()
+    try:
+        game_engine.load(filename)
+    except FileNotFoundError:
+        assert False
 
-    # out = game.load("Trash")
-    # assert "Try again" in out, \
-    #     "Game_Engine.load method couldn't find load data"
+
+def test_save_and_reload():
+    '''a given world should remain unchanged when saved, then loaded'''
+    filename = random_string(64)
+    game_engine = GameEngine()
+    game_engine.maze_generation((13, 13))
+    world_before = game_engine.world
+    game_engine.save(filename)
+    game_engine.world = None
+    game_engine.load(filename)
+    world_after = game_engine.world
+    assert is_isomorphic(world_before, world_after)
+    remove(filename)
 
 
 def test_maze_generation():
@@ -38,3 +54,50 @@ def test_maze_generation():
     assert game_engine.world  # sequence nonempty
     for room in game_engine.world:
         assert isinstance(room, Room)
+
+
+def test_movement_in_one_room():
+    '''no movement should be possible with no edges'''
+    game_engine = GameEngine()
+    game_engine.world = DiGraph()
+    room = Room()
+    game_engine.player_location = room
+    game_engine.world.add_node(room)
+    game_engine.movement('n')
+    assert game_engine.player_location == room
+    game_engine.movement('s')
+    assert game_engine.player_location == room
+    game_engine.movement('w')
+    assert game_engine.player_location == room
+    game_engine.movement('e')
+    assert game_engine.player_location == room
+    game_engine.movement("Bob's your uncle.")
+    assert game_engine.player_location == room
+
+
+def test_movement_in_two_rooms():
+    '''no movement should be possible with no edges'''
+    game_engine = GameEngine()
+    game_engine.world = DiGraph()
+    west_room = Room()
+    east_room = Room()
+    game_engine.world.add_nodes_from([west_room, east_room])
+    game_engine.world.add_edge(west_room, east_room, direction='e')
+    game_engine.world.add_edge(east_room, west_room, direction='w')
+    game_engine.player_location = west_room
+    game_engine.movement('n')
+    assert game_engine.player_location == west_room
+    game_engine.movement('w')
+    assert game_engine.player_location == west_room
+    game_engine.movement('s')
+    assert game_engine.player_location == west_room
+    game_engine.movement('e')
+    assert game_engine.player_location == east_room
+    game_engine.movement('n')
+    assert game_engine.player_location == east_room
+    game_engine.movement('e')
+    assert game_engine.player_location == east_room
+    game_engine.movement('s')
+    assert game_engine.player_location == east_room
+    game_engine.movement('w')
+    assert game_engine.player_location == west_room

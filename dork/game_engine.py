@@ -1,11 +1,10 @@
 """ Game Engine """
 
 from random import choice
-import networkx as nx
+from networkx import read_yaml, write_yaml, DiGraph
 from numpy import ndarray, ndenumerate
-#from mazelib import Prims
-#from dork.objects import Room
-import pickle, os
+from mazelib import Prims
+from dork.objects import Room
 
 
 class GameEngine:
@@ -15,30 +14,22 @@ class GameEngine:
         self.world = None
         self.player_location = None
 
-    def save(self):# self, file_name='dork_save.dp'
+    def save(self, file_name='dork_world.yml'):
         """ Save game to file """
-        if not os.path.isfile('pickle.dat'):
-            data = [0, 1]
-            data[0] = input('Enter topic')
-            data[1] = input('Enter Series')
-            file = open('pickle.dat', 'wb')
-            pickle.dump(data, file)
-            file.close()
-            file = open('pickle.dat', 'rb')
-            data = pickle.load(file)
-            file.close()
-            print('\nWelcome Back To:', data[0], data[1])
+        print('Saving Game...')
+        write_yaml(self.world, file_name)
+        return "Game progress has been saved."
 
-    def load(self, file_name='dork_save.dp'):
+    def load(self, file_name='dork_world.yml'):
         """ Load game from file """
-        print('Loading Game...\n')
+        print("Loading Game...\n")
         try:
-            self.world = nx.read_yaml(file_name)
-            print("Game has been loaded!")
-            # FIX_ME need to check that self.world now contains a graph
-            # For all we know, we could be importing yaml of just a string.
+            self.world = read_yaml(file_name)
         except FileNotFoundError:
-            print("No such file.")
+            return "No such file!"
+        if isinstance(self.world, DiGraph):
+            return "World has been loaded."
+        return "Error loading world!"
 
     def movement(self, direction):
         """ Player movement """
@@ -64,7 +55,7 @@ class GameEngine:
 
         maze = Prims(*size).generate()
         rooms = ndarray(shape=[d - 2 for d in maze.shape], dtype=Room)
-        self.world = nx.DiGraph()
+        self.world = DiGraph()
 
         for index, _ in ndenumerate(rooms):
             x_point = index[0]
