@@ -13,6 +13,7 @@ before_install:
   - pip install -U pip
 
 install:
+  - pip install -r requirements-mazelib.txt codecov
   - pip install -r requirements-dev.txt codecov
 
 script:

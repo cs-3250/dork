@@ -2,23 +2,8 @@
 """Pytest Fixtures for Dork unit-tests
 """
 import pytest
-import dork
 
 pytest_plugins = ["pytester"]  # pylint: disable=invalid-name
-
-
-@pytest.fixture
-def player():
-    """A basic dork player fixture
-    """
-    return dork.objects.Player()
-
-
-@pytest.fixture
-def room():
-    """A basic dork room fixture
-    """
-    return dork.objects.Room()
 
 
 @pytest.fixture
