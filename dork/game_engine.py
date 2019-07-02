@@ -17,17 +17,19 @@ def save(self, file_name='dork_save.dp'):
     print('Saving Game...')
     self.world = nx.write_yaml(self.world, file_name)
     print('Game progress has been saved.')
+    return "0"
 
 
 def load(self, file_name='dork_save.dp'):
     """ Load game from file """
     print('Loading Game...\n')
     try:
-        with open(file_name):
+        with open(file_name) as file:
             self.world = nx.read_yaml(file_name)
             print("Game has been loaded!")
     except IOError:
         print("There was a problem loading your game.")
+    return
 
 
 def movement(self, direction):
