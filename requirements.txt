@@ -1,3 +1,4 @@
 NetworkX
-mazelib==0.8.1
+pyyaml
+mazelib
 numpy
