@@ -38,9 +38,3 @@ def test_maze_generation():
     assert game_engine.world  # sequence nonempty
     for room in game_engine.world:
         assert isinstance(room, Room)
-
-
-# def test_movement():
-#     ''' Testing player movement if its  '''
-#
-# testWorld = ge()
