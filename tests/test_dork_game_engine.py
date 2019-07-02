@@ -41,6 +41,7 @@ def test_load_invalid_file():
     game_engine = GameEngine()
     world_before = game_engine.world
     game_engine.load(filename)
+    remove(filename)
     world_after = game_engine.world
     assert world_before == world_after
 
@@ -54,9 +55,9 @@ def test_save_and_reload():
     game_engine.save(filename)
     game_engine.world = None
     game_engine.load(filename)
+    remove(filename)
     world_after = game_engine.world
     assert is_isomorphic(world_before, world_after)
-    remove(filename)
 
 
 def test_maze_generation():
