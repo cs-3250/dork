@@ -30,7 +30,7 @@ __all__ = ["main", "evaluate", "parser", "repl"]
 def evaluate(user_input):
     '''using gamedictionary, provide appropriate command'''
     words = parser(user_input)
-    response = 'Im Sorry. I didnt understand that command.'
+    response = "Sorry, I didn't understand that command."
     if len(words) == 1:
         response = gd.ACTION.get(words[0], response)
     elif len(words) == 2:

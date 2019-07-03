@@ -47,7 +47,7 @@ class GameEngine:
             edge = self.world.edges[self.player_location, room]
             if edge['direction'] == direction:
                 self.player_location = room
-                return "You went" + directions[direction] + "."
+                return "You went " + directions[direction] + "."
 
         return "You are not able to move in that direction. Try again!"
 
