@@ -5,9 +5,9 @@ python:
 
 addons:
   sonarcloud:
-    organization: "cs-3250"
+    organization: "$SONAR_ORGANIZATION"
     token:
-      secure: "5475a2389e45c9772cea06f9689e08547017c4e7"
+      secure: "$SONAR_TOKEN"
 
 before_install:
   - pip install -U pip
@@ -27,4 +27,4 @@ script:
 after_success:
   - coverage xml -i
   - codecov
-  - sonar-scanner -Dsonar.projectKey=cs-3250_dork -Dsonar.organization=cs-3250
+  - sonar-scanner -Dsonar.projectKey=${SONAR_PROJECT_KEY} -Dsonar.organization=${SONAR_ORGANIZATION}
