@@ -1,4 +1,4 @@
 NetworkX
 pyyaml
-mazelib==0.8.1
+mazelib>=0.8.4
 numpy
