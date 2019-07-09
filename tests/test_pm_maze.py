@@ -13,12 +13,11 @@ def test_maze_map():
     assert isinstance(rooms, dict)
 
     room_names = list(rooms.keys())
-    assert room_names is not []
     assert None not in room_names
-    for room_name, room in rooms.items():
+    for room in rooms.values():
         assert room is not None
         assert isinstance(room, dict)
         direction_names = room.keys()
-        assert len(direction_names) > 0
-        for direction, next_room in room.items():
+        assert direction_names
+        for next_room in room.values():
             assert next_room is None or next_room in room_names
