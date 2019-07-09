@@ -1,3 +1,4 @@
+Cython
 NetworkX
 pyyaml
 mazelib==0.8.1

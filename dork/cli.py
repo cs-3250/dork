@@ -23,22 +23,15 @@ Definition of done:
 
 """
 from dork import gamedictionary as gd
+from dork.game import engine
 
 __all__ = ["main", "evaluate", "parser", "repl"]
 
 
-def evaluate(user_input):
+def evaluate(user_input, engine):
     '''using gamedictionary, provide appropriate command'''
     words = parser(user_input)
-    response = "Sorry, I didn't understand that command."
-    if len(words) == 1:
-        response = gd.ACTION.get(words[0], response)
-    elif len(words) == 2:
-        if words[0] not in gd.ACTION:
-            return response
-        if words[1] not in gd.ACTION.get(words[0]):
-            return response
-        response = gd.ACTION.get(words[0]).get(words[1])
+    response = engine.do_action(words[0], words[1:])
     return response
 
 
@@ -53,8 +46,8 @@ def parser(user_input):
     return parsed_string
 
 
-def repl():
-    ''' REPL: Read–Eval–Print Loop '''
+def repl(ge):
+    ''' REPL: Read-Eval-Print Loop '''
     output = '*This is a title screen*\n'
     while True:
         user_input = input(output)
@@ -62,9 +55,10 @@ def repl():
             print('You have quit.\n Goodbye!')
             break
         else:
-            output = evaluate(user_input) + "\n >>"
+            output = evaluate(user_input, ge) + "\n >>"
 
 
 def main():
     ''' main to dork '''
-    repl()
+    ge = game_engine()
+    repl(ge)
