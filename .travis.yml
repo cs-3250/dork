@@ -22,7 +22,7 @@ script:
   - flake8 dork tests
   - coverage erase
   - coverage run --branch --source=dork --omit=dork/__main__.py -m pytest
-  - coverage report -m
+  - coverage report -m --fail-under=95
   
 after_success:
   - coverage xml -i
