@@ -21,3 +21,4 @@ def test_maze_map():
         assert direction_names
         for next_room in room.values():
             assert next_room is None or next_room in room_names
+``
