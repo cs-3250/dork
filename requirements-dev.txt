@@ -2,8 +2,10 @@
 coverage
 doc8
 flake8
+mock
 pylint
 pytest
 pytest-runner
+pytest-mock
 Sphinx
 sphinxcontrib-napoleon
