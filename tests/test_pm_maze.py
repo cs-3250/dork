@@ -25,7 +25,7 @@ def test_maze_map():
 
 def test_current_position():
     """test current position"""
-    maze = Maze()  # TODO maze fixture
+    maze = Maze()
     data = maze.get_data()
     start_room = data['start_room']
     current_pos = maze.current_position()
