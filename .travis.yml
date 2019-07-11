@@ -17,7 +17,7 @@ install:
   - pip install -r requirements-dev.txt codecov
 
 script:
-  - pylint --extension-pkg-whitelist=spacy.symbols dork tests
+  - pylint dork tests
   # https://github.com/PyCQA/pylint/issues/1524
   - flake8 dork tests
   - coverage erase
