@@ -1,4 +1,5 @@
 start_room: 'main hall'
+current_room: ~
 Castle:
     'main hall':
         north: 'throne room'
@@ -8,11 +9,16 @@ Castle:
     'throne room': 
         north: ~
         west: 'balcony'
-        east: ~
+        east: 'treasure'
         south: ~
     'balcony':
         north: ~
         west: ~
         east: 'throne room'
+        south: ~
+    'treasure':
+        north: ~
+        west: 'throne room'
+        east: ~
         south: ~
         
