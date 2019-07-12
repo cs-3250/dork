@@ -18,18 +18,23 @@ MOVEMENT = {'north': 'You have moved north',
             'w': 'You have moved west'
             }
 
-ACTION_CHOICES = {'jump': '_danger_will_robinson',
+ACTION_CHOICES = {'jump': '_jump',
                   'run': '_danger_will_robinson',
                   'cry': '_danger_will_robinson',
                   'go': '_move',
                   'load': '_load',
                   'save': '_save',
-                  'pick': PICK
+                  'pick': PICK,
                   }
 
 
 def _danger_will_robinson(engine, *args):
     raise NotImplementedError
+
+
+def _jump(self, *args):
+    """jumping action stub"""
+    return 'you have jumped' + args
 
 
 def _move(direction):
@@ -42,4 +47,4 @@ def _move(direction):
     if direction not in directions:
         return "Invalid direction! Type a different command."
 
-    return "You are not able to move in that direction. Try again!"
+    return "You moved " + direction

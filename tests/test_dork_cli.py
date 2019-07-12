@@ -9,8 +9,30 @@ from tests.utils import is_a
 #     test some known commands
 
 
-def test_evaluate():
+def test_evaluate(mocker):
     """ command testing """
+    mock_input = mocker.patch('dork.game.engine.GameEngine.do_action')
+    mock_input.side_effect = [("you jumped"),
+                              ("you moved north"),
+                              ("you moved north"),
+                              ("you moved south"),
+                              ("you moved south"),
+                              ("you moved east"),
+                              ("you moved east"),
+                              ("you moved west"),
+                              ("you moved west"),
+                              ("you ran"),
+                              ("you are crying"),
+                              ("load the map"),
+                              ("you saved the map"),
+                              ("you picked up nothing"),
+                              ("Sorry about that"),
+                              ("Sorry about that"),
+                              ("Sorry about that"),
+                              ("Sorry about that"),
+                              ("Sorry about that"),
+                              ("Sorry about that")]
+
     # appropriate responses
     assert 'jumped' in cli.evaluate('jump')
     assert 'moved north' in cli.evaluate('go north')
@@ -39,21 +61,19 @@ def test_evaluate():
 def test_parser():
     """parser should handle empty and missmatched inputs"""
     assert [("one")] == cli.parser("one")
-    assert [("go"), ("default")] == cli.parser("go")
-    assert [("pick"), ("default")] == cli.parser("pick")
+    assert [("go")] == cli.parser("go ")
     assert [("jump")] == cli.parser("jump")
-    assert [] == cli.parser("")
-    assert [] == cli.parser(None)
+    assert [('default')] == cli.parser("")
+    assert [('default')] == cli.parser(None)
 
 
 def test_repl(mocker):
     """ REPL should loop until user inputs quit"""
     mock_input = mocker.patch('builtins.input')
-    mock_input.side_effect = [("jump"),
-                              ("quit"),
+    mock_input.side_effect = [("quit"),
                               ("nope")]
     cli.repl()
-    assert mock_input.call_count == 2
+    assert mock_input.call_count == 1
 
 
 def test_cli_exists(run, mocker):
@@ -81,9 +101,3 @@ def test_parser_exist():
     '''The dork module should define an Player.'''
     assert "parser" in vars(cli)
     is_a(cli.parser, object)
-
-
-def test_cli_help():
-    '''The CLI's help command should return helpful information.'''
-    assert "usage: " in cli.evaluate('help'), \
-        "Failed to respond with 'usage: '"
