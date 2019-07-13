@@ -1,0 +1,18 @@
+start_room: 'main hall'
+Castle:
+    'main hall':
+        north: 'throne room'
+        west: ~
+        east: ~
+        south: ~
+    'throne room': 
+        north: ~
+        west: 'balcony'
+        east: ~
+        south: ~
+    'balcony':
+        north: ~
+        west: ~
+        east: 'throne room'
+        south: ~
+        
