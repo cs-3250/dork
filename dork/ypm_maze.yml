@@ -9,16 +9,18 @@ Castle:
     'throne room': 
         north: ~
         west: 'balcony'
-        east: 'treasure'
+        east: 'treasury'
         south: ~
     'balcony':
         north: ~
         west: ~
         east: 'throne room'
         south: ~
-    'treasure':
+    'treasury':
         north: ~
         west: 'throne room'
         east: ~
         south: ~
+   
+    # Maze design should be revised at a later date
         
