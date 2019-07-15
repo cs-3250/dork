@@ -24,14 +24,14 @@ def test_maze_map():
 
 
 def test_current_position():
-    """test current position"""
+    """Test current position"""
     maze = Maze()
     data = maze.get_data()
     start_room = data['start_room']
     current_pos = maze.current_position()
     assert current_pos == start_room, \
         'current position should start at the start room'
-    expected_room = 'golbygook not possible room'
+    expected_room = 'Not possible room'
     data['current_room'] = expected_room
     current_pos = maze.current_position()
     assert current_pos == expected_room, \
@@ -39,10 +39,11 @@ def test_current_position():
 
 
 def test_neighbor_of():
-    """testing movement"""
+    """Testing movement"""
     maze = Maze()
     expected_current = 'testing room'
     expected_next = 'other room'
+
     maze.data['current_room'] = expected_current
     maze.data['Castle'][expected_current] = dict(north=expected_next)
     current_pos = maze.current_position()
@@ -50,33 +51,7 @@ def test_neighbor_of():
     assert next_pos is expected_next
     assert current_pos is expected_current, \
         "moving north should change position"
-  
-    #We should be checking each cardinal direction for possible movement?
-    
-    # maze.data['Castle'][expected_current] = dict(east=expected_next)
-    # current_pos = maze.current_position()
-    # next_pos = maze.neighbor_of(current_pos, 'east')
-    # assert next_pos is expected_next
-    # assert current_pos is expected_current, \
-    #     "moving east should change position"
-
-    # maze.data['Castle'][expected_current] = dict(south=expected_next)
-    # current_pos = maze.current_position()
-    # next_pos = maze.neighbor_of(current_pos, 'south')
-    # assert next_pos is expected_next
-    # assert current_pos is expected_current, \
-    #     "moving south should change position"
-    
-    # maze.data['Castle'][expected_current] = dict(west=expected_next)
-    # current_pos = maze.current_position()
-    # next_pos = maze.neighbor_of(current_pos, 'west')
-    # assert next_pos is expected_next
-    # assert current_pos is expected_current, \
-    #     "moving west should change position"
 
     expected_no_room = None
     next_pos = maze.neighbor_of(current_pos, 'invalid direction')
     assert expected_no_room is next_pos
-
-
-    
