@@ -16,23 +16,23 @@ ACTION_CHOICES = {'cry': '_cry',
                   }
 
 
-def _cry(self, *args):
+def _cry(word_list):
     """crying action stub"""
     response = 'After curling into a ball you cried. Poor you.'
     return response
 
 
-def _danger_will_robinson(engine, *args):
+def _danger_will_robinson(word_list):
     raise NotImplementedError
 
 
-def _jump(self, *args):
+def _jump(word_list):
     """jumping action stub"""
     response = 'You have jumped, just not sure why.'
     return response
 
 
-def _move(self, direction):
+def _move(word_list):
     """ Player movement """
     directions = {'n': 'north',
                   's': 'south',
@@ -43,18 +43,21 @@ def _move(self, direction):
                   'west': 'west',
                   'east': 'east',
                   }
+    direction = directions.get(word_list[0], 'nowhere')
+
     if direction not in directions:
-        return "Sorry, you can't go that direction. Type a different command."
+        return ("Sorry, that is not a direction you can go. " +
+                "Type a different command.")
     return "You moved " + direction
 
 
-def _pick(self, *args):
+def _pick(word_list):
     """pick up action stub"""
-    response = 'You picked up ' + args
+    response = 'You picked up ' + " ".join(word_list)
     return response
 
 
-def _run(self, *args):
+def _run(word_list):
     """running action stub"""
     response = 'You ran in place. Are you just bored?'
     return response
