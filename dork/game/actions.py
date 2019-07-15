@@ -6,16 +6,6 @@ __all__ = ['ACTION_CHOICES', '_cry', '_danger_will_robinson',
            '_jump', '_move', '_pick', '_run']
 
 
-ACTION_CHOICES = {'cry': '_cry',
-                  'go': '_move',
-                  'jump': '_jump',
-                  'load': '_danger_will_robinson',
-                  'pick': '_danger_will_robinson',
-                  'run': '_run',
-                  'save': '_danger_will_robinson',
-                  }
-
-
 def _cry(word_list):
     """crying action stub"""
     response = 'After curling into a ball you cried. Poor you.'
@@ -61,3 +51,13 @@ def _run(word_list):
     """running action stub"""
     response = 'You ran in place. Are you just bored?'
     return response
+
+
+ACTION_CHOICES = {'cry': _cry,
+                  'go': _move,
+                  'jump': _jump,
+                  'load': _danger_will_robinson,
+                  'pick': _danger_will_robinson,
+                  'run': _run,
+                  'save': _danger_will_robinson,
+                  }

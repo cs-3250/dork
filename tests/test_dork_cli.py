@@ -70,10 +70,11 @@ def test_parser():
 def test_repl(mocker):
     """ REPL should loop until user inputs quit"""
     mock_input = mocker.patch('builtins.input')
-    mock_input.side_effect = [("quit"),
+    mock_input.side_effect = [("jump"),
+                              ("quit"),
                               ("nope")]
     cli.repl()
-    assert mock_input.call_count == 1
+    assert mock_input.call_count == 2
 
 
 def test_cli_exists(run, mocker):
