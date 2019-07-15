@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 '''basic tests for the dork cli-actions'''
-from types import FunctionType
+
 from dork.game import actions
-from tests.utils import is_a
 
 
 def test_cry():
