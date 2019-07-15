@@ -32,3 +32,10 @@ def run(capsys):
         return cap.out, cap.err
 
     return do_run
+
+
+@pytest.fixture
+def maze():
+    """pm maze functionality
+    """
+    return dork.pm_maze.Maze()

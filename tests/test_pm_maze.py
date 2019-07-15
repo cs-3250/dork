@@ -39,7 +39,7 @@ def test_current_position():
 
 
 def test_neighbor_of():
-    """Testing movement"""
+    """Testing Neighboring nodes for validity"""
     maze = Maze()
     expected_current = 'testing room'
     expected_next = 'other room'
@@ -55,3 +55,16 @@ def test_neighbor_of():
     expected_no_room = None
     next_pos = maze.neighbor_of(current_pos, 'invalid direction')
     assert expected_no_room is next_pos
+
+
+def test_movement():
+    """Test moving through maze"""
+    maze = Maze()
+    expected_current = 'testing room'
+    expected_next = 'other room'
+    maze.data['current_room'] = expected_current
+    maze.data['Castle'][expected_current] = dict(north=expected_next)
+    maze.move('north')
+    real_real_current = maze.data['current_room']
+    assert real_real_current == expected_next, \
+        'check maze movement unexpected result'
