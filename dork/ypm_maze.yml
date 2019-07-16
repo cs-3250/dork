@@ -10,7 +10,7 @@ Castle:
         north: ~
         west: 'balcony'
         east: 'treasury'
-        south: 'main hall'
+        south: ~
     'balcony':
         north: ~
         west: ~
@@ -18,6 +18,10 @@ Castle:
         south: ~
     'treasury':
         north: ~
+        items: 'sword', 'gold', 'drugs'
         west: 'throne room'
         east: ~
         south: ~
+   
+    # Maze design should be revised at a later date
+        
