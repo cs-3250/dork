@@ -1,7 +1,5 @@
 """Pre-made maze
 """
-# import networkx as nx
-# import matplotlib.pyplot as plt
 import yaml
 
 
@@ -32,3 +30,4 @@ class Maze:
         """Moves player"""
         self.data['current_room'] = \
             self.neighbor_of(self.current_position(), direction)
+        return direction
