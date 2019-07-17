@@ -3,15 +3,16 @@
 # import networkx as nx
 # import matplotlib.pyplot as plt
 import yaml
-
+from dork.objects import Player, Room
 
 class Maze:
     """maze class"""
 
-    def __init__(self, file_name="dork/ypm_maze.yml"):
+    def __init__(self, file_name="dork/ypm_maze.yml", payer):
         """Maze starting"""
         with open(file_name, "r") as file_descriptor:
             self.data = yaml.safe_load(file_descriptor)
+            self.player = player
 
     def get_data(self):
         """getter for maze data"""
@@ -32,3 +33,4 @@ class Maze:
         """Moves player"""
         self.data['current_room'] = \
             self.neighbor_of(self.current_position(), direction)
+
