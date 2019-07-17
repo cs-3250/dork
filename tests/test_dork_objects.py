@@ -6,7 +6,11 @@ from dork.objects import Item, Holder, Player, Room
 def test_item():
     '''an Item should have a Holder'''
     item = Item()
-    assert isinstance(item.holder, Holder)
+    assert isinstance(item_list = item_list)
+
+def test_item_attribute(Item):
+        '''The item should have attributes'''
+        has_a(Item, "item_list")
 
 
 def test_holder():
@@ -15,6 +19,10 @@ def test_holder():
     assert isinstance(holder.items, list)
     for item in holder.items:
         assert isinstance(item, Item)
+
+def test_holder_attributes(Holder):
+        '''test the holder attributes'''
+        has_a(Holder, list)
 
 
 def test_player_is_holder():
@@ -27,21 +35,13 @@ def test_player_has_room():
     player = Player()
     assert isinstance(player.room, Room)
 
+def test_player_attribute(Player):
+        '''Test for the player attribute'''
+        has_a(Player, "item_List")
+        has_a(Player, "room")
 
-def test_room_is_holder():
-    '''a Room is a Holder'''
-    assert isinstance(Room.__base__, type(Holder))
-
-
-def test_room_has_name():
-    '''a Room has a nonempty-string name'''
-    room = Room()
-    assert isinstance(room.name, str)
-    assert room.name  # nonempty
-
-
-def test_room_has_description():
-    '''a Room has a nonempty-string description'''
-    room = Room()
-    assert isinstance(room.description, str)
-    assert room.description  # nonempty
+def test_room_attribute(Room):
+        '''The room should have attributes'''
+        has_a(Room, "room_name")
+        has_a(Room, "description")
+        has_a(Room, list)

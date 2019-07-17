@@ -3,7 +3,7 @@
 # import networkx as nx
 # import matplotlib.pyplot as plt
 import yaml
-from dork.objects import Player, Room, Item
+from dork.objects import Player, Room, Holder
 
 class Maze:
     """maze class"""
@@ -34,7 +34,7 @@ class Maze:
         self.data['current_room'] = \
             self.neighbor_of(self.current_position(), direction)
 
-Treasury = Room('treasury', 'You are in a room full of treasure, we should try not to touch anything', list)
+Treasury = Room('treasury', 'You are in a room full of treasure, we should try not to touch anything', list = [ ])
     '''a room on the map'''
 
 main_hall = Room('Main Hall', 'You are in what looks like a hall way with four rooms connected at each side', list)
