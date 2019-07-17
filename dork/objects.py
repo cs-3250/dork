@@ -25,7 +25,7 @@ class Room:
     def __init__(self, roomName, discription, itemList):
         self.roomName = roomName
         self.discription = discription
-        self.itemList = itemList
+        self.itemList = list = itemList = ["sword", "key", "gold", "drug", "note"]
 
 class Player(Holder):
     '''a player or NPC in the game'''
