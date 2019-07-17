@@ -1,17 +1,15 @@
 # -*- coding: utf-8 -*-
 """ basic Dork CLI
 """
-from dork.game.engine import GameEngine
+from dork.game.engine import do_action
 
 __all__ = ["main", "evaluate", "parser", "repl"]
-
-ge = GameEngine()
 
 
 def evaluate(user_input):
     '''using gamedictionary, provide appropriate command'''
     words = parser(user_input)
-    response = ge.do_action(words[0], words[1:])
+    response = do_action(words[0], words[1:])
     return response
 
 

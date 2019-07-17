@@ -6,39 +6,39 @@ from dork.game import actions
 
 def test_cry():
     """testing cry action"""
-    response = actions._cry([('really'), ('hard')])
+    response = actions.cry([('really'), ('hard')])
     assert 'cried' in response
 
 
 def test_danger_will_robinson():
     """testing warning method"""
     try:
-        actions._danger_will_robinson([('really'), ('hard')])
+        actions.danger_will_robinson([('really'), ('hard')])
     except NotImplementedError:
         pass
 
 
 def test_jump():
     """testing cry action"""
-    response = actions._jump([('really'), ('hard')])
+    response = actions.jump([('really'), ('hard')])
     assert 'jumped' in response
 
 
 def test_move():
     """testing move action"""
-    response = actions._move([('north'), ('really'), ('hard')])
+    response = actions.move([('north'), ('really'), ('hard')])
     assert "moved north" in response
-    response = actions._move([('really'), ('hard')])
+    response = actions.move([('really'), ('hard')])
     assert "Sorry" in response
 
 
 def test_pick():
     """testing pickup action"""
-    response = actions._pick([('really'), ('hard')])
+    response = actions.pick([('really'), ('hard')])
     assert "picked up really hard" in response
 
 
 def test_run():
     """testing run action"""
-    response = actions._run([('really'), ('hard')])
+    response = actions.run([('really'), ('hard')])
     assert "ran" in response

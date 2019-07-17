@@ -2,27 +2,29 @@
 """THE GAME DICTIONARY
 """
 
-__all__ = ['ACTION_CHOICES', '_cry', '_danger_will_robinson',
-           '_jump', '_move', '_pick', '_run']
+__all__ = ['ACTION_CHOICES', 'cry', 'danger_will_robinson',
+           'jump', 'move', 'pick', 'run']
 
 
-def _cry(word_list):
+def cry(_word_list):
     """crying action stub"""
     response = 'After curling into a ball you cried. Poor you.'
     return response
 
 
-def _danger_will_robinson(word_list):
+def danger_will_robinson(word_list):
+    """non-implemented stub
+    """
     raise NotImplementedError
 
 
-def _jump(word_list):
+def jump(_word_list):
     """jumping action stub"""
     response = 'You have jumped, just not sure why.'
     return response
 
 
-def _move(word_list):
+def move(word_list):
     """ Player movement """
     directions = {'n': 'north',
                   's': 'south',
@@ -41,23 +43,20 @@ def _move(word_list):
     return "You moved " + direction
 
 
-def _pick(word_list):
+def pick(word_list):
     """pick up action stub"""
     response = 'You picked up ' + " ".join(word_list)
     return response
 
 
-def _run(word_list):
+def run(_word_list):
     """running action stub"""
     response = 'You ran in place. Are you just bored?'
     return response
 
 
-ACTION_CHOICES = {'cry': _cry,
-                  'go': _move,
-                  'jump': _jump,
-                  'load': _danger_will_robinson,
-                  'pick': _danger_will_robinson,
-                  'run': _run,
-                  'save': _danger_will_robinson,
+ACTION_CHOICES = {'cry': cry,
+                  'go': move,
+                  'jump': jump,
+                  'run': run,
                   }
