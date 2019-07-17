@@ -1,9 +1,8 @@
 """Pre-made maze
 """
-# import networkx as nx
-# import matplotlib.pyplot as plt
 import yaml
-from dork.objects import Player, Room, Holder
+from dork.objects import Player, Room, Item
+
 
 class Maze:
     """maze class"""
@@ -19,7 +18,7 @@ class Maze:
                 for item in self.data['Castle'][room]['items']:
                     items.append(Item(name=item))
             self.rooms[room] = Room(name=room, items=items)
-        self.player = Player(room = self.rooms['main hall'])
+        self.player = Player(room=self.rooms['main hall'])
 
     def get_data(self):
         """getter for maze data"""
