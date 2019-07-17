@@ -8,11 +8,14 @@ from dork.objects import Player, Room, Holder
 class Maze:
     """maze class"""
 
-    def __init__(self, file_name="dork/ypm_maze.yml", player):
+     def __init__(self, file_name="dork/ypm_maze.yml", player):
         """Maze starting"""
         with open(file_name, "r") as file_descriptor:
             self.data = yaml.safe_load(file_descriptor)
-            self.player = Player()
+        self.rooms = {}
+        for room in self.data['Castle']:
+            self.rooms[room] = Room(name=room)
+        self.player = Player(room = self.rooms['main hall'])
 
     def get_data(self):
         """getter for maze data"""
@@ -34,7 +37,7 @@ class Maze:
         self.data['current_room'] = \
             self.neighbor_of(self.current_position(), direction)
 
-Treasury = Room('treasury', 'You are in a room full of treasure, we should try not to touch anything', list = [ ])
+Treasury = Room('treasury', 'You are in a room full of treasure, we should try not to touch anything', list)
     '''a room on the map'''
 
 main_hall = Room('Main Hall', 'You are in what looks like a hall way with four rooms connected at each side', list)

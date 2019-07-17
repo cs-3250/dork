@@ -7,31 +7,29 @@ __all__ = ["Item", "Holder", "Player", "Room"]
 class Item:
     '''a holdable/obtainable item'''
 
-    def __init__(self, item_list):
-        self.Item = Item
-        self.item_list = item_list
+     def __init__(self, name):
+        self.name = name
 
 class Holder:
     '''a holder/container of items'''
 
-    def __init__(self, item):
-        self.Holder = Holder
-        self.items = item = list = ['sword']
+     def __init__(self, items):
+        self.items = items
 
-class Room:
+class Room(Holder):
     '''This will be the class all rooms are based out of'''
 
-    def __init__(self, room_Name, description, item_List):
-        self.room_Name = room_Name
+   def __init__(self, name, description='', items=[]):
+        super().__init__(items=items)
+        self.name = name
         self.description = description
-        self.item_List = item_List = list = ['example'] 
+        self.exits = []
 
 class Player(Holder):
     '''a player or NPC in the game'''
 
-    def __init__(self, item_List, room):
-        super().__init__()
-        self.item_List = itemList
+     def __init__(self, room, items=[]):
+        super().__init__(items=items)
         self.room = room
 
     def pick_up(self, item):
@@ -39,5 +37,5 @@ class Player(Holder):
         self.items.append(item)
 
     def drop_item(self, item):
-        self.room.item.reomve(item)
-
+        self.room.items.append(item)
+        self.items.remove(item)
