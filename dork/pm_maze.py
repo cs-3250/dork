@@ -3,6 +3,7 @@
 import yaml
 from dork.objects import Player, Room, Item
 
+
 class Maze:
     """maze class"""
 
