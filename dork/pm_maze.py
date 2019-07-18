@@ -3,7 +3,6 @@
 import yaml
 from dork.objects import Player, Room, Item
 
-
 class Maze:
     """maze class"""
 
@@ -40,4 +39,3 @@ class Maze:
         self.data['current_room'] = \
             self.neighbor_of(self.current_position(), direction)
         return "You moved " + direction
-

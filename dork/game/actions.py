@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 """THE GAME DICTIONARY
 """
-from dork.pm_maze import Maze 
+from dork.pm_maze import Maze
 
 __all__ = ['ACTION_CHOICES', 'cry', 'danger_will_robinson',
            'jump', 'move', 'pick', 'run']
 
-maze = Maze()
+MAZE = Maze()
+
 
 def cry(_word_list):
     """crying action stub"""
@@ -26,7 +27,7 @@ def jump(_word_list):
     return response
 
 
-def move(word_list, maze):
+def move(word_list):
     """ Player movement """
     directions = {'n': 'north',
                   's': 'south',
@@ -42,7 +43,7 @@ def move(word_list, maze):
     if direction not in directions:
         return ("Sorry, that is not a direction you can go. " +
                 "Type a different command.")
-    return maze.move(direction)
+    return MAZE.move(direction)
 
 
 def pick(word_list):
