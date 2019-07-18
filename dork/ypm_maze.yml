@@ -2,22 +2,30 @@ start_room: 'main hall'
 current_room: ~
 Castle:
     'main hall':
-        north: 'throne room'
-        west: ~
-        east: ~
-        south: ~
+        paths:
+            north: 'throne room'
+            west: ~
+            east: ~
+            south: ~
     'throne room': 
-        north: ~
-        west: 'balcony'
-        east: 'treasury'
-        south: 'main hall'
+        paths:
+            north: ~
+            west: 'balcony'
+            east: 'treasury'
+            south: ~
     'balcony':
-        north: ~
-        west: ~
-        east: 'throne room'
-        south: ~
+        paths:
+            north: ~
+            west: ~
+            east: 'throne room'
+            south: ~
     'treasury':
-        north: ~
-        west: 'throne room'
-        east: ~
-        south: ~
+        items: ['sword', 'gold', 'drugs']
+        paths:
+            north: ~
+            west: 'throne room'
+            east: ~
+            south: ~
+   
+    # Maze design should be revised at a later date
+        

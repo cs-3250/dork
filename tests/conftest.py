@@ -8,17 +8,24 @@ pytest_plugins = ["pytester"]  # pylint: disable=invalid-name
 
 
 @pytest.fixture
-def player():
+def player(room):  # pylint: disable=redefined-outer-name
     """A basic dork player fixture
     """
-    return dork.objects.Player()
+    return dork.objects.Player(room)
 
 
 @pytest.fixture
 def room():
     """A basic dork room fixture
     """
-    # return dork.objects.Room()
+    return dork.objects.Room('room dummy name')
+
+
+@pytest.fixture
+def holder():
+    """A basic dork holder fixture
+    """
+    return dork.objects.Holder([])
 
 
 @pytest.fixture

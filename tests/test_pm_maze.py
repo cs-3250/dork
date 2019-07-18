@@ -17,9 +17,9 @@ def test_maze_map():
     for room in rooms.values():
         assert room is not None
         assert isinstance(room, dict)
-        direction_names = room.keys()
-        assert direction_names
-        for next_room in room.values():
+        directions = room['paths']
+        assert directions
+        for next_room in directions.values():
             assert next_room is None or next_room in room_names
 
 
