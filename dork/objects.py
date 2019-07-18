@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 '''basic entity classes and methods for Dork'''
 
-__all__ = ["Item", "Holder", "Player", "Treasury",
-           "MainHall", "ThroneRoom", "Balcony"]
+__all__ = ["Item", "Holder", "Player"]
 
 
 class Item:
