@@ -17,9 +17,6 @@ def test_holder():
         assert isinstance(item, Item)
 
 
-def test_player_is_holder():
-
-
 def test_player_is_holder(player):
     '''a Player is a Holder'''
     assert isinstance(player, Holder)

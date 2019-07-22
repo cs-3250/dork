@@ -47,12 +47,12 @@ def test_evaluate(mocker):
     assert 'cried' in cli.evaluate('cry')
 
     # bad inputs
-    # assert "Sorry" in cli.evaluate('')
-    # assert "Sorry" in cli.evaluate('kick butt')
-    # assert "Sorry" in cli.evaluate('wrong')
-    # assert "Sorry" in cli.evaluate('too many words')
-    # assert "Sorry" in cli.evaluate('go die')
-    # assert "Sorry" in cli.evaluate('go ')
+    assert "Sorry" in cli.evaluate('')
+    assert "Sorry" in cli.evaluate('kick butt')
+    assert "Sorry" in cli.evaluate('wrong')
+    assert "Sorry" in cli.evaluate('too many words')
+    assert "Sorry" in cli.evaluate('go die')
+    assert "Sorry" in cli.evaluate('go ')
 
 
 def test_parser():
