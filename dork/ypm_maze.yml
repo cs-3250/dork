@@ -20,7 +20,6 @@ Castle:
             east: 'throne room'
             south: ~
     'treasury':
-        items: ['sword', 'gold', 'drugs']
         paths:
             north: ~
             west: 'throne room'

@@ -1,24 +1,18 @@
-"""Pre-made maze
-"""
+# -*- coding: utf-8 -*-
+""" Game State """
+
 import yaml
-from dork.objects import Player, Room, Item
+from dork.objects import Player
 
 
-class Maze:
-    """maze class"""
+class GameState():
+    """Game State"""
 
     def __init__(self, file_name="dork/ypm_maze.yml"):
         """Maze starting"""
         with open(file_name, "r") as file_descriptor:
             self.data = yaml.safe_load(file_descriptor)
-        self.rooms = {}
-        for room in self.data['Castle']:
-            items = []
-            if 'items' in self.data['Castle'][room]:
-                for item in self.data['Castle'][room]['items']:
-                    items.append(Item(name=item))
-            self.rooms[room] = Room(name=room, items=items)
-        self.player = Player(room=self.rooms['main hall'])
+        self.player = Player(room=self.data['Castle']['main hall'])
 
     def get_data(self):
         """getter for maze data"""

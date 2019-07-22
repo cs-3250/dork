@@ -21,11 +21,11 @@ def room():
     return dork.objects.Room('room dummy name')
 
 
-@pytest.fixture
-def holder():
-    """A basic dork holder fixture
-    """
-    return dork.objects.Holder([])
+# @pytest.fixture
+# def holder():
+#     """A basic dork holder fixture
+#     """
+#     return dork.objects.Holder([])
 
 
 @pytest.fixture
@@ -45,4 +45,4 @@ def run(capsys):
 def maze():
     """pm maze functionality
     """
-    return dork.pm_maze.Maze()
+    return dork.game.game_engine.GameState()

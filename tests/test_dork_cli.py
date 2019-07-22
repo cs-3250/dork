@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-'''basic tests for the dork cli'''
+"""basic tests for the dork cli"""
 from types import FunctionType
 from dork import cli
 from tests.utils import is_a
@@ -11,7 +11,7 @@ from tests.utils import is_a
 
 def test_evaluate(mocker):
     """ command testing """
-    mock_input = mocker.patch('dork.game.engine.do_action')
+    mock_input = mocker.patch('dork.game.actions.do_action')
     mock_input.side_effect = [("you jumped"),
                               ("you moved north"),
                               ("you moved north"),
@@ -47,13 +47,15 @@ def test_evaluate(mocker):
     assert 'cried' in cli.evaluate('cry')
 
     # bad inputs
-    assert "Sorry" in cli.evaluate('')
-    assert "Sorry" in cli.evaluate('kick butt')
-    assert "Sorry" in cli.evaluate('wrong')
-    assert "Sorry" in cli.evaluate('too many words')
-    assert "Sorry" in cli.evaluate('go die')
-    assert "Sorry" in cli.evaluate('go ')
+    for bad_input in ['',
+                      'kick butt',
+                      'wrong',
+                      'too many words']:
+        assert "What are you doing" in cli.evaluate(bad_input)
 
+    for bad_input in ['go die',
+                      'go ']:
+        assert "I don't understand" in cli.evaluate(bad_input)
 
 def test_parser():
     """parser should handle empty and missmatched inputs"""

@@ -10,14 +10,6 @@ def test_cry():
     assert 'cried' in response
 
 
-def test_danger_will_robinson():
-    """testing warning method"""
-    try:
-        actions.danger_will_robinson([('really'), ('hard')])
-    except NotImplementedError:
-        pass
-
-
 def test_jump():
     """testing cry action"""
     response = actions.jump([('really'), ('hard')])
@@ -29,7 +21,7 @@ def test_move():
     response = actions.move([('north'), ('really'), ('hard')])
     assert "moved north" in response
     response = actions.move([('really'), ('hard')])
-    assert "Sorry" in response
+    assert "I don't understand" in response
 
 
 def test_pick():
@@ -42,3 +34,7 @@ def test_run():
     """testing run action"""
     response = actions.run([('really'), ('hard')])
     assert "ran" in response
+
+def test_do_action():
+    """testing do action"""
+    

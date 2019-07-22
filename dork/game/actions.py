@@ -1,24 +1,18 @@
 # -*- coding: utf-8 -*-
 """THE GAME DICTIONARY
 """
-from dork.pm_maze import Maze
+from dork.game.game_engine import GameState
 
-__all__ = ['ACTION_CHOICES', 'cry', 'danger_will_robinson',
+__all__ = ['ACTION_CHOICES', 'cry', 'do_action',
            'jump', 'move', 'pick', 'run']
 
-MAZE = Maze()
+GAMESTATE = GameState()
 
 
 def cry(_word_list):
     """crying action stub"""
     response = 'After curling into a ball you cried. Poor you.'
     return response
-
-
-def danger_will_robinson(word_list):
-    """non-implemented stub
-    """
-    raise NotImplementedError
 
 
 def jump(_word_list):
@@ -38,12 +32,16 @@ def move(word_list):
                   'west': 'west',
                   'east': 'east',
                   }
+    if not in word_list:
+        return ("I don't understand where you're trying to go. " +
+                "Type a different command")
+
     direction = directions.get(word_list[0], 'nowhere')
 
     if direction not in directions:
-        return ("Sorry, that is not a direction you can go. " +
-                "Type a different command.")
-    return MAZE.move(direction)
+        return ("I don't understand where you're trying to go. " +
+                "North, west, east, or south?")
+    return GAMESTATE.move(direction)
 
 
 def pick(word_list):
@@ -56,6 +54,16 @@ def run(_word_list):
     """running action stub"""
     response = 'You ran in place. Are you just bored?'
     return response
+
+
+def do_action(action_name, *args):
+    """ action adapter"""
+    action = ACTION_CHOICES.get(action_name)
+    if action:
+        response = action(*args)
+        return response
+    else:
+        return 'What are you doing, my friend?'
 
 
 ACTION_CHOICES = {'cry': cry,

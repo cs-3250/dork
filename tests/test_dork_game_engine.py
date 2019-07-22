@@ -1,10 +1,10 @@
-"""Testing pre-made maze"""
-from dork.pm_maze import Maze
+"""Testing Game Engine"""
+from dork.game.game_engine import GameState
 
 
 def test_maze_map():
     """Testing start room"""
-    maze = Maze()
+    maze = GameState()
     data = maze.get_data()
     assert "Castle" in data
 
@@ -25,7 +25,7 @@ def test_maze_map():
 
 def test_current_position():
     """Test current position"""
-    maze = Maze()
+    maze = GameState()
     data = maze.get_data()
     start_room = data['start_room']
     current_pos = maze.current_position()
@@ -40,7 +40,7 @@ def test_current_position():
 
 def test_neighbor_of():
     """Testing Neighboring nodes for validity"""
-    maze = Maze()
+    maze = GameState()
     expected_current = 'testing room'
     expected_next = 'other room'
 
@@ -59,7 +59,7 @@ def test_neighbor_of():
 
 def test_movement():
     """Test moving through maze"""
-    maze = Maze()
+    maze = GameState()
     expected_current = 'testing room'
     expected_next = 'other room'
     maze.data['current_room'] = expected_current
