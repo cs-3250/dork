@@ -32,15 +32,10 @@ def move(word_list):
                   'west': 'west',
                   'east': 'east',
                   }
-    if not in word_list:
+    if not word_list or word_list[0] not in directions:
         return ("I don't understand where you're trying to go. " +
                 "Type a different command")
-
-    direction = directions.get(word_list[0], 'nowhere')
-
-    if direction not in directions:
-        return ("I don't understand where you're trying to go. " +
-                "North, west, east, or south?")
+    direction = directions.get(word_list[0])
     return GAMESTATE.move(direction)
 
 
@@ -62,8 +57,7 @@ def do_action(action_name, *args):
     if action:
         response = action(*args)
         return response
-    else:
-        return 'What are you doing, my friend?'
+    return 'What are you doing, my friend?'
 
 
 ACTION_CHOICES = {'cry': cry,

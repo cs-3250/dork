@@ -9,30 +9,8 @@ from tests.utils import is_a
 #     test some known commands
 
 
-def test_evaluate(mocker):
+def test_evaluate():
     """ command testing """
-    mock_input = mocker.patch('dork.game.actions.do_action')
-    mock_input.side_effect = [("you jumped"),
-                              ("you moved north"),
-                              ("you moved north"),
-                              ("you moved south"),
-                              ("you moved south"),
-                              ("you moved east"),
-                              ("you moved east"),
-                              ("you moved west"),
-                              ("you moved west"),
-                              ("you ran"),
-                              ("you are crying"),
-                              ("load the map"),
-                              ("you saved the map"),
-                              ("you picked up nothing"),
-                              ("Sorry about that"),
-                              ("Sorry about that"),
-                              ("Sorry about that"),
-                              ("Sorry about that"),
-                              ("Sorry about that"),
-                              ("Sorry about that")]
-
     # appropriate responses
     assert 'jumped' in cli.evaluate('jump')
     assert 'moved north' in cli.evaluate('go north')
@@ -56,6 +34,7 @@ def test_evaluate(mocker):
     for bad_input in ['go die',
                       'go ']:
         assert "I don't understand" in cli.evaluate(bad_input)
+
 
 def test_parser():
     """parser should handle empty and missmatched inputs"""

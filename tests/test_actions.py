@@ -35,6 +35,12 @@ def test_run():
     response = actions.run([('really'), ('hard')])
     assert "ran" in response
 
+
 def test_do_action():
     """testing do action"""
-    
+    response = actions.do_action("")
+    assert "What are you doing" in response
+    response = actions.do_action("jump")
+    assert "jumped" in response
+    response = actions.do_action("jump", [("really"), ("high")])
+    assert "jumped" in response
