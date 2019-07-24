@@ -23,7 +23,10 @@ def parser(user_input):
 
 def repl():
     """REPL: Read-Eval-Print Loop"""
-    output = '*This is a title screen*\n'
+    with open("title_screen.txt", encoding="utf8") as file_descriptor:
+        contents = file_descriptor.read()
+        print(contents)
+    output = "Type a command or type 'help' for a list of commands.\n >>"
     while True:
         user_input = input(output)
         if 'quit' in user_input:
