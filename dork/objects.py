@@ -21,7 +21,7 @@ __all__ = ["Player"]
 class Room():
     """This will be the class all rooms are based out of"""
 
-    def __init__(self, name, description=''):
+    def __init__(self, name, description='Looks like a room.'):
         self.name = name
         self.description = description
         self.exits = []

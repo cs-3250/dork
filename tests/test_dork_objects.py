@@ -46,7 +46,6 @@ def test_room_has_description():
     room = Room(name='test')
     assert isinstance(room.description, str)
     assert room.description  # nonempty
-    assert isinstance(Room)
 
 
 # def test_player_attribute(player):
