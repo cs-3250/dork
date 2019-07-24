@@ -51,6 +51,16 @@ def run(_word_list):
     return response
 
 
+def load(_word_list):
+    """Loading in a yaml file"""
+    GAMESTATE.load()
+
+
+def save(_word_list):
+    """Saving a yaml the file"""
+    pass
+
+
 def do_action(action_name, *args):
     """ action adapter"""
     action = ACTION_CHOICES.get(action_name)
@@ -64,4 +74,5 @@ ACTION_CHOICES = {'cry': cry,
                   'go': move,
                   'jump': jump,
                   'run': run,
-                  }
+                  'save': save,
+                  'load': load}

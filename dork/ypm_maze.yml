@@ -1,6 +1,6 @@
 start_room: 'main hall'
 current_room: ~
-Castle:
+Map:
     'main hall':
         paths:
             north: 'throne room'

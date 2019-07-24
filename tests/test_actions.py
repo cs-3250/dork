@@ -35,6 +35,18 @@ def test_run():
     response = actions.run([('really'), ('hard')])
     assert "ran" in response
 
+def test_load():
+    """testing the load method"""
+    # 
+    #
+    #
+
+def test_save():
+    """testing the save method"""
+    # open file
+    # check yaml_safe.load()
+    # assert if 
+
 
 def test_do_action():
     """testing do action"""

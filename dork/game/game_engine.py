@@ -8,19 +8,19 @@ from dork.objects import Player
 class GameState():
     """Game State"""
 
-    def __init__(self, file_name="dork/ypm_maze.yml"):
+    def __init__(self):
         """Maze starting"""
+        self.load()
+
+    def load(self):
+        """Loading in the yaml file"""
+        file_name = "dork/ypm_maze.yml"
         with open(file_name, "r") as file_descriptor:
             self.data = yaml.safe_load(file_descriptor)
-        self.player = Player(room=self.data['Castle']['main hall'])
-
-    def get_data(self):
-        """getter for maze data"""
-        return self.data
 
     def neighbor_of(self, current_position, direction):
         """checks neighbors for maze"""
-        current_room = self.data['Castle'][current_position]
+        current_room = self.data['Map'][current_position]
         if direction in current_room:
             return current_room[direction]
         return None
