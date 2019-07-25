@@ -69,6 +69,7 @@ def test_movement():
     assert real_real_current == expected_next, \
         'check gamestate movement unexpected result'
 
+    # None-room  movement checking
     gamestate.data['current_room'] = expected_current
     gamestate.data['Map'][expected_current] = dict(north=None)
     gamestate.move('north')

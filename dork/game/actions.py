@@ -4,7 +4,8 @@
 from dork.game.game_engine import GameState
 
 __all__ = ['ACTION_CHOICES', 'cry', 'do_action',
-           'jump', 'move', 'pick', 'run']
+           'jump', 'move', 'pick', 'run', 'load',
+           'save']
 
 GAMESTATE = GameState()
 
@@ -51,14 +52,16 @@ def run(_word_list):
     return response
 
 
-def load(_word_list):
+def load(word_list):
     """Loading in a yaml file"""
-    GAMESTATE.load()
+    GAMESTATE.load(word_list)
+    return 'Game has been loaded'
 
 
 def save(_word_list):
     """Saving a yaml the file"""
-    pass
+    GAMESTATE.save()
+    return 'Game has been saved'
 
 
 def do_action(action_name, *args):

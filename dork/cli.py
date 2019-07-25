@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """ basic Dork CLI
 """
-from dork.game.actions import do_action
+from dork.game import actions
 
 __all__ = ["main", "evaluate", "parser", "repl"]
 
@@ -9,7 +9,7 @@ __all__ = ["main", "evaluate", "parser", "repl"]
 def evaluate(user_input):
     """using gamedictionary, provide appropriate command"""
     words = parser(user_input)
-    response = do_action(words[0], words[1:])
+    response = actions.do_action(words[0], words[1:])
     return response
 
 
