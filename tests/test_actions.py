@@ -41,12 +41,6 @@ def test_load():
     load = actions.load("dork/ypm_maze.yml")
     assert load is not None
 
-def test_save():
-    """testing the save method"""
-    # open file
-    # check yaml_safe.load()
-    # assert if
-
 
 def test_do_action():
     """testing do action"""

@@ -9,6 +9,7 @@ class GameState():
 
     def __init__(self):
         """Maze starting"""
+        self.load("dork/ypm_maze.yml")
         self.save_file()
 
     def save_file(self):
