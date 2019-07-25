@@ -44,9 +44,8 @@ def test_load():
 
 def test_save():
     """testing the save method"""
-    # open file
-    # check yaml_safe.load()
-    # assert if
+    response = actions.save([('this'), ('is'), ('silly')])
+    assert "Saved" in response
 
 
 def test_do_action():

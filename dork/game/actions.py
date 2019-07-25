@@ -59,7 +59,7 @@ def load(_word_list):
 
 def save(_word_list):
     """Saving a yaml the file"""
-    return "Saving..."
+    return "Saved"
 
 
 def do_action(action_name, *args):
