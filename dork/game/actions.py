@@ -54,7 +54,7 @@ def run(_word_list):
 
 def load(word_list):
     """Loading in a yaml file"""
-    GAMESTATE.load(word_list)
+    GAMESTATE.load(word_list[0])
     return 'Game has been loaded'
 
 

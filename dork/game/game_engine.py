@@ -20,7 +20,8 @@ class GameState():
 
     def load(self, file_name):
         """Loading in the yaml file"""
-        with open(file_name, "r") as file_descriptor:
+        file_in = "dork/" + file_name + ".yml"
+        with open(file_in, "r") as file_descriptor:
             self.data = yaml.safe_load(file_descriptor)
 
     def neighbor_of(self, current_position, direction):
