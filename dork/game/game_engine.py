@@ -2,7 +2,6 @@
 """ Game State """
 
 import yaml
-from dork.objects import Player
 
 
 class GameState():

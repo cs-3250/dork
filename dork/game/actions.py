@@ -54,11 +54,12 @@ def run(_word_list):
 def load(_word_list):
     """Loading in a yaml file"""
     GAMESTATE.load()
+    return "Loaded."
 
 
 def save(_word_list):
     """Saving a yaml the file"""
-    pass
+    return "Saving..."
 
 
 def do_action(action_name, *args):
