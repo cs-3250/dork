@@ -60,7 +60,7 @@ def load(word_list):
 
 def save(_word_list):
     """Saving a yaml the file"""
-    GAMESTATE.save()
+    GAMESTATE.save_file()
     return 'Game has been saved'
 
 

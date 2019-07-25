@@ -17,7 +17,7 @@ def test_load_map():
     for room in rooms.values():
         assert room is not None
         assert isinstance(room, dict)
-        directions = room['paths']
+        directions = room
         assert directions
         for next_room in directions.values():
             assert next_room is None or next_room in room_names
