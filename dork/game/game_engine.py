@@ -38,5 +38,4 @@ class GameState():
         if new_room:
             self.data['current_room'] = new_room
             return "You moved " + direction + " into " + new_room
-        else:
-            return "You have not moved " + direction
+        return "You have not moved " + direction
