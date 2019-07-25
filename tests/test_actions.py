@@ -42,6 +42,12 @@ def test_load():
     assert load is not None
 
 
+def test_save():
+    """testing the save method"""
+    response = actions.save("this is silly")
+    assert response is not None
+
+
 def test_do_action():
     """testing do action"""
     response = actions.do_action("")
