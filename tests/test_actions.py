@@ -38,9 +38,8 @@ def test_run():
 
 def test_load():
     """testing the load method"""
-    #
-    #
-    #
+    response = actions.load([('this'), ('is'), ('silly')])
+    assert "Loaded." in response
 
 
 def test_save():
