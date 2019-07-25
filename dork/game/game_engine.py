@@ -10,13 +10,15 @@ class GameState():
 
     def __init__(self):
         """Maze starting"""
-        self.load()
+        self.load("dork/ypm_maze.yml")
 
-    def load(self):
+    def load(self, file_name):
         """Loading in the yaml file"""
-        file_name = "dork/ypm_maze.yml"
         with open(file_name, "r") as file_descriptor:
             self.data = yaml.safe_load(file_descriptor)
+
+    def save(self):
+        """Saving in the yaml file"""
 
     def neighbor_of(self, current_position, direction):
         """checks neighbors for maze"""
