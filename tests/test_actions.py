@@ -38,7 +38,7 @@ def test_run():
 
 def test_load():
     """testing the load method"""
-    load = actions.load("dork/ypm_maze.yml")
+    load = actions.load([("ypm_maze")])
     assert load is not None
 
 
