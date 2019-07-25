@@ -2,7 +2,6 @@
 """ Game State """
 
 import yaml
-from dork.objects import Player
 
 
 class GameState():
@@ -11,6 +10,13 @@ class GameState():
     def __init__(self):
         """Maze starting"""
         self.load()
+        self.save_file()
+
+    def save_file(self):
+        """Save game state"""
+        make_file = "dork/game_save.yml"
+        with open(make_file, 'w', encoding='UTF-8') as game_save:
+            yaml.safe_dump(self.data, stream=game_save)
 
     def load(self):
         """Loading in the yaml file"""
@@ -30,7 +36,8 @@ class GameState():
         return self.data["current_room"] or self.data["start_room"]
 
     def move(self, direction):
-        """Moves player"""
-        self.data['current_room'] = \
-            self.neighbor_of(self.current_position(), direction)
+        """maze movement"""
+        new_room = self.neighbor_of(self.current_position(), direction)
+        if new_room:
+            self.data['current_room'] = new_room
         return "You moved " + direction
