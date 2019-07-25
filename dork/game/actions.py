@@ -4,7 +4,7 @@
 from dork.game.game_engine import GameState
 
 __all__ = ['ACTION_CHOICES', 'cry', 'do_action',
-           'jump', 'move', 'pick', 'run']
+           'jump', 'move', 'pick', 'run', 'load', 'save']
 
 GAMESTATE = GameState()
 
