@@ -30,6 +30,7 @@ class GameState():
 
     def move(self, direction):
         """Moves player"""
-        self.data['current_room'] = \
-            self.neighbor_of(self.current_position(), direction)
+        new_room = self.neighbor_of(self.current_position(), direction)
+        if new_room:
+            self.data['current_room'] = new_room
         return "You moved " + direction
