@@ -1,20 +1,20 @@
 # -*- coding: utf-8 -*-
-""" basic Dork CLI
-"""
-from dork.game.engine import do_action
+"""DORK CLI"""
+
+from dork.game import actions
 
 __all__ = ["main", "evaluate", "parser", "repl"]
 
 
 def evaluate(user_input):
-    '''using gamedictionary, provide appropriate command'''
+    """using gamedictionary, provide appropriate command"""
     words = parser(user_input)
-    response = do_action(words[0], words[1:])
+    response = actions.do_action(words[0], words[1:])
     return response
 
 
 def parser(user_input):
-    '''returns list of words'''
+    """returns list of words"""
     if user_input is None or user_input == "":
         user_input = "default"
     parsed_string = user_input.split()
@@ -22,8 +22,11 @@ def parser(user_input):
 
 
 def repl():
-    ''' REPL: Read-Eval-Print Loop '''
-    output = '*This is a title screen*\n'
+    """REPL: Read-Eval-Print Loop"""
+    with open("title_screen.txt", encoding="utf8") as file_descriptor:
+        contents = file_descriptor.read()
+        print(contents)
+    output = "Type a command or type 'help' for a list of commands.\n >>"
     while True:
         user_input = input(output)
         if 'quit' in user_input:
@@ -34,5 +37,5 @@ def repl():
 
 
 def main():
-    ''' main to dork '''
+    """main to dork"""
     repl()

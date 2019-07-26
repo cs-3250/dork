@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-'''basic tests for the dork cli'''
+"""TESTS FOR DORK CLI"""
+
 from types import FunctionType
 from dork import cli
 from tests.utils import is_a
@@ -9,30 +10,8 @@ from tests.utils import is_a
 #     test some known commands
 
 
-def test_evaluate(mocker):
+def test_evaluate():
     """ command testing """
-    mock_input = mocker.patch('dork.game.engine.do_action')
-    mock_input.side_effect = [("you jumped"),
-                              ("you moved north"),
-                              ("you moved north"),
-                              ("you moved south"),
-                              ("you moved south"),
-                              ("you moved east"),
-                              ("you moved east"),
-                              ("you moved west"),
-                              ("you moved west"),
-                              ("you ran"),
-                              ("you are crying"),
-                              ("load the map"),
-                              ("you saved the map"),
-                              ("you picked up nothing"),
-                              ("Sorry about that"),
-                              ("Sorry about that"),
-                              ("Sorry about that"),
-                              ("Sorry about that"),
-                              ("Sorry about that"),
-                              ("Sorry about that")]
-
     # appropriate responses
     assert 'jumped' in cli.evaluate('jump')
     assert 'moved north' in cli.evaluate('go north')
@@ -47,12 +26,15 @@ def test_evaluate(mocker):
     assert 'cried' in cli.evaluate('cry')
 
     # bad inputs
-    # assert "Sorry" in cli.evaluate('')
-    # assert "Sorry" in cli.evaluate('kick butt')
-    # assert "Sorry" in cli.evaluate('wrong')
-    # assert "Sorry" in cli.evaluate('too many words')
-    # assert "Sorry" in cli.evaluate('go die')
-    # assert "Sorry" in cli.evaluate('go ')
+    for bad_input in ['',
+                      'kick butt',
+                      'wrong',
+                      'too many words']:
+        assert "What are you doing" in cli.evaluate(bad_input)
+
+    for bad_input in ['go die',
+                      'go ']:
+        assert "I don't understand" in cli.evaluate(bad_input)
 
 
 def test_parser():

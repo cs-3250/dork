@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-'''basic tests for the dork cli-actions'''
+'''TESTS FOR DORK CLI'''
 
 from dork.game import actions
 
@@ -8,14 +8,6 @@ def test_cry():
     """testing cry action"""
     response = actions.cry([('really'), ('hard')])
     assert 'cried' in response
-
-
-def test_danger_will_robinson():
-    """testing warning method"""
-    try:
-        actions.danger_will_robinson([('really'), ('hard')])
-    except NotImplementedError:
-        pass
 
 
 def test_jump():
@@ -29,7 +21,7 @@ def test_move():
     response = actions.move([('north'), ('really'), ('hard')])
     assert "moved north" in response
     response = actions.move([('really'), ('hard')])
-    assert "Sorry" in response
+    assert "I don't understand" in response
 
 
 def test_pick():
@@ -42,3 +34,25 @@ def test_run():
     """testing run action"""
     response = actions.run([('really'), ('hard')])
     assert "ran" in response
+
+
+def test_load():
+    """testing the load method"""
+    load = actions.load([("ypm_maze")])
+    assert load is not None
+
+
+def test_save():
+    """testing the save method"""
+    response = actions.save("this is silly")
+    assert response is not None
+
+
+def test_do_action():
+    """testing do action"""
+    response = actions.do_action("")
+    assert "What are you doing" in response
+    response = actions.do_action("jump", "")
+    assert "jumped" in response
+    response = actions.do_action("jump", [("really"), ("high")])
+    assert "jumped" in response

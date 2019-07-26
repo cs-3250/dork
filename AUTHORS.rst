@@ -14,5 +14,5 @@ Contributors
 * `David Kittleson <https://github.com/dkittleson>`_ <dkittles@msudenver.edu>
 * `Derek Haviland <https://github.com/Dshaviland>`_ <dhavila2@msudenver.edu>
 * `Edwin Hernandez <https://github.com/EdwinHernandez21>`_ <eherna62@msudenver.edu>
-* `Gregory Dews <https://github.com/doctorcolossus>`_ <gdews@msudenver.edu>
+* `Gregory Dews <https://github.com/GregDews>`_ <gdews@msudenver.edu>
 * `Matt Hurt <https://github.com/KnifeHand>`_ <mhurt@msudenver.edu>

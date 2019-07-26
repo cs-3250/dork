@@ -1,0 +1,23 @@
+Map:
+  balcony:
+    east: throne room
+    north: null
+    south: null
+    west: null
+  main hall:
+    east: null
+    north: throne room
+    south: null
+    west: null
+  throne room:
+    east: treasury
+    north: null
+    south: null
+    west: balcony
+  treasury:
+    east: null
+    north: null
+    south: null
+    west: throne room
+current_room: main hall
+start_room: main hall

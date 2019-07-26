@@ -1,21 +1,19 @@
 # -*- coding: utf-8 -*-
-"""THE GAME DICTIONARY
-"""
+"""GAME ACTIONS"""
 
-__all__ = ['ACTION_CHOICES', 'cry', 'danger_will_robinson',
-           'jump', 'move', 'pick', 'run']
+from dork.game.game_engine import GameState
+
+__all__ = ['ACTION_CHOICES', 'cry', 'do_action',
+           'jump', 'move', 'pick', 'run', 'load',
+           'save']
+
+GAMESTATE = GameState()
 
 
 def cry(_word_list):
     """crying action stub"""
     response = 'After curling into a ball you cried. Poor you.'
     return response
-
-
-def danger_will_robinson(word_list):
-    """non-implemented stub
-    """
-    raise NotImplementedError
 
 
 def jump(_word_list):
@@ -35,12 +33,12 @@ def move(word_list):
                   'west': 'west',
                   'east': 'east',
                   }
-    direction = directions.get(word_list[0], 'nowhere')
 
-    if direction not in directions:
-        return ("Sorry, that is not a direction you can go. " +
-                "Type a different command.")
-    return "You moved " + direction
+    if not word_list or word_list[0] not in directions:
+        return ("I don't understand where you're trying to go. " +
+                "Type a different command")
+    direction = directions.get(word_list[0])
+    return GAMESTATE.move(direction)
 
 
 def pick(word_list):
@@ -55,8 +53,30 @@ def run(_word_list):
     return response
 
 
+def load(word_list):
+    """Loading in a yaml file"""
+    GAMESTATE.load(word_list[0])
+    return 'Game has been loaded'
+
+
+def save(_word_list):
+    """Saving a yaml the file"""
+    GAMESTATE.save_file()
+    return 'Game has been saved'
+
+
+def do_action(action_name, *args):
+    """ action adapter"""
+    action = ACTION_CHOICES.get(action_name)
+    if action:
+        response = action(*args)
+        return response
+    return 'What are you doing, my friend?'
+
+
 ACTION_CHOICES = {'cry': cry,
                   'go': move,
                   'jump': jump,
                   'run': run,
-                  }
+                  'save': save,
+                  'load': load}
