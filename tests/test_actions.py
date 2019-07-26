@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-'''basic tests for the dork cli-actions'''
+'''TESTS FOR DORK CLI'''
 
 from dork.game import actions
 

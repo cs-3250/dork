@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-"""basic tests for the dork cli"""
+"""TESTS FOR DORK CLI"""
+
 from types import FunctionType
 from dork import cli
 from tests.utils import is_a

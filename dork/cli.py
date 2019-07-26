@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-""" basic Dork CLI
-"""
+"""DORK CLI"""
+
 from dork.game import actions
 
 __all__ = ["main", "evaluate", "parser", "repl"]

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-"""THE GAME DICTIONARY
-"""
+"""GAME ACTIONS"""
+
 from dork.game.game_engine import GameState
 
 __all__ = ['ACTION_CHOICES', 'cry', 'do_action',
@@ -33,6 +33,7 @@ def move(word_list):
                   'west': 'west',
                   'east': 'east',
                   }
+
     if not word_list or word_list[0] not in directions:
         return ("I don't understand where you're trying to go. " +
                 "Type a different command")

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-"""Pytest Fixtures for Dork unit-tests
-"""
+"""PYTEST FIXTURES FOR DORK UNIT TESTS"""
+
 import pytest
 import dork
 
