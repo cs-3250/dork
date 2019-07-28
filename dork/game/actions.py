@@ -69,17 +69,17 @@ def help_menu(_word_list):
 
     If you need to escape from a dangerous situation that cannot be overcome;
     type run and a cardinal direction to escape the danger.
-    
+
     If the game is making you sad you can type in 'cry' to express your
     feelings and let out all the pain.
-    
+
     If you feel excited and wish to express your recent achievements type
     'jump' to jump for no apparent reason.
-    
+
     When you enter a room it is a good idea to look around for items that
     may help you with your quest. Type in 'look around' to examine the room.
 
-    To save the game at any point just type 'save'. 
+    To save the game at any point just type 'save'.
 
     To load the game type 'load game_save'
 
