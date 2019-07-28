@@ -24,12 +24,6 @@ def test_move():
     assert "I don't understand" in response
 
 
-def test_pick():
-    """testing pickup action"""
-    response = actions.pick([('really'), ('hard')])
-    assert "picked up really hard" in response
-
-
 def test_run():
     """testing run action"""
     response = actions.run([('really'), ('hard')])
@@ -45,6 +39,12 @@ def test_load():
 def test_save():
     """testing the save method"""
     response = actions.save("this is silly")
+    assert response is not None
+
+
+def test_help_menu():
+    """Testing the help method"""
+    response = actions.help_menu("Stuff")
     assert response is not None
 
 

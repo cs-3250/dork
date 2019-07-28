@@ -4,8 +4,8 @@
 from dork.game.game_engine import GameState
 
 __all__ = ['ACTION_CHOICES', 'cry', 'do_action',
-           'jump', 'move', 'pick', 'run', 'load',
-           'save']
+           'jump', 'move', 'run', 'load',
+           'save', 'help_menu']
 
 GAMESTATE = GameState()
 
@@ -41,12 +41,6 @@ def move(word_list):
     return GAMESTATE.move(direction)
 
 
-def pick(word_list):
-    """pick up action stub"""
-    response = 'You picked up ' + " ".join(word_list)
-    return response
-
-
 def run(_word_list):
     """running action stub"""
     response = 'You ran in place. Are you just bored?'
@@ -65,6 +59,36 @@ def save(_word_list):
     return 'Game has been saved'
 
 
+def help_menu(_word_list):
+    """Shows the help menu"""
+    response = ''
+    print("                                 Help Menu")
+    print("""
+    How to move: Type in go in addition with a cardinal
+    direction. Example: 'go north', 'go south', 'go east' (Case Sensitive).
+
+    If you need to escape from a dangerous situation that cannot be overcome;
+    type run and a cardinal direction to escape the danger.
+    
+    If the game is making you sad you can type in 'cry' to express your
+    feelings and let out all the pain.
+    
+    If you feel excited and wish to express your recent achievements type
+    'jump' to jump for no apparent reason.
+    
+    When you enter a room it is a good idea to look around for items that
+    may help you with your quest. Type in 'look around' to examine the room.
+
+    To save the game at any point just type 'save'. 
+
+    To load the game type 'load game_save'
+
+    If at any point you forget these commands during your quest, type in
+    'help' to pull up this menu again
+    """)
+    return response
+
+
 def do_action(action_name, *args):
     """ action adapter"""
     action = ACTION_CHOICES.get(action_name)
@@ -76,7 +100,9 @@ def do_action(action_name, *args):
 
 ACTION_CHOICES = {'cry': cry,
                   'go': move,
+                  'move': move,
                   'jump': jump,
                   'run': run,
                   'save': save,
-                  'load': load}
+                  'load': load,
+                  'help': help_menu}

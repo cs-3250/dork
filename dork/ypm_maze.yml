@@ -1,23 +1,33 @@
-start_room: 'main hall'
-current_room: 'main hall'
+start_room: 'Candy Mountain'
+current_room: 'Candy Mountain'
 Map:
-    'main hall':
-        north: 'throne room'
+    'Candy Mountain':
+        north: 'Morrowind'
         west: ~
         east: ~
         south: ~
-    'throne room': 
+    'Morrowind': 
         north: ~
-        west: 'balcony'
-        east: 'treasury'
-        south: ~
-    'balcony':
-        north: ~
-        west: ~
-        east: 'throne room'
-        south: ~
-    'treasury':
-        north: ~
-        west: 'throne room'
+        west: 'Pallet Town'
+        east: 'World 4-1'
+        south: 'Candy Mountain'
+    'World 4-1':
+        north: 'Trogdor'
+        west: 'Morrowind'
         east: ~
         south: ~
+    'Pallet Town':
+        north: 'Blood Gulch'
+        west: ~
+        east: 'Morrowind'
+        south: ~
+    'Blood Gulch':
+        north: ~
+        west: ~
+        east: 'Trogdor'
+        south: 'Pallet Town'
+    'Trogdor':
+        north: ~
+        west: 'Blood Gulch'
+        east: ~
+        south: 'World 4-1'
