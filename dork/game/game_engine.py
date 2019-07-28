@@ -20,6 +20,7 @@ class GameState():
 
     def load(self, file_name):
         """Loading in the yaml file"""
+        print("Loading previous game, hold your horses.")
         file_in = "dork/" + file_name + ".yml"
         with open(file_in, "r") as file_descriptor:
             self.data = yaml.safe_load(file_descriptor)

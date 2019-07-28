@@ -1,23 +1,33 @@
 Map:
-  balcony:
-    east: throne room
+  Blood Gulch:
+    east: Trogdor
     north: null
+    south: Pallet Town
+    west: null
+  Candy Mountain:
+    east: null
+    north: Morrowind
     south: null
     west: null
-  main hall:
-    east: null
-    north: throne room
+  Morrowind:
+    east: World 4-1
+    north: null
+    south: Candy Mountain
+    west: Pallet Town
+  Pallet Town:
+    east: Morrowind
+    north: Blood Gulch
     south: null
     west: null
-  throne room:
-    east: treasury
-    north: null
-    south: null
-    west: balcony
-  treasury:
+  Trogdor:
     east: null
     north: null
+    south: World 4-1
+    west: Blood Gulch
+  World 4-1:
+    east: null
+    north: Trogdor
     south: null
-    west: throne room
-current_room: main hall
-start_room: main hall
+    west: Morrowind
+current_room: Candy Mountain
+start_room: Candy Mountain
