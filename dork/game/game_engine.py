@@ -3,6 +3,7 @@
 
 import yaml
 
+
 class GameState():
     """Game State"""
 
