@@ -76,9 +76,6 @@ def help_menu(_word_list):
     If you feel excited and wish to express your recent achievements type
     'jump' to jump for no apparent reason.
 
-    When you enter a room it is a good idea to look around for items that
-    may help you with your quest. Type in 'look around' to examine the room.
-
     To save the game at any point just type 'save'.
 
     To load the game type 'load game_save'
