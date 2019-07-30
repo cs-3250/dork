@@ -32,7 +32,7 @@ Map:
         east: ~
         south: 'World 4-1'
 Description:
-    Candy Mountain: " You open your eyes, all the colors are wrong, almost as\n
+    Candy Mountain: "\n You open your eyes, all the colors are wrong, almost as\n
                        if the world was painted with watercolor by a 5-year-old.\n
                        Two unicorns greet you, apparently unicorns now exist,\n
                        can speak, and you officially can understand unicorn\n
@@ -53,7 +53,7 @@ Description:
                        cave is to the north and the unicorns have blocked any\n
                        direction of travel except to enter the cave. Will you\n
                        choose to travel north into the cave?"
-    Morrowind: " You groggily open your eyes, what the hell happened? You look down\n
+    Morrowind: "\n You groggily open your eyes, what the hell happened? You look down\n
                 and realize there is a long scar on your side. You scream 'They\n
                 stole my freaking kidneys!!!' You get up regardless and seem to\n
                 be relatively healthy. You walk into a mountainous region. The\n
@@ -76,7 +76,7 @@ Description:
                 with roaming mushrooms walking back and forth. A giant black bear\n
                 bursts out of the woods and runs straight at you. Which direction\n
                 do you choose? Better hurry, the furry death is coming fast."
-    World 4-1: " As you enter the portal your entire being is ripped apart, atom\n
+    World 4-1: "\n As you enter the portal your entire being is ripped apart, atom\n
                 by atom. The pain is immense, but you quickly pass out and everything\n
                 fades out of existence. As quickly as you were ripped apart, you start\n
                 re-materializing into a new world.\n
@@ -103,7 +103,7 @@ Description:
                 I back track to the portal, I can either go back to Morrowind and be mauled\n
                 by the bear that is just sitting there or jump into the infinite hole.\n
                 Which do you choose?"
-    Pallet Town: " As you enter the portal your entire being is ripped apart, atom by\n
+    Pallet Town: "\n As you enter the portal your entire being is ripped apart, atom by\n
                 atom. The pain is immense, but you quickly pass out and everything\n
                 fades out of existence. As quickly as you were ripped apart, you\n
                 start re-materializing into a new world.\n
@@ -131,7 +131,7 @@ Description:
                 rip your face off or head north to another portal. Inside this portal\n
                 there is a gulch with two army bases and what appears to be armored\n
                 soldiers walking around. Which do you choose?"
-    Blood Gulch: " As you enter the portal your entire being is ripped apart, atom by\n
+    Blood Gulch: "\n As you enter the portal your entire being is ripped apart, atom by\n
                   atom. The pain is immense, but you quickly pass out and everything\n
                   fades out of existence. As quickly as you were ripped apart, you\n
                   start re-materializing into a new world.\n
@@ -159,7 +159,7 @@ Description:
                   close to you and they throw you in one to hide the body. Do they choose to throw\n
                   you into the portal that has a fiery volcano? Or do they choose to throw you into\n
                   the portal with the Steve Irwin cosplayer?"
-    Trogdor: " As you enter the portal your entire being is ripped apart, atom by atom.\n
+    Trogdor: "\n As you enter the portal your entire being is ripped apart, atom by atom.\n
               The pain is immense, but you quickly pass out and everything fades out of\n
               existence. As quickly as you were ripped apart, you start re-materializing\n
               into a new world.\n
