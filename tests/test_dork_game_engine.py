@@ -1,4 +1,24 @@
-"""TESTING GAME ENGINE"""
+"""game_engine testing docstring.
+
+This module is meant to test the Game Engine portion of Dork. Designed to
+be used with Pytest and fixtures in conftest.py.
+
+Example:
+    To test in terminal::
+
+        $ python -m pytest tests/test_dork_game_engine.py
+
+Attributes:
+    None
+
+Todo:
+    * Add fixture for GameState()
+    * Add fixture for a generic testing map (less hardcoding in tests)
+
+.. _Google Python Style Guide:
+   http://google.github.io/styleguide/pyguide.html
+
+"""
 
 from dork.game.game_engine import GameState
 
