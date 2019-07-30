@@ -44,7 +44,8 @@ def test_evaluate():
 def test_parser():
     """
 
-    Tests if there are any empty and/or missmatched inputs from the user
+    Tests if parser can handle are any empty and/or missmatched
+    inputs from the user
 
     Args:
         None
@@ -67,7 +68,7 @@ def test_repl(mocker):
     stop running the game
 
      Args:
-        mocker: Tests user input command equals to "quit" to end the program
+        mocker:  simulates user input
 
     Return:
         None
@@ -89,7 +90,7 @@ def test_cli_exists(run, mocker):
 
     Args:
         run: Makes sure that the CLI is running?
-        mocker: Tests user input command equals to "quit" to end the program
+        mocker: simulates user input
 
     Return:
         None
