@@ -38,5 +38,6 @@ class GameState():
         new_room = self.neighbor_of(self.current_position(), direction)
         if new_room:
             self.data['current_room'] = new_room
-            return "You moved " + direction + " into " + new_room
+            return ("You moved " + direction + " into " + new_room + "\n" +
+                    self.data.get('Description').get(new_room, 'Candy Mountain'))
         return "You have not moved " + direction
