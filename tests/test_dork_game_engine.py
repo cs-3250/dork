@@ -24,7 +24,19 @@ from dork.game.game_engine import GameState
 
 
 def test_load_map():
-    """Testing start room"""
+    """ Test to ensure map loads correctly.
+
+    Args:
+        None
+
+    Returns:
+        None
+
+    Raises:
+        AssertionError::
+            If any tests fail, an assertion error is thrown.
+
+    """
     gamestate = GameState()
     data = gamestate.data
     assert "Map" in data
@@ -45,7 +57,19 @@ def test_load_map():
 
 
 def test_current_position():
-    """Test current position"""
+    """ Test to ensure current_position functions correctly.
+
+    Args:
+        None
+
+    Returns:
+        None
+
+    Raises:
+        AssertionError::
+            If any tests fail, an assertion error is thrown.
+
+    """
     gamestate = GameState()
     data = gamestate.data
     start_room = data['start_room']
@@ -60,7 +84,19 @@ def test_current_position():
 
 
 def test_neighbor_of():
-    """Testing Neighboring nodes for validity"""
+    """ Test to ensure neighbor_of provides correct key from provided direction.
+
+    Args:
+        None
+
+    Returns:
+        None
+
+    Raises:
+        AssertionError::
+            If any tests fail, an assertion error is thrown.
+
+    """
     gamestate = GameState()
     expected_current = 'testing room'
     expected_next = 'other room'
@@ -79,7 +115,20 @@ def test_neighbor_of():
 
 
 def test_movement():
-    """Test moving through gamestate"""
+    """ Test to ensure movement updates current_postion,
+        but not with empty direction.
+
+    Args:
+        None
+
+    Returns:
+        None
+
+    Raises:
+        AssertionError::
+            If any tests fail, an assertion error is thrown.
+
+    """
     gamestate = GameState()
     expected_current = 'testing room'
     expected_next = 'other room'
