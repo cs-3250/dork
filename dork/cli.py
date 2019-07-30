@@ -24,7 +24,7 @@ def evaluate(user_input):
 
 def parser(user_input):
     """
-    using gamedictionary, delegates to evaluate()
+    delegates to evaluate()
 
     Args:
         str: User input
