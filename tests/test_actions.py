@@ -5,19 +5,46 @@ from dork.game import actions
 
 
 def test_cry():
-    """testing cry action"""
+    """test calling cry action generates appropriate output
+
+    Args:
+        None
+
+    Returns:
+        None
+
+    """
+
     response = actions.cry([('really'), ('hard')])
     assert 'cried' in response
 
 
 def test_jump():
-    """testing cry action"""
+    """test calling jump action generates appropriate output
+
+    Args:
+        None
+
+    Returns:
+        None
+
+    """
+
     response = actions.jump([('really'), ('hard')])
     assert 'jumped' in response
 
 
 def test_move():
-    """testing move action"""
+    """test calling move action generates appropriate output
+
+    Args:
+        None
+
+    Returns:
+        None
+
+    """
+
     response = actions.move([('north'), ('really'), ('hard')])
     assert "moved north" in response
     response = actions.move([('really'), ('hard')])
@@ -25,31 +52,76 @@ def test_move():
 
 
 def test_run():
-    """testing run action"""
+    """test calling run action generates appropriate output
+
+    Args:
+        None
+
+    Returns:
+        None
+
+    """
+
     response = actions.run([('really'), ('hard')])
     assert "ran" in response
 
 
 def test_load():
-    """testing the load method"""
+    """test calling load action returns non-empty output
+
+    Args:
+        None
+
+    Returns:
+        None
+
+    """
+
     load = actions.load([("ypm_maze")])
     assert load is not None
 
 
 def test_save():
-    """testing the save method"""
+    """test calling save action returns non-empty output
+
+    Args:
+        None
+
+    Returns:
+        None
+
+    """
+
     response = actions.save("this is silly")
     assert response is not None
 
 
 def test_help_menu():
-    """Testing the help method"""
+    """test calling help menu returns non-empty output
+
+    Args:
+        None
+
+    Returns:
+        None
+
+    """
+
     response = actions.help_menu("Stuff")
     assert response is not None
 
 
 def test_do_action():
-    """testing do action"""
+    """test do_action reacts to empty input, calls actions as appropriate
+
+    Args:
+        None
+
+    Returns:
+        None
+
+    """
+
     response = actions.do_action("")
     assert "What are you doing" in response
     response = actions.do_action("jump", "")
