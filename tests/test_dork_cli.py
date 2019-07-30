@@ -6,13 +6,18 @@ from dork import cli
 from tests.utils import is_a
 
 
-# to do: test evaluate()
-#     test some known commands
-
-
 def test_evaluate():
-    """ command testing """
-    # appropriate responses
+    """
+
+    Testing user commands in order to determine valid input
+
+    Args:
+        None
+
+    Return:
+        None
+
+    """
     assert 'jumped' in cli.evaluate('jump')
     assert 'moved north' in cli.evaluate('go north')
     assert 'moved north' in cli.evaluate('go n')
@@ -25,7 +30,6 @@ def test_evaluate():
     assert 'ran' in cli.evaluate('run')
     assert 'cried' in cli.evaluate('cry')
 
-    # bad inputs
     for bad_input in ['',
                       'kick butt',
                       'wrong',
@@ -38,7 +42,17 @@ def test_evaluate():
 
 
 def test_parser():
-    """parser should handle empty and missmatched inputs"""
+    """
+
+    Tests if there are any empty and/or missmatched inputs from the user
+
+    Args:
+        None
+
+    Return:
+        None
+
+    """
     assert [("one")] == cli.parser("one")
     assert [("go")] == cli.parser("go ")
     assert [("jump")] == cli.parser("jump")
@@ -47,7 +61,18 @@ def test_parser():
 
 
 def test_repl(mocker):
-    """ REPL should loop until user inputs quit"""
+    """
+
+    Will test if user input equals to "quit" in order to
+    stop running the game
+
+     Args:
+        mocker: Tests user input command equals to "quit" to end the program
+
+    Return:
+        None
+
+    """
     mock_input = mocker.patch('builtins.input')
     mock_input.side_effect = [("jump"),
                               ("quit"),
@@ -57,7 +82,19 @@ def test_repl(mocker):
 
 
 def test_cli_exists(run, mocker):
-    '''dork.cli.main should always exist and run.'''
+    """
+
+    Checking to see if there is an actual "repl" method in cli.py
+    and that it runs appropriately
+
+    Args:
+        run: Makes sure that the CLI is running?
+        mocker: Tests user input command equals to "quit" to end the program
+
+    Return:
+        None
+
+    """
     mock_input = mocker.patch('builtins.input')
     mock_input.side_effect = [("quit")]
     assert "main" in vars(cli), "Dork.cli should define a main method"
@@ -66,18 +103,51 @@ def test_cli_exists(run, mocker):
 
 
 def test_repl_exists():
-    '''The dork module should define an Player.'''
+    """
+
+    Checking to see if there is an actual "repl" method in cli.py
+    and that it runs appropriately
+
+    Args:
+        None
+
+    Return:
+        None
+
+    """
     assert "repl" in vars(cli)
     is_a(cli.repl, object)
 
 
 def test_evaluate_exists():
-    '''The dork module should define an Player.'''
+    """
+
+    Checking to see if there is an actual "eval" method in cli.py
+    and that it runs appropriately
+
+    Args:
+        None
+
+    Return:
+        None
+
+    """
     assert "evaluate" in vars(cli)
     is_a(cli.evaluate, object)
 
 
 def test_parser_exist():
-    '''The dork module should define an Player.'''
+    """
+
+    Checking to see if there is an actual "parser" method in cli.py
+    and that it runs appropriately
+
+    Args:
+        None
+
+    Return:
+        None
+
+    """
     assert "parser" in vars(cli)
     is_a(cli.parser, object)
