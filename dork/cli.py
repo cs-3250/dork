@@ -26,7 +26,9 @@ def repl():
     with open("title_screen.txt", encoding="utf8") as file_descriptor:
         contents = file_descriptor.read()
         print(contents)
-    output = "Type a command or type 'help' for a list of commands.\n >>"
+    room_location = actions.GAMESTATE.current_position()
+    output = "Type a command or type 'help' for a list of commands.\n >> \
+             " + room_location + "\n >>"
     while True:
         user_input = input(output)
         if 'quit' in user_input:
