@@ -11,19 +11,47 @@ GAMESTATE = GameState()
 
 
 def cry(_word_list):
-    """crying action stub"""
+    """crying action stub - causes no change to game state
+
+    Args:
+        _word_list (list): variable-length list of string arguments
+
+    Returns:
+        str: output for REPL confirming player curled into ball and cried
+
+    """
+
     response = 'After curling into a ball you cried. Poor you.'
     return response
 
 
 def jump(_word_list):
-    """jumping action stub"""
+    """jumping action stub - causes no change to game state
+
+    Args:
+        _word_list (list): variable-length list of string arguments
+
+    Returns:
+        str: output for REPL confirming player jumped
+
+    """
+
     response = 'You have jumped, just not sure why.'
     return response
 
 
 def move(word_list):
-    """ Player movement """
+    """delegate movement to game state instance's move() method
+
+    Args:
+        _word_list (list): variable-length list of string arguments
+                           the first argument should be the direction
+
+    Returns:
+        str: output from game state's move() method or error message
+
+    """
+
     directions = {'n': 'north',
                   's': 'south',
                   'w': 'west',
@@ -42,25 +70,61 @@ def move(word_list):
 
 
 def run(_word_list):
-    """running action stub"""
+    """running action stub - causes no change to game state
+
+    Args:
+        _word_list (list): variable-length list of string arguments
+
+    Returns:
+        str: output for REPL confirming player ran in place
+
+    """
+
     response = 'You ran in place. Are you just bored?'
     return response
 
 
 def load(word_list):
-    """Loading in a yaml file"""
+    """delegate loading to the game state instance's load_file() method
+
+    Args:
+        _word_list (list): variable-length list of string arguments
+
+    Returns:
+        str: output for REPL confirming game loaded
+
+    """
+
     GAMESTATE.load(word_list[0])
     return 'Game has been loaded'
 
 
 def save(_word_list):
-    """Saving a yaml the file"""
+    """delegate saving to the game state instance's save_file() method
+
+    Args:
+        _word_list (list): variable-length list of string arguments
+
+    Returns:
+        str: output for REPL confirming game saved
+
+    """
+
     GAMESTATE.save_file()
     return 'Game has been saved'
 
 
 def help_menu(_word_list):
-    """Shows the help menu"""
+    """display the help menu
+
+    Args:
+        None
+
+    Returns:
+        str: empty string
+
+    """
+
     response = ''
     print("                                 Help Menu")
     print("""
@@ -87,7 +151,17 @@ def help_menu(_word_list):
 
 
 def do_action(action_name, *args):
-    """ action adapter"""
+    """action adapter - look up and call action name from ACTION_CHOICES
+
+    Args:
+        action_name (str): name of action function to call
+        *args: variable-length argument list
+
+    Returns:
+        str: output forwarded from corresponding action or error message
+
+    """
+
     action = ACTION_CHOICES.get(action_name)
     if action:
         response = action(*args)
