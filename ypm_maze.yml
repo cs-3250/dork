@@ -31,3 +31,10 @@ Map:
         west: 'Blood Gulch'
         east: ~
         south: 'World 4-1'
+Description:
+    Candy Mountain': 'They took my Kidney'
+    Morrowind: 'Beware the talking mudcrab'
+    World 4-1: 'Scary plumber'
+    Pallet Town: 'Gotta catchem all'
+    Blood Gulch: 'You can''t pick up chicks in a tank'
+    Trogdor: 'The burninator'
