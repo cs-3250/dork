@@ -1,4 +1,4 @@
-"""game_engine testing docstring.
+"""game_engine testing.
 
 This module is meant to test the Game Engine portion of Dork. Designed to
 be used with Pytest and fixtures in conftest.py.
