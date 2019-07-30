@@ -1,32 +1,32 @@
 start_room: 'Candy Mountain'
 current_room: 'Candy Mountain'
 Map:
-    'Candy Mountain':
+    Candy Mountain:
         north: 'Morrowind'
         west: ~
         east: ~
         south: ~
-    'Morrowind': 
+    Morrowind: 
         north: ~
         west: 'Pallet Town'
         east: 'World 4-1'
         south: 'Candy Mountain'
-    'World 4-1':
+    World 4-1:
         north: 'Trogdor'
         west: 'Morrowind'
         east: ~
         south: ~
-    'Pallet Town':
+    Pallet Town:
         north: 'Blood Gulch'
         west: ~
         east: 'Morrowind'
         south: ~
-    'Blood Gulch':
+    Blood Gulch:
         north: ~
         west: ~
         east: 'Trogdor'
         south: 'Pallet Town'
-    'Trogdor':
+    Trogdor:
         north: ~
         west: 'Blood Gulch'
         east: ~
