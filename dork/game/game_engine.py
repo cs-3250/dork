@@ -14,13 +14,13 @@ class GameState():
 
     def save_file(self):
         """Save game state"""
-        make_file = "dork/game_save.yml"
+        make_file = "game_save.yml"
         with open(make_file, 'w', encoding='UTF-8') as game_save:
             yaml.safe_dump(self.data, stream=game_save)
 
     def load(self, file_name):
         """Loading in the yaml file"""
-        file_in = "dork/" + file_name + ".yml"
+        file_in = file_name + ".yml"
         with open(file_in, "r") as file_descriptor:
             self.data = yaml.safe_load(file_descriptor)
 
