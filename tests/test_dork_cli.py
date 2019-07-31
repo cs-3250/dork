@@ -68,7 +68,7 @@ def test_repl(mocker):
     stop running the game
 
      Args:
-        mocker:  simulates user input
+        mocker (Class): simulates user input
 
     Return:
         None
@@ -89,8 +89,9 @@ def test_cli_exists(run, mocker):
     and that it runs appropriately
 
     Args:
-        run: Makes sure that the CLI is running?
-        mocker: simulates user input
+        run (method fixture): Captures the stdout and stderror I/O
+        streams of whatever method it gets passed
+        mocker (Class): simulates user input
 
     Return:
         None
