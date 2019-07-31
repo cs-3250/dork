@@ -54,7 +54,7 @@ class GameState():
             their game state as
         Returns:
             that the file was successfully created and their
-            game state was saved
+            game state was saved for the future
 
         """
 
