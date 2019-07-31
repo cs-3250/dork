@@ -13,6 +13,9 @@ def test_cry():
     Returns:
         None
 
+    Raises:
+        AssertionError: if output does not contain 'cried'
+
     """
 
     response = actions.cry([('really'), ('hard')])
@@ -28,6 +31,9 @@ def test_jump():
     Returns:
         None
 
+    Raises:
+        AssertionError: if output does not contain 'jumped'
+
     """
 
     response = actions.jump([('really'), ('hard')])
@@ -42,6 +48,13 @@ def test_move():
 
     Returns:
         None
+
+    Raises:
+        AssertionError:
+            if output for input "move north really hard"
+                does not contain "moved north"
+            if output for input "move really hard"
+                does not contain "I don't understand"
 
     """
 
@@ -60,6 +73,9 @@ def test_run():
     Returns:
         None
 
+    Raises:
+        AssertionError: if output does not contain 'ran'
+
     """
 
     response = actions.run([('really'), ('hard')])
@@ -74,6 +90,9 @@ def test_load():
 
     Returns:
         None
+
+    Raises:
+        AssertionError: if actions.load(["ypm_maze")] returns None
 
     """
 
@@ -90,6 +109,9 @@ def test_save():
     Returns:
         None
 
+    Raises:
+        AssertionError: if actions.save("this is silly")] returns None
+
     """
 
     response = actions.save("this is silly")
@@ -105,6 +127,9 @@ def test_help_menu():
     Returns:
         None
 
+    Raises:
+        AssertionError: if actions.help_menu("Stuff")] returns None
+
     """
 
     response = actions.help_menu("Stuff")
@@ -119,6 +144,12 @@ def test_do_action():
 
     Returns:
         None
+
+    Raises:
+        AssertionError:
+            if response to empty input does not contain "What are you doing"
+            if output for input "jump" does not contain "jumped"
+            if output for input "jump really high" does not contain "jumped"
 
     """
 
