@@ -1,122 +1,157 @@
-""" Tests for the game engine """
+"""game_engine testing.
 
-# from tests.utils import is_a
-import random
-import string
-from os import path, remove
-from networkx import DiGraph, is_isomorphic
-from dork.game_engine import GameEngine
-from dork.objects import Room
+This module is meant to test the Game Engine portion of Dork. Designed to
+be used with Pytest and fixtures in conftest.py.
 
+Example:
+    To test in terminal::
 
-def random_string(length):
-    '''generate a random string of {length} characters'''
-    return ''.join(random.choice(string.ascii_letters) for i in range(length))
+        $ python -m pytest tests/test_dork_game_engine.py
 
+Attributes:
+    None
 
-def random_nonexistent_filename(length):
-    '''generate a random filename which doesn't yet exist'''
-    while True:
-        filename = random_string(length)
-        if not path.exists(filename):
-            return filename
+Todo:
+    * Add fixture for GameState()
+    * Add fixture for a generic testing map (less hardcoding in tests)
 
+.. _Google Python Style Guide:
+   http://google.github.io/styleguide/pyguide.html
 
-def test_load_nonexistent_file():
-    '''FileNotFoundError should be handled when for loading nonexistent file'''
-    filename = random_nonexistent_filename(64)
-    game_engine = GameEngine()
-    try:
-        game_engine.load(filename)
-    except FileNotFoundError:
-        assert False
+"""
+
+from dork.game.game_engine import GameState
 
 
-def test_load_invalid_file():
-    """attempting to load a file without a valid graph
-       should not overwrite the current world"""
-    filename = random_nonexistent_filename(64)
-    with open(filename, 'w') as output:
-        output.write(random_string(64))
-    game_engine = GameEngine()
-    world_before = game_engine.world
-    game_engine.load(filename)
-    remove(filename)
-    world_after = game_engine.world
-    assert world_before == world_after
+def test_load_map():
+    """
+
+    Test to ensure map loads correctly.
+
+    Args:
+        None
+
+    Returns:
+        None
+
+    Raises:
+        AssertionError::
+            If any tests fail, an assertion error is thrown.
+
+    """
+
+    gamestate = GameState()
+    data = gamestate.data
+    assert "Map" in data
+
+    rooms = data["Map"]
+    assert rooms is not None, 'rooms should exist'
+    assert isinstance(rooms, dict)
+
+    room_names = list(rooms.keys())
+    assert None not in room_names
+    for room in rooms.values():
+        assert room is not None
+        assert isinstance(room, dict)
+        directions = room
+        assert directions
+        for next_room in directions.values():
+            assert next_room is None or next_room in room_names
 
 
-def test_save_and_reload():
-    '''a given world should remain unchanged when saved, then loaded'''
-    filename = random_string(64)
-    game_engine = GameEngine()
-    game_engine.maze_generation((13, 13))
-    world_before = game_engine.world
-    game_engine.save(filename)
-    game_engine.world = None
-    game_engine.load(filename)
-    remove(filename)
-    world_after = game_engine.world
-    assert is_isomorphic(world_before, world_after)
+def test_current_position():
+    """
+
+    Test to ensure current_position functions correctly.
+
+    Args:
+        None
+
+    Returns:
+        None
+
+    Raises:
+        AssertionError::
+            If any tests fail, an assertion error is thrown.
+
+    """
+
+    gamestate = GameState()
+    data = gamestate.data
+    start_room = data['start_room']
+    current_pos = gamestate.current_position()
+    assert current_pos == start_room, \
+        'current position should start at the start room'
+    expected_room = 'Not possible room'
+    data['current_room'] = expected_room
+    current_pos = gamestate.current_position()
+    assert current_pos == expected_room, \
+        'current position should change when current room changes'
 
 
-def test_maze_generation():
-    '''maze_generation should:
-         populate world with nonempty graph of Room nodes
-         populate player_location with a Room'''
-    game_engine = GameEngine()
-    game_engine.world = None
-    game_engine.player_location = None
-    game_engine.maze_generation()
-    assert isinstance(game_engine.world, DiGraph)
-    assert isinstance(game_engine.player_location, Room)
-    assert game_engine.world  # sequence nonempty
-    for room in game_engine.world:
-        assert isinstance(room, Room)
+def test_neighbor_of():
+    """
+
+    Test to ensure neighbor_of provides correct key from provided direction.
+
+    Args:
+        None
+
+    Returns:
+        None
+
+    Raises:
+        AssertionError::
+            If any tests fail, an assertion error is thrown.
+
+    """
+
+    gamestate = GameState()
+    expected_current = 'testing room'
+    expected_next = 'other room'
+
+    gamestate.data['current_room'] = expected_current
+    gamestate.data['Map'][expected_current] = dict(north=expected_next)
+    current_pos = gamestate.current_position()
+    next_pos = gamestate.neighbor_of(current_pos, 'north')
+    assert next_pos is expected_next
+    assert current_pos is expected_current, \
+        "moving north should change position"
+
+    expected_no_room = None
+    next_pos = gamestate.neighbor_of(current_pos, 'invalid direction')
+    assert expected_no_room is next_pos
 
 
-def test_movement_in_one_room():
-    '''no movement should be possible with no edges'''
-    game_engine = GameEngine()
-    game_engine.world = DiGraph()
-    room = Room()
-    game_engine.player_location = room
-    game_engine.world.add_node(room)
-    game_engine.movement('n')
-    assert game_engine.player_location == room
-    game_engine.movement('s')
-    assert game_engine.player_location == room
-    game_engine.movement('w')
-    assert game_engine.player_location == room
-    game_engine.movement('e')
-    assert game_engine.player_location == room
-    game_engine.movement("Bob's your uncle.")
-    assert game_engine.player_location == room
+def test_movement():
+    """
 
+    Test to ensure movement updates current_postion,
+    but not with empty direction.
 
-def test_movement_in_two_rooms():
-    '''no movement should be possible with no edges'''
-    game_engine = GameEngine()
-    game_engine.world = DiGraph()
-    west_room = Room()
-    east_room = Room()
-    game_engine.world.add_nodes_from([west_room, east_room])
-    game_engine.world.add_edge(west_room, east_room, direction='e')
-    game_engine.world.add_edge(east_room, west_room, direction='w')
-    game_engine.player_location = west_room
-    game_engine.movement('n')
-    assert game_engine.player_location == west_room
-    game_engine.movement('w')
-    assert game_engine.player_location == west_room
-    game_engine.movement('s')
-    assert game_engine.player_location == west_room
-    game_engine.movement('e')
-    assert game_engine.player_location == east_room
-    game_engine.movement('n')
-    assert game_engine.player_location == east_room
-    game_engine.movement('e')
-    assert game_engine.player_location == east_room
-    game_engine.movement('s')
-    assert game_engine.player_location == east_room
-    game_engine.movement('w')
-    assert game_engine.player_location == west_room
+    Args:
+        None
+
+    Returns:
+        None
+
+    Raises:
+        AssertionError::
+            If any tests fail, an assertion error is thrown.
+
+    """
+
+    gamestate = GameState()
+    expected_current = 'testing room'
+    expected_next = 'other room'
+    gamestate.data['current_room'] = expected_current
+    gamestate.data['Map'][expected_current] = dict(north=expected_next)
+    gamestate.move('north')
+    real_real_current = gamestate.data['current_room']
+    assert real_real_current == expected_next, \
+        'check gamestate movement unexpected result'
+
+    gamestate.data['current_room'] = expected_current
+    gamestate.data['Map'][expected_current] = dict(north=None)
+    gamestate.move('north')
+    assert gamestate.data['current_room'] is expected_current
