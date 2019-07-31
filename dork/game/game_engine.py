@@ -49,10 +49,10 @@ class GameState():
 
         Loading in the yaml file
 
-        Args: 
+        Args:
             the name of the file the user wishes to save
             their game state as
-        Returns: 
+        Returns:
             that the file was successfully created and their
             game state was saved
 

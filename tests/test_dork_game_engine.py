@@ -24,7 +24,7 @@ from dork.game.game_engine import GameState
 
 
 def test_load_map():
-    """ 
+    """
 
     Test to ensure map loads correctly.
 
@@ -60,7 +60,7 @@ def test_load_map():
 
 
 def test_current_position():
-    """ 
+    """
 
     Test to ensure current_position functions correctly.
 
@@ -90,7 +90,7 @@ def test_current_position():
 
 
 def test_neighbor_of():
-    """ 
+    """
 
     Test to ensure neighbor_of provides correct key from provided direction.
 
