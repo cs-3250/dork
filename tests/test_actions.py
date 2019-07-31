@@ -5,7 +5,9 @@ from dork.game import actions
 
 
 def test_cry():
-    """test calling cry action generates appropriate output
+    """
+
+    Test calling cry action generates appropriate output
 
     Args:
         None
@@ -23,7 +25,9 @@ def test_cry():
 
 
 def test_jump():
-    """test calling jump action generates appropriate output
+    """
+
+    Test calling jump action generates appropriate output
 
     Args:
         None
@@ -41,7 +45,9 @@ def test_jump():
 
 
 def test_move():
-    """test calling move action generates appropriate output
+    """
+
+    Test calling move action generates appropriate output
 
     Args:
         None
@@ -65,7 +71,9 @@ def test_move():
 
 
 def test_run():
-    """test calling run action generates appropriate output
+    """
+
+    Test calling run action generates appropriate output
 
     Args:
         None
@@ -83,7 +91,9 @@ def test_run():
 
 
 def test_load():
-    """test calling load action returns non-empty output
+    """
+
+    Test calling load action returns non-empty output
 
     Args:
         None
@@ -101,7 +111,9 @@ def test_load():
 
 
 def test_save():
-    """test calling save action returns non-empty output
+    """
+
+    Test calling save action returns non-empty output
 
     Args:
         None
@@ -119,7 +131,9 @@ def test_save():
 
 
 def test_help_menu():
-    """test calling help menu returns non-empty output
+    """
+
+    Test calling help menu returns non-empty output
 
     Args:
         None
@@ -137,7 +151,9 @@ def test_help_menu():
 
 
 def test_do_action():
-    """test do_action reacts to empty input, calls actions as appropriate
+    """
+
+    Test do_action reacts to empty input, calls actions as appropriate
 
     Args:
         None

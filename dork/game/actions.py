@@ -11,7 +11,9 @@ GAMESTATE = GameState()
 
 
 def cry(_word_list):
-    """crying action stub - causes no change to game state
+    """
+
+    Crying action stub - causes no change to game state
 
     Args:
         _word_list (list): variable-length list of string arguments
@@ -26,7 +28,9 @@ def cry(_word_list):
 
 
 def jump(_word_list):
-    """jumping action stub - causes no change to game state
+    """
+
+    Jumping action stub - causes no change to game state
 
     Args:
         _word_list (list): variable-length list of string arguments
@@ -41,7 +45,9 @@ def jump(_word_list):
 
 
 def move(word_list):
-    """delegate movement to game state instance's move() method
+    """
+
+    Delegate movement to game state instance's move() method
 
     Args:
         _word_list (list): variable-length list of string arguments
@@ -70,7 +76,9 @@ def move(word_list):
 
 
 def run(_word_list):
-    """running action stub - causes no change to game state
+    """
+
+    Running action stub - causes no change to game state
 
     Args:
         _word_list (list): variable-length list of string arguments
@@ -85,7 +93,9 @@ def run(_word_list):
 
 
 def load(word_list):
-    """delegate loading to the game state instance's load_file() method
+    """
+
+    Delegate loading to the game state instance's load_file() method
 
     Args:
         _word_list (list): variable-length list of string arguments
@@ -100,7 +110,9 @@ def load(word_list):
 
 
 def save(_word_list):
-    """delegate saving to the game state instance's save_file() method
+    """
+
+    Delegate saving to the game state instance's save_file() method
 
     Args:
         _word_list (list): variable-length list of string arguments
@@ -115,7 +127,9 @@ def save(_word_list):
 
 
 def help_menu(_word_list):
-    """display the help menu
+    """
+
+    Display the help menu
 
     Args:
         None
@@ -151,7 +165,9 @@ def help_menu(_word_list):
 
 
 def do_action(action_name, *args):
-    """action adapter - look up and call action name from ACTION_CHOICES
+    """
+
+    Action adapter - look up and call action name from ACTION_CHOICES
 
     Args:
         action_name (str): name of action function to call

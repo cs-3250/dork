@@ -8,7 +8,8 @@ __all__ = ["main", "evaluate", "parser", "repl"]
 
 def evaluate(user_input):
     """
-    evaluates command for validity
+
+    Evaluates command for validity
 
     Args:
         str: Takes user input from parser
@@ -17,6 +18,7 @@ def evaluate(user_input):
         str: Based on input from do_action
 
     """
+
     words = parser(user_input)
     response = actions.do_action(words[0], words[1:])
     return response
@@ -24,7 +26,8 @@ def evaluate(user_input):
 
 def parser(user_input):
     """
-    delegates to evaluate()
+
+    Delegates to evaluate()
 
     Args:
         str: User input
@@ -33,6 +36,7 @@ def parser(user_input):
         str: Splits into list at white space
 
     """
+
     if user_input is None or user_input == "":
         user_input = "default"
     parsed_string = user_input.split()
@@ -41,6 +45,7 @@ def parser(user_input):
 
 def repl():
     """
+
     REPL: Read-Eval-Print Loop
         Response based on input from do_action
 
@@ -51,6 +56,7 @@ def repl():
         None
 
     """
+
     with open("title_screen.txt", encoding="utf8") as file_descriptor:
         contents = file_descriptor.read()
         print(contents)
@@ -70,7 +76,8 @@ def repl():
 
 def main():
     """
-    main method to dork
+
+    Main method to dork
 
     Args:
         None
@@ -79,4 +86,5 @@ def main():
         None
 
     """
+
     repl()
