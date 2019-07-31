@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """GAME ENGINE"""
 
-import yam
+import yaml
 
 class GameState():
 
