@@ -97,6 +97,7 @@ def test_cli_exists(run, mocker):
         None
 
     """
+
     mock_input = mocker.patch('builtins.input')
     mock_input.side_effect = [("quit")]
     assert "main" in vars(cli), "Dork.cli should define a main method"
@@ -117,6 +118,7 @@ def test_repl_exists():
         None
 
     """
+
     assert "repl" in vars(cli)
     is_a(cli.repl, object)
 
@@ -134,6 +136,7 @@ def test_evaluate_exists():
         None
 
     """
+
     assert "evaluate" in vars(cli)
     is_a(cli.evaluate, object)
 
@@ -151,5 +154,6 @@ def test_parser_exist():
         None
 
     """
+
     assert "parser" in vars(cli)
     is_a(cli.parser, object)

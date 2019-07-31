@@ -24,7 +24,9 @@ from dork.game.game_engine import GameState
 
 
 def test_load_map():
-    """ Test to ensure map loads correctly.
+    """ 
+
+    Test to ensure map loads correctly.
 
     Args:
         None
@@ -37,6 +39,7 @@ def test_load_map():
             If any tests fail, an assertion error is thrown.
 
     """
+
     gamestate = GameState()
     data = gamestate.data
     assert "Map" in data
@@ -57,7 +60,9 @@ def test_load_map():
 
 
 def test_current_position():
-    """ Test to ensure current_position functions correctly.
+    """ 
+
+    Test to ensure current_position functions correctly.
 
     Args:
         None
@@ -70,6 +75,7 @@ def test_current_position():
             If any tests fail, an assertion error is thrown.
 
     """
+
     gamestate = GameState()
     data = gamestate.data
     start_room = data['start_room']
@@ -84,7 +90,9 @@ def test_current_position():
 
 
 def test_neighbor_of():
-    """ Test to ensure neighbor_of provides correct key from provided direction.
+    """ 
+
+    Test to ensure neighbor_of provides correct key from provided direction.
 
     Args:
         None
@@ -97,6 +105,7 @@ def test_neighbor_of():
             If any tests fail, an assertion error is thrown.
 
     """
+
     gamestate = GameState()
     expected_current = 'testing room'
     expected_next = 'other room'
@@ -115,8 +124,10 @@ def test_neighbor_of():
 
 
 def test_movement():
-    """ Test to ensure movement updates current_postion,
-        but not with empty direction.
+    """
+
+    Test to ensure movement updates current_postion,
+    but not with empty direction.
 
     Args:
         None
@@ -129,6 +140,7 @@ def test_movement():
             If any tests fail, an assertion error is thrown.
 
     """
+
     gamestate = GameState()
     expected_current = 'testing room'
     expected_next = 'other room'
@@ -139,7 +151,6 @@ def test_movement():
     assert real_real_current == expected_next, \
         'check gamestate movement unexpected result'
 
-    # None-room  movement checking
     gamestate.data['current_room'] = expected_current
     gamestate.data['Map'][expected_current] = dict(north=None)
     gamestate.move('north')
