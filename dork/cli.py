@@ -57,7 +57,8 @@ def repl():
     current_room = actions.GAMESTATE.current_position()
     output = ("Type a command or type 'help' for a list of commands.\n\n"
               + current_room + "\n"
-              + actions.GAMESTATE.data["Description"][current_room] + "\n\n>> ")
+              + actions.GAMESTATE.data["Description"][current_room] +
+              "\n\n>> ")
     while True:
         user_input = input(output)
         if 'quit' in user_input:
