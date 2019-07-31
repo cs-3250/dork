@@ -7,7 +7,6 @@ class GameState():
 
 
     """Game State"""
-
     def __init__(self):
         """Maze starting
         Parameters: the yaml file that contains our maze will be
