@@ -15,7 +15,7 @@ dork.cli module
 dork.types module
 -----------------
 
-.. automodule:: dork.types
+.. automodule:: dork.objects
     :members:
     :undoc-members:
     :show-inheritance:
