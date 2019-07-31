@@ -17,7 +17,8 @@ def run(capsys):
         fixture: retrieve stdout and stderr from some code
 
     Return:
-        method: Adapter lets classes work together
+        method closure: Captures the stdout and stderror I/O
+        streams of whatever method it gets passed
 
     """
 
@@ -39,7 +40,8 @@ def maze():
         None
 
     Return:
-        method: Calling the GameState to make an instance
+        GameState: Calling the GameState to make an instance
 
     """
+
     return dork.game.game_engine.GameState()
