@@ -1,17 +1,18 @@
 # -*- coding: utf-8 -*-
 """GAME ENGINE"""
 
+
 import yaml
+
 
 class GameState():
 
-
     """Game State"""
+
     def __init__(self):
         """Maze starting
         Parameters: the yaml file that contains our maze will be
         loaded up
-
         returns: the loaded up maze from the yaml file which will
         let the player start out game
         """
@@ -22,7 +23,6 @@ class GameState():
         """Save game state
         Parameter: An empty yaml file that will be used to save
         the users location within the game
-
         Return: nothing at the moment
         """
         make_file = "game_save.yml"
@@ -33,7 +33,6 @@ class GameState():
         """Loading in the yaml file
         Parameters: the name of the file the user wishes to save
         their game state as
-
         Returns: that the file was successfully created and their
         game state was saved
         """
@@ -46,7 +45,6 @@ class GameState():
         Parameters: the current position of the user within the
         maze, as well as the direction
         the user wishes to move twords.
-
         Returns: the users new location within the maze as well
         as the direction the user went twords
         """
@@ -56,7 +54,6 @@ class GameState():
     def current_position(self):
         """get current position of the player
         Parameters: None
-
         Returns: the users current position within the maze
         """
         return self.data["current_room"]
@@ -64,7 +61,6 @@ class GameState():
     def move(self, direction):
         """maze movement
         Parameters: The direction the user wishes to go twords to
-
         Returns: weather the user is able to move in that direction,
         if the user can move in that direction then the rooms description
         will be displayed if not, the phrase "You have not moved in that
