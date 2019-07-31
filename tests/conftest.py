@@ -9,7 +9,17 @@ pytest_plugins = ["pytester"]  # pylint: disable=invalid-name
 
 @pytest.fixture
 def run(capsys):
-    """CLI run method fixture
+    """
+
+    CLI run method fixture
+
+    Args:
+        fixture: retrieve stdout and stderr from some code
+
+    Return:
+        method closure: Captures the stdout and stderror I/O
+        streams of whatever method it gets passed
+
     """
 
     def do_run(main, *args):
@@ -22,6 +32,16 @@ def run(capsys):
 
 @pytest.fixture
 def maze():
-    """pm maze functionality
     """
+
+    Functionality for our maze fixture
+
+    Args:
+        None
+
+    Return:
+        GameState: Calling the GameState to make an instance
+
+    """
+
     return dork.game.game_engine.GameState()
