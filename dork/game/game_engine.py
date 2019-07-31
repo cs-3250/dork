@@ -3,7 +3,6 @@
 
 import yaml
 
-
 class GameState():
     """Game State"""
 
@@ -67,8 +66,9 @@ class GameState():
 
         Returns: weather the user is able to move in that direction,
         if the user can move in that direction then the rooms description
-        will be displayed if not, the phrase "You have not moved in that direction"
-        will be displaced telling the user he wasn't able to move in that direction.
+        will be displayed if not, the phrase "You have not moved in that 
+        direction" will be displaced telling the user he wasn't able to
+        move in that direction.
         """
         new_room = self.neighbor_of(self.current_position(), direction)
         if new_room:
