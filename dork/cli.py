@@ -7,14 +7,32 @@ __all__ = ["main", "evaluate", "parser", "repl"]
 
 
 def evaluate(user_input):
-    """using gamedictionary, provide appropriate command"""
+    """
+    evaluates command for validity
+
+    Args:
+        str: Takes user input from parser
+
+    Return:
+        str: Based on input from do_action
+
+    """
     words = parser(user_input)
     response = actions.do_action(words[0], words[1:])
     return response
 
 
 def parser(user_input):
-    """returns list of words"""
+    """
+    delegates to evaluate()
+
+    Args:
+        str: User input
+
+    Return:
+        str: Splits into list at white space
+
+    """
     if user_input is None or user_input == "":
         user_input = "default"
     parsed_string = user_input.split()
@@ -22,7 +40,17 @@ def parser(user_input):
 
 
 def repl():
-    """REPL: Read-Eval-Print Loop"""
+    """
+    REPL: Read-Eval-Print Loop
+        Response based on input from do_action
+
+    Args:
+        None
+
+    Return:
+        None
+
+    """
     with open("title_screen.txt", encoding="utf8") as file_descriptor:
         contents = file_descriptor.read()
         print(contents)
@@ -39,5 +67,14 @@ def repl():
 
 
 def main():
-    """main to dork"""
+    """
+    main method to dork
+
+    Args:
+        None
+
+    Return:
+        None
+
+    """
     repl()
